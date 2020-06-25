@@ -18,12 +18,36 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
+import risc_structs::*;
 
-
-module alu(input clk, reset_n, enable,
-            input [4:0] rs1, rs2, rd,
-            input [2:0] func3, [6:0] func7,
-            input [5:0] isa_type           
+module alu( input int adata, bdata,
+            input [ALU_INSTRUCTION_COUNT-1:0] instruction_select,
+            output int result           
             );
-            
+    
+    
+    always_comb begin
+        result = 0;
+        case(instruction_select)
+            alu_AND : #1ps result = adata & bdata;
+            alu_ADD : #1ps result = adata + bdata; 
+            alu_OR : #1ps result = adata | bdata;
+            alu_SLL : #1ps result = adata >>> bdata[4:0];
+            alu_SRL : #1ps result = adata << bdata[4:0];
+            alu_XOR : #1ps result = adata ^ bdata;
+            alu_SRA : #1ps result = adata <<< bdata[4:0];
+            alu_SUB : #1ps result = adata - bdata;
+            alu_SLLU : #1ps result = adata >> bdata[4:0];
+            alu_SRLU : #1ps result = adata << bdata[4:0];
+            alu_SLT : #1ps result = $signed(adata) < $signed(bdata);
+            alu_SLTU : #1ps result = adata < bdata; 
+            alu_LOAD_IMM_2_A : #1ps result = {bdata[19:0],12'b0};//return the 20 bits from imm as the highest and fill the rest with zero
+            'b0 : result = #1ps 'b0; // default no operation state
+            default: begin
+                result = 'bx;
+                $error("ALU received invalid instruction selection");
+            end
+        
+        endcase
+    end
 endmodule

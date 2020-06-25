@@ -26,7 +26,7 @@ module programcounter(input clk, enable, reset_n, modify_pc,
                         output int program_counter
                         );
     
-    localparam pc_increment = 4;
+    localparam pc_increment = 2;//change to 4 when ram stores in blocks of 8 bits
     
     int next_pc;
     
