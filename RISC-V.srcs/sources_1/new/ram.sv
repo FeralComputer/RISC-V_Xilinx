@@ -64,7 +64,7 @@ module ram#(N=64)(
     
     always_ff @(posedge clk) begin
             if(ena) begin
-                case(memory_sizea)
+                unique case(memory_sizea)
                     word: begin
                         //write 32 bits in 16 bit incremented ram
                         if(addra[0]) begin

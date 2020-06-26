@@ -25,47 +25,46 @@ import risc_structs::*;
 
 
 
-instruct_template LUI = '{32'b???????_?????_?????_???_?????_0110111, U/*, "LUI"*/};
-instruct_template AUIPC = '{32'b???????_?????_?????_???_?????_0010111, U/*, "AUIPC"*/};
-instruct_template JAL = '{32'b???????_?????_?????_???_?????_1101111, J/*, "JAL"*/};
-instruct_template JALR = '{32'b???????_?????_?????_000_?????_1100111, I/*, "JALR"*/};
-instruct_template BEQ = '{32'b???????_?????_?????_000_?????_1100011, B/*, "BEQ"*/};
-instruct_template BNE = '{32'b???????_?????_?????_001_?????_1100011, B/*, "BNE"*/};
-instruct_template BLT = '{32'b???????_?????_?????_100_?????_1100011, B/*, "BLT"*/};
-instruct_template BGE = '{32'b???????_?????_?????_101_?????_1100011, B/*, "BGE"*/};
-instruct_template BLTU = '{32'b???????_?????_?????_110_?????_1100011, B/*, "BLTU"*/};
-instruct_template BGEU = '{32'b???????_?????_?????_111_?????_1100011, B/*, "BGEU"*/};
-instruct_template LB = '{32'b???????_?????_?????_000_?????_0000011, I/*, "LB"*/};
-instruct_template LH = '{32'b???????_?????_?????_001_?????_0000011, I/*, "LH"*/};
-instruct_template LW = '{32'b???????_?????_?????_010_?????_0000011, I/*, "LW"*/};
-instruct_template LBU = '{32'b???????_?????_?????_100_?????_0000011, I/*, "LBU"*/};
-instruct_template LHU = '{32'b???????_?????_?????_101_?????_0000011, I/*, "LHU"*/};
-instruct_template SB = '{32'b???????_?????_?????_000_?????_0100011, S/*, "SB"*/};
-instruct_template SH = '{32'b???????_?????_?????_001_?????_0100011, S/*, "SH"*/};
-instruct_template SW = '{32'b???????_?????_?????_010_?????_0100011, S/*, "SW"*/};
-instruct_template ADDI = '{32'b???????_?????_?????_000_?????_0010011, I/*, "ADDI"*/};
-instruct_template SLTI = '{32'b???????_?????_?????_010_?????_0010011, I/*, "SLTI"*/};
-instruct_template SLTIU = '{32'b???????_?????_?????_011_?????_0010011, I/*, "SLTIU"*/};
-instruct_template XORI = '{32'b???????_?????_?????_100_?????_0010011, I/*, "XORI"*/};
-instruct_template ORI = '{32'b???????_?????_?????_110_?????_0010011, I/*, "ORI"*/};
-instruct_template ANDI = '{32'b???????_?????_?????_111_?????_0010011, I/*, "ANDI"*/};
-instruct_template SLLI = '{32'b0000000_?????_?????_001_?????_0010011, I/*, "SLLI"*/};
-instruct_template SRLI = '{32'b0000000_?????_?????_101_?????_0010011, I/*, "SRLI"*/};
-instruct_template SRAI = '{32'b0100000_?????_?????_111_?????_0010011, I/*, "SRAI"*/};
-instruct_template ADD = '{32'b0000000_?????_?????_000_?????_0110011, I/*, "ADD"*/};
-instruct_template SUB = '{32'b0100000_?????_?????_000_?????_0110011, I/*, "SUB"*/};
-instruct_template SLL = '{32'b0000000_?????_?????_001_?????_0110011, I/*, "SLL"*/};
-instruct_template SLT = '{32'b0000000_?????_?????_010_?????_0110011, I/*, "SLT"*/};
-instruct_template SLTU = '{32'b0000000_?????_?????_011_?????_0110011, I/*, "SLTU"*/};
-instruct_template XOR_ = '{32'b0000000_?????_?????_100_?????_0110011, I/*, "XOR"*/};
-instruct_template SRL = '{32'b0000000_?????_?????_101_?????_0110011, I/*, "SRL"*/};
-instruct_template SRA = '{32'b0100000_?????_?????_101_?????_0110011, I/*, "SRA"*/};
-instruct_template OR_ = '{32'b0000000_?????_?????_110_?????_0110011, I/*, "OR"*/};
-instruct_template AND_ = '{32'b0000000_?????_?????_111_?????_0110011, I/*, "AND"*/};    
+instruct_template LUI = '{32'bxxxxxxx_xxxxx_xxxxx_xxx_xxxxx_0110111, U/*, "LUI"*/};
+instruct_template AUIPC = '{32'bxxxxxxx_xxxxx_xxxxx_xxx_xxxxx_0010111, U/*, "AUIPC"*/};
+instruct_template JAL = '{32'bxxxxxxx_xxxxx_xxxxx_xxx_xxxxx_1101111, J/*, "JAL"*/};
+instruct_template JALR = '{32'bxxxxxxx_xxxxx_xxxxx_000_xxxxx_1100111, I/*, "JALR"*/};
+instruct_template BEQ = '{32'bxxxxxxx_xxxxx_xxxxx_000_xxxxx_1100011, B/*, "BEQ"*/};
+instruct_template BNE = '{32'bxxxxxxx_xxxxx_xxxxx_001_xxxxx_1100011, B/*, "BNE"*/};
+instruct_template BLT = '{32'bxxxxxxx_xxxxx_xxxxx_100_xxxxx_1100011, B/*, "BLT"*/};
+instruct_template BGE = '{32'bxxxxxxx_xxxxx_xxxxx_101_xxxxx_1100011, B/*, "BGE"*/};
+instruct_template BLTU = '{32'bxxxxxxx_xxxxx_xxxxx_110_xxxxx_1100011, B/*, "BLTU"*/};
+instruct_template BGEU = '{32'bxxxxxxx_xxxxx_xxxxx_111_xxxxx_1100011, B/*, "BGEU"*/};
+instruct_template LB = '{32'bxxxxxxx_xxxxx_xxxxx_000_xxxxx_0000011, I/*, "LB"*/};
+instruct_template LH = '{32'bxxxxxxx_xxxxx_xxxxx_001_xxxxx_0000011, I/*, "LH"*/};
+instruct_template LW = '{32'bxxxxxxx_xxxxx_xxxxx_010_xxxxx_0000011, I/*, "LW"*/};
+instruct_template LBU = '{32'bxxxxxxx_xxxxx_xxxxx_100_xxxxx_0000011, I/*, "LBU"*/};
+instruct_template LHU = '{32'bxxxxxxx_xxxxx_xxxxx_101_xxxxx_0000011, I/*, "LHU"*/};
+instruct_template SB = '{32'bxxxxxxx_xxxxx_xxxxx_000_xxxxx_0100011, S/*, "SB"*/};
+instruct_template SH = '{32'bxxxxxxx_xxxxx_xxxxx_001_xxxxx_0100011, S/*, "SH"*/};
+instruct_template SW = '{32'bxxxxxxx_xxxxx_xxxxx_010_xxxxx_0100011, S/*, "SW"*/};
+instruct_template ADDI = '{32'bxxxxxxx_xxxxx_xxxxx_000_xxxxx_0010011, I/*, "ADDI"*/};
+instruct_template SLTI = '{32'bxxxxxxx_xxxxx_xxxxx_010_xxxxx_0010011, I/*, "SLTI"*/};
+instruct_template SLTIU = '{32'bxxxxxxx_xxxxx_xxxxx_011_xxxxx_0010011, I/*, "SLTIU"*/};
+instruct_template XORI = '{32'bxxxxxxx_xxxxx_xxxxx_100_xxxxx_0010011, I/*, "XORI"*/};
+instruct_template ORI = '{32'bxxxxxxx_xxxxx_xxxxx_110_xxxxx_0010011, I/*, "ORI"*/};
+instruct_template ANDI = '{32'bxxxxxxx_xxxxx_xxxxx_111_xxxxx_0010011, I/*, "ANDI"*/};
+instruct_template SLLI = '{32'b0000000_xxxxx_xxxxx_001_xxxxx_0010011, I/*, "SLLI"*/};
+instruct_template SRLI = '{32'b0000000_xxxxx_xxxxx_101_xxxxx_0010011, I/*, "SRLI"*/};
+instruct_template SRAI = '{32'b0100000_xxxxx_xxxxx_111_xxxxx_0010011, I/*, "SRAI"*/};
+instruct_template ADD = '{32'b0000000_xxxxx_xxxxx_000_xxxxx_0110011, I/*, "ADD"*/};
+instruct_template SUB = '{32'b0100000_xxxxx_xxxxx_000_xxxxx_0110011, I/*, "SUB"*/};
+instruct_template SLL = '{32'b0000000_xxxxx_xxxxx_001_xxxxx_0110011, I/*, "SLL"*/};
+instruct_template SLT = '{32'b0000000_xxxxx_xxxxx_010_xxxxx_0110011, I/*, "SLT"*/};
+instruct_template SLTU = '{32'b0000000_xxxxx_xxxxx_011_xxxxx_0110011, I/*, "SLTU"*/};
+instruct_template XOR_ = '{32'b0000000_xxxxx_xxxxx_100_xxxxx_0110011, I/*, "XOR"*/};
+instruct_template SRL = '{32'b0000000_xxxxx_xxxxx_101_xxxxx_0110011, I/*, "SRL"*/};
+instruct_template SRA = '{32'b0100000_xxxxx_xxxxx_101_xxxxx_0110011, I/*, "SRA"*/};
+instruct_template OR_ = '{32'b0000000_xxxxx_xxxxx_110_xxxxx_0110011, I/*, "OR"*/};
+instruct_template AND_ = '{32'b0000000_xxxxx_xxxxx_111_xxxxx_0110011, I/*, "AND"*/};    
 
 
-module control( input reset_n, enable,
-                input int instruction,
+module control( input int instruction,
                 input br_ne, br_lt, // branch != and <
                 output logic [ALU_INSTRUCTION_COUNT-1:0] alu_sel, //alu selection
                 output logic pc_wsel, //selects pc increment or jump
@@ -74,15 +73,15 @@ module control( input reset_n, enable,
                 output logic alub_sel, //selects imm or bdata going to alu
                 output logic dram_wsel, //enables write to dram
                 output logic [1:0] reg_wdata_sel, //selects between dram_output, alu_output, and pc
-                output logic [1:0] imm_gen_sel, //selects the imm sign extension
+                output logic [ISA_TYPE_COUNT-1:0] instruction_type, //selects the imm sign extension
                 output logic decode_error //goes high when instruction did not match known instructions
     );
     
     
-    logic [5:0] instruction_type;
+   
     
     assign decode_error = instruction_type == NA ? 1 : 0;
-
+    assign alu_sel = instruction_type;
 
     
     
@@ -98,7 +97,7 @@ module control( input reset_n, enable,
         reg_wdata_sel = reg_write_alu;
 
         //determines instruction type and enables instruction flag relative to instruction
-        case(instruction) //: intruction_to_type_decoding
+        casex(instruction) //: intruction_to_type_decoding
             LUI.instruct_compare:  begin //LUI
                 instruction_type = LUI.isa_type;
                 reg_wen = reg_write_en;
@@ -124,7 +123,7 @@ module control( input reset_n, enable,
             JAL.instruct_compare:  begin 
                 instruction_type = JAL.isa_type;
                 reg_wen = reg_write_en;
-                reg_wdata_sel = reg_write_alu;
+                reg_wdata_sel = reg_write_pc;
                 alu_select = alu_ADD;
                 alua_sel = alua_pc;
                 alub_sel = alub_imm;
@@ -134,7 +133,7 @@ module control( input reset_n, enable,
             JALR.instruct_compare:  begin 
                 instruction_type = JALR.isa_type;
                 reg_wen = reg_write_en;
-                reg_wdata_sel = reg_write_alu;
+                reg_wdata_sel = reg_write_pc;
                 alu_select = alu_ADD;
                 alua_sel = alua_adata;
                 alub_sel = alub_imm;
