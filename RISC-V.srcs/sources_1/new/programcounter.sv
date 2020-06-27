@@ -23,14 +23,14 @@
 
 module programcounter(input clk, enable, reset_n, modify_pc,
                         input int modified_pc,
-                        output int program_counter
+                        output int program_counter, next_program_counter
                         );
     
     localparam pc_increment = 2;//change to 4 when ram stores in blocks of 8 bits
     
     int next_pc;
     
-    assign next_pc = program_counter + pc_increment;
+    assign #1ps next_pc = program_counter + pc_increment;
     
     always_ff @ (posedge clk) begin
         if (~reset_n) begin

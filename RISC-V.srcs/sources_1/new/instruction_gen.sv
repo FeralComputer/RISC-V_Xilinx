@@ -20,24 +20,24 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 package isa_gen;
-    enum {
-        x0 = 0, x1 = 1,
-        x2 = 2, x3 = 3,
-        x4 = 4, x5 = 5,
-        x6 = 6, x7 = 7,
-        x8 = 8, x9 = 9,
-        x10 = 10, x11 = 11,
-        x12 = 12, x13 = 13,
-        x14 = 14, x15 = 15,
-        x16 = 16, x17 = 17,
-        x18 = 18, x19 = 19,
-        x20 = 20, x21 = 21,
-        x22 = 22, x23 = 23,
-        x24 = 24, x25 = 25,
-        x26 = 26, x27 = 27,
-        x28 = 28, x29 = 29,
-        x30 = 30, x31 = 31
-    } registers ;
+//    enum {
+//        x0 = 0, x1 = 1,
+//        x2 = 2, x3 = 3,
+//        x4 = 4, x5 = 5,
+//        x6 = 6, x7 = 7,
+//        x8 = 8, x9 = 9,
+//        x10 = 10, x11 = 11,
+//        x12 = 12, x13 = 13,
+//        x14 = 14, x15 = 15,
+//        x16 = 16, x17 = 17,
+//        x18 = 18, x19 = 19,
+//        x20 = 20, x21 = 21,
+//        x22 = 22, x23 = 23,
+//        x24 = 24, x25 = 25,
+//        x26 = 26, x27 = 27,
+//        x28 = 28, x29 = 29,
+//        x30 = 30, x31 = 31
+//    } registers ;
 
 
     parameter op_LUI = 'b0110111; 
@@ -79,12 +79,13 @@ package isa_gen;
     parameter op_AND = 'b0110011;
 
 
-    `define LUI(rd,imm) {imm[19:0], rd[4:0], op_LUI};
-    `define AUIPC(rd,imm) {imm[19:0], rd[4:0], op_AUIPC};
-    `define ADDI(rd, rs1, imm) {imm[11:0], rs1[4:0], 'b000, rd[4:0], op_ADDI};
-    `define LW(rd, base, offset) {offset[11:0], base[4:0], 'b010, rd[4:0], op_LW};
-    `define SW(base, src, offset) {offset[11:5], src[4:0], base[4:0], 'b010, offset[4:0], op_SW};
-    `define AND_(rd, rs1, rs2) {7'b0, rs2[4:0], rs1[4:0], 3'b111, rd[4:0], op_AND};
+    `define LUI(rd,imm) {imm[19:0], rd[4:0], op_LUI[6:0]};
+    `define AUIPC(rd,imm) {imm[19:0], rd[4:0], op_AUIPC[6:0]};
+    `define ADDI(rd, rs1, imm) {imm[11:0], rs1[4:0], 3'b000, rd[4:0], op_ADDI[6:0]};
+    `define LW(rd, base, offset) {offset[11:0], base[4:0], 3'b010, rd[4:0], op_LW[6:0]};
+    `define SW(base, src, offset) {offset[11:5], src[4:0], base[4:0], 3'b010, offset[4:0], op_SW[6:0]}; //src == rs2
+    `define AND_(rd, rs1, rs2) {7'b0, rs2[4:0], rs1[4:0], 3'b111, rd[4:0], op_AND[6:0]};\
+        $display("rs1: %0d, rs2: %0d, rd: %0d, result: %b", rs1, rs2, rd, {7'b0, rs2[4:0], rs1[4:0], 3'b111, rd[4:0], op_AND[6:0]});
 
 endpackage
 

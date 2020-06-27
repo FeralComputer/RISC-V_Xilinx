@@ -81,7 +81,7 @@ module control( input int instruction,
    
     
     assign decode_error = instruction_type == NA ? 1 : 0;
-    assign alu_sel = instruction_type;
+    assign alu_sel = alu_select;
 
     
     
@@ -128,7 +128,7 @@ module control( input int instruction,
                 alua_sel = alua_pc;
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_noten;
-                pc_wsel = pc_increment;
+                pc_wsel = pc_write;
             end            
             JALR.instruct_compare:  begin 
                 instruction_type = JALR.isa_type;
@@ -138,7 +138,7 @@ module control( input int instruction,
                 alua_sel = alua_adata;
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_noten;
-                pc_wsel = pc_increment;
+                pc_wsel = pc_write;
             end            
             BEQ.instruct_compare:  begin 
                 instruction_type = BEQ.isa_type;

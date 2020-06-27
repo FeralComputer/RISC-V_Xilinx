@@ -24,17 +24,15 @@ module core(input logic clk, reset_n, enable,
             input logic debug_enable_write_iram, debug_enable_write_dram,
             input int debug_read_addr_iram, debug_read_addr_dram,
             input int debug_write_addr_iram, debug_write_addr_dram,
+            input int debug_write_data_iram, debug_write_data_dram,
             output int dram_dob, instruction,
             output logic decode_error
             );
     
-    logic rd_enable;
     logic [4:0] rs1, rs2, rd;    
-    int adata, bdata, register_write;
     
     int program_counter;
-    
-    logic dram_write;
+
     int dram_addra, dram_addrb, dram_dia;
     
     
@@ -44,30 +42,31 @@ module core(input logic clk, reset_n, enable,
     logic [ALU_INSTRUCTION_COUNT-1:0] alu_sel;
     
     logic br_ne, br_lt;
-    logic pc_wsel;
-    
-    int alu_in1, alu_in2;
-    logic reg_wdata, pc_wsel;
+    int adata, bdata;
+    int reg_wdata, alu_in1, alu_in2;
+    logic  pc_wsel, reg_wen;
     logic dram_wsel; 
     logic [1:0] reg_wdata_sel;
     logic alua_sel, alub_sel;
+    
+    int next_program_counter;
     
     //brains of the operation (hopefully)
     control ctrl(.instruction(instruction), .br_ne(br_ne), .br_lt(br_lt), .alu_sel(alu_sel), .pc_wsel(pc_wsel),
                     .reg_wen(reg_wen), .alua_sel(alua_sel), .alub_sel(alub_sel), .dram_wsel(dram_wsel), .reg_wdata_sel(reg_wdata_sel), 
                     .instruction_type(isa_type), .decode_error(decode_error));
     //
-    register regs(.clk(clk), .reset_n(reset_n), .enable(enable), .rd_enable(reg_wen), .rs1(rs1), .rs2(rs2), .rd(rd), 
+    register regs(.clk(clk), .reset_n(reset_n), .enable(enable), .rd_enable(reg_wen == reg_write_en), .rs1(rs1), .rs2(rs2), .rd(rd), 
                 .adata(adata), .bdata(bdata), .indata(reg_wdata));
                 
     ram iram(.clk(clk), .ena(debug_enable_write_iram ), .addrb(enable ? program_counter : debug_read_addr_iram), .addra(debug_write_addr_iram), 
                 .dia(debug_write_data_iram ), .dob(instruction), .memory_sizea(3'b100), .memory_sizeb(3'b100) ); // keep memory size at 32 bits for now...
                 
-    ram dram(.clk(clk), .ena(dram_wsel | debug_write_data_dram), .addrb(enable ? bdata : debug_read_addr_dram), .addra(enable ? bdata : debug_write_addr_dram), .dia(enable ? alu_result : debug_write_addr_dram), 
-                .dob(dram_dob), .memory_sizea(3'b100), .memory_sizeb(3'b100)); // keep memory size at 32 bits for now...
+    ram dram(.clk(clk), .ena(dram_wsel == dram_write_en | debug_enable_write_dram), .addrb(enable ? alu_result : debug_read_addr_dram), .addra(enable ? alu_result : debug_write_addr_dram), 
+                .dia(enable ? bdata : debug_write_addr_dram), .dob(dram_dob), .memory_sizea(3'b100), .memory_sizeb(3'b100)); // keep memory size at 32 bits for now...
                 
     programcounter pc(.clk(clk), .reset_n(reset_n), .enable(enable), .modify_pc(pc_wsel), .modified_pc(alu_result),
-                .program_counter(program_counter));
+                .program_counter(program_counter), .next_program_counter(next_program_counter));
                 
     alu alu_(.adata(alu_in1), .bdata(alu_in2), .instruction_select(alu_sel), .result(alu_result));
     
@@ -83,11 +82,21 @@ module core(input logic clk, reset_n, enable,
     
     // selects between alu ,dram, and pc to register
     always_comb begin
-        unique case(reg_wdata_sel)
+        case(reg_wdata_sel)
             reg_write_alu : reg_wdata = alu_result;
             reg_write_dram : reg_wdata = dram_dob;
-            reg_write_pc : reg_wdata = program_counter;
+            reg_write_pc : reg_wdata = next_program_counter;
+            default : reg_wdata = 'bx;
         endcase
     end
+    
+    `ifdef DEBUG
+        always_ff @ (posedge clk) begin
+            if(reset_n && enable) begin
+                $display("rs1: %0d, rs2: %0d, rd: %0d", rs1, rs2, rd);
+            end
+        end
+    
+    `endif
 
 endmodule

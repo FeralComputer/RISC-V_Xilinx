@@ -47,25 +47,25 @@ package risc_structs;
     } registers ;
     
     enum {pc_increment, pc_write} pc_mux;
-    enum {dram_write_en, dram_write_noten} dram_write_sel;
-    enum {reg_write_en, reg_write_noten} reg_wstatus;
-    enum {alua_adata, alua_pc} alua_mux;
-    enum {alub_bdata, alub_imm} alub_mux;
-    enum {reg_write_alu, reg_write_dram, reg_write_pc} reg_write_sel;
+    enum {dram_write_en = 1, dram_write_noten = 0} dram_write_sel;
+    enum {reg_write_en = 1, reg_write_noten = 0} reg_wstatus;
+    enum {alua_adata = 0, alua_pc = 1} alua_mux;
+    enum {alub_bdata = 0, alub_imm = 1} alub_mux;
+    enum {reg_write_alu = 0, reg_write_dram = 1, reg_write_pc = 2} reg_write_sel;
     enum {
-        alu_AND = 1'b1<<0,
-        alu_ADD = 1'b1<<1,
-        alu_OR = 1'b1<<2,
-        alu_SLL = 1'b1<<3,
-        alu_SRL = 1'b1<<4,
-        alu_XOR = 1'b1<<5,
-        alu_SRA = 1'b1<<6,
-        alu_SUB = 1'b1<<7,
-        alu_SLLU = 1'b1<<8,
-        alu_SRLU = 1'b1<<9,
-        alu_SLT = 1'b1<<10,
-        alu_SLTU = 1'b1<<11,
-        alu_LOAD_IMM_2_A = 1'b1<<12,
+        alu_AND = 1,
+        alu_ADD = 2,
+        alu_OR = 4,
+        alu_SLL = 8,
+        alu_SRL = 16,
+        alu_XOR = 32,
+        alu_SRA = 64,
+        alu_SUB = 128,
+        alu_SLLU = 256,
+        alu_SRLU = 512,
+        alu_SLT = 1024,
+        alu_SLTU = 2048,
+        alu_LOAD_IMM_2_A = 4096,
         alu_NA = 0
         // AND_ = 1'b1<<12,
     } alu_select;
