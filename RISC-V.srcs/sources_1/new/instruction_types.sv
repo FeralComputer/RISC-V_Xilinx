@@ -79,5 +79,43 @@ package risc_structs;
         //string name;
     } instruct_template;
     
+    instruct_template LUI = '{32'bxxxxxxx_xxxxx_xxxxx_xxx_xxxxx_0110111, U/*, "LUI"*/};
+    instruct_template AUIPC = '{32'bxxxxxxx_xxxxx_xxxxx_xxx_xxxxx_0010111, U/*, "AUIPC"*/};
+    instruct_template JAL = '{32'bxxxxxxx_xxxxx_xxxxx_xxx_xxxxx_1101111, J/*, "JAL"*/};
+    instruct_template JALR = '{32'bxxxxxxx_xxxxx_xxxxx_000_xxxxx_1100111, I/*, "JALR"*/};
+    instruct_template BEQ = '{32'bxxxxxxx_xxxxx_xxxxx_000_xxxxx_1100011, B/*, "BEQ"*/};
+    instruct_template BNE = '{32'bxxxxxxx_xxxxx_xxxxx_001_xxxxx_1100011, B/*, "BNE"*/};
+    instruct_template BLT = '{32'bxxxxxxx_xxxxx_xxxxx_100_xxxxx_1100011, B/*, "BLT"*/};
+    instruct_template BGE = '{32'bxxxxxxx_xxxxx_xxxxx_101_xxxxx_1100011, B/*, "BGE"*/};
+    instruct_template BLTU = '{32'bxxxxxxx_xxxxx_xxxxx_110_xxxxx_1100011, B/*, "BLTU"*/};
+    instruct_template BGEU = '{32'bxxxxxxx_xxxxx_xxxxx_111_xxxxx_1100011, B/*, "BGEU"*/};
+    instruct_template LB = '{32'bxxxxxxx_xxxxx_xxxxx_000_xxxxx_0000011, I/*, "LB"*/};
+    instruct_template LH = '{32'bxxxxxxx_xxxxx_xxxxx_001_xxxxx_0000011, I/*, "LH"*/};
+    instruct_template LW = '{32'bxxxxxxx_xxxxx_xxxxx_010_xxxxx_0000011, I/*, "LW"*/};
+    instruct_template LBU = '{32'bxxxxxxx_xxxxx_xxxxx_100_xxxxx_0000011, I/*, "LBU"*/};
+    instruct_template LHU = '{32'bxxxxxxx_xxxxx_xxxxx_101_xxxxx_0000011, I/*, "LHU"*/};
+    instruct_template SB = '{32'bxxxxxxx_xxxxx_xxxxx_000_xxxxx_0100011, S/*, "SB"*/};
+    instruct_template SH = '{32'bxxxxxxx_xxxxx_xxxxx_001_xxxxx_0100011, S/*, "SH"*/};
+    instruct_template SW = '{32'bxxxxxxx_xxxxx_xxxxx_010_xxxxx_0100011, S/*, "SW"*/};
+    instruct_template ADDI = '{32'bxxxxxxx_xxxxx_xxxxx_000_xxxxx_0010011, I/*, "ADDI"*/};
+    instruct_template SLTI = '{32'bxxxxxxx_xxxxx_xxxxx_010_xxxxx_0010011, I/*, "SLTI"*/};
+    instruct_template SLTIU = '{32'bxxxxxxx_xxxxx_xxxxx_011_xxxxx_0010011, I/*, "SLTIU"*/};
+    instruct_template XORI = '{32'bxxxxxxx_xxxxx_xxxxx_100_xxxxx_0010011, I/*, "XORI"*/};
+    instruct_template ORI = '{32'bxxxxxxx_xxxxx_xxxxx_110_xxxxx_0010011, I/*, "ORI"*/};
+    instruct_template ANDI = '{32'bxxxxxxx_xxxxx_xxxxx_111_xxxxx_0010011, I/*, "ANDI"*/};
+    instruct_template SLLI = '{32'b0000000_xxxxx_xxxxx_001_xxxxx_0010011, I/*, "SLLI"*/};
+    instruct_template SRLI = '{32'b0000000_xxxxx_xxxxx_101_xxxxx_0010011, I/*, "SRLI"*/};
+    instruct_template SRAI = '{32'b0100000_xxxxx_xxxxx_111_xxxxx_0010011, I/*, "SRAI"*/};
+    instruct_template ADD = '{32'b0000000_xxxxx_xxxxx_000_xxxxx_0110011, I/*, "ADD"*/};
+    instruct_template SUB = '{32'b0100000_xxxxx_xxxxx_000_xxxxx_0110011, I/*, "SUB"*/};
+    instruct_template SLL = '{32'b0000000_xxxxx_xxxxx_001_xxxxx_0110011, I/*, "SLL"*/};
+    instruct_template SLT = '{32'b0000000_xxxxx_xxxxx_010_xxxxx_0110011, I/*, "SLT"*/};
+    instruct_template SLTU = '{32'b0000000_xxxxx_xxxxx_011_xxxxx_0110011, I/*, "SLTU"*/};
+    instruct_template XOR_ = '{32'b0000000_xxxxx_xxxxx_100_xxxxx_0110011, I/*, "XOR"*/};
+    instruct_template SRL = '{32'b0000000_xxxxx_xxxxx_101_xxxxx_0110011, I/*, "SRL"*/};
+    instruct_template SRA = '{32'b0100000_xxxxx_xxxxx_101_xxxxx_0110011, I/*, "SRA"*/};
+    instruct_template OR_ = '{32'b0000000_xxxxx_xxxxx_110_xxxxx_0110011, I/*, "OR"*/};
+    instruct_template AND_ = '{32'b0000000_xxxxx_xxxxx_111_xxxxx_0110011, I/*, "AND"*/};   
+    
     
 endpackage

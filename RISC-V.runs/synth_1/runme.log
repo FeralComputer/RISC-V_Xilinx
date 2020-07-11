@@ -1,0 +1,484 @@
+
+*** Running vivado
+    with args -log core.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source core.tcl
+
+
+****** Vivado v2019.2 (64-bit)
+  **** SW Build 2708876 on Wed Nov  6 21:40:23 MST 2019
+  **** IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+    ** Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+
+source core.tcl -notrace
+Command: synth_design -top core -part xc7k70tfbv676-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7k70t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k70t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 3964 
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 573.328 ; gain = 243.109
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'core' [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/core.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'control' [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/control.sv:67]
+INFO: [Synth 8-6155] done synthesizing module 'control' (1#1) [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/control.sv:67]
+INFO: [Synth 8-6157] synthesizing module 'register' [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/register.sv:23]
+INFO: [Synth 8-251] reg[x] = x, reg[x] = x, reg[2] = x [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/register.sv:47]
+INFO: [Synth 8-6155] done synthesizing module 'register' (2#1) [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/register.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'ram' [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/ram.sv:24]
+	Parameter N bound to: 64 - type: integer 
+	Parameter word bound to: 3'b100 
+	Parameter half_word bound to: 3'b010 
+	Parameter byte_ bound to: 3'b001 
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/ram.sv:67]
+WARNING: [Synth 8-2898] ignoring assertion [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/ram.sv:88]
+INFO: [Synth 8-6155] done synthesizing module 'ram' (3#1) [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/ram.sv:24]
+INFO: [Synth 8-6157] synthesizing module 'programcounter' [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/programcounter.sv:24]
+	Parameter pc_increment bound to: 2 - type: integer 
+WARNING: [Synth 8-3848] Net next_program_counter in module/entity programcounter does not have driver. [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/programcounter.sv:26]
+INFO: [Synth 8-6155] done synthesizing module 'programcounter' (4#1) [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/programcounter.sv:24]
+INFO: [Synth 8-6157] synthesizing module 'alu' [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/alu.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'alu' (5#1) [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/alu.sv:23]
+INFO: [Synth 8-6157] synthesizing module 'imm_gen' [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/imm_gen.sv:24]
+INFO: [Synth 8-6155] done synthesizing module 'imm_gen' (6#1) [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/imm_gen.sv:24]
+INFO: [Synth 8-6157] synthesizing module 'branch_gen' [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/branch_gen.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'branch_gen' (7#1) [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/branch_gen.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'core' (8#1) [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/core.sv:23]
+WARNING: [Synth 8-3331] design imm_gen has unconnected port instruction[6]
+WARNING: [Synth 8-3331] design imm_gen has unconnected port instruction[5]
+WARNING: [Synth 8-3331] design imm_gen has unconnected port instruction[4]
+WARNING: [Synth 8-3331] design imm_gen has unconnected port instruction[3]
+WARNING: [Synth 8-3331] design imm_gen has unconnected port instruction[2]
+WARNING: [Synth 8-3331] design imm_gen has unconnected port instruction[1]
+WARNING: [Synth 8-3331] design imm_gen has unconnected port instruction[0]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[31]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[30]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[29]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[28]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[27]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[26]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[25]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[24]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[23]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[22]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[21]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[20]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[19]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[18]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[17]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[16]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[15]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[14]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[13]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[12]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[11]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[10]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[9]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[8]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[7]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[6]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[5]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[4]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[3]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[2]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[1]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[0]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[31]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[30]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[29]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[28]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[27]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[26]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[25]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[24]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[23]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[22]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[21]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[20]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[19]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[18]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[17]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[16]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[15]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[14]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[13]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[12]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[11]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[10]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[9]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[8]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[7]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[6]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[5]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[4]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[3]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[2]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[1]
+WARNING: [Synth 8-3331] design core has unconnected port debug_write_data_dram[0]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 646.781 ; gain = 316.563
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 646.781 ; gain = 316.563
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7k70tfbv676-1
+INFO: [Device 21-403] Loading part xc7k70tfbv676-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 646.781 ; gain = 316.563
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/alu.sv:31]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 646.781 ; gain = 316.563
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
+	   3 Input     32 Bit       Adders := 1     
+	   2 Input      6 Bit       Adders := 4     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
++---RAMs : 
+	             1008 Bit         RAMs := 4     
+	              992 Bit         RAMs := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 11    
+	   4 Input     32 Bit        Muxes := 3     
+	  15 Input     32 Bit        Muxes := 1     
+	   6 Input     32 Bit        Muxes := 1     
+	   4 Input     16 Bit        Muxes := 4     
+	   2 Input     16 Bit        Muxes := 8     
+	  38 Input     14 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 2     
+	  38 Input      6 Bit        Muxes := 1     
+	   4 Input      6 Bit        Muxes := 2     
+	  38 Input      2 Bit        Muxes := 1     
+	  38 Input      1 Bit        Muxes := 6     
+	   2 Input      1 Bit        Muxes := 3     
+	   4 Input      1 Bit        Muxes := 6     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module core 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 6     
+	   4 Input     32 Bit        Muxes := 1     
+Module control 
+Detailed RTL Component Info : 
++---Muxes : 
+	  38 Input     14 Bit        Muxes := 1     
+	  38 Input      6 Bit        Muxes := 1     
+	  38 Input      2 Bit        Muxes := 1     
+	  38 Input      1 Bit        Muxes := 6     
+	   2 Input      1 Bit        Muxes := 1     
+Module register 
+Detailed RTL Component Info : 
++---RAMs : 
+	              992 Bit         RAMs := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 1     
+Module ram 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      6 Bit       Adders := 2     
++---RAMs : 
+	             1008 Bit         RAMs := 2     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   4 Input     32 Bit        Muxes := 1     
+	   4 Input     16 Bit        Muxes := 2     
+	   2 Input     16 Bit        Muxes := 4     
+	   2 Input      8 Bit        Muxes := 1     
+	   4 Input      6 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 3     
+Module programcounter 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+Module alu 
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Muxes : 
+	  15 Input     32 Bit        Muxes := 1     
+Module imm_gen 
+Detailed RTL Component Info : 
++---Muxes : 
+	   6 Input     32 Bit        Muxes := 1     
+Module branch_gen 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[31]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[30]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[29]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[28]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[27]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[26]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[25]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[24]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[23]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[22]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[21]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[20]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[19]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[18]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[17]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[16]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[15]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[14]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[13]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[12]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[11]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[10]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[9]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[8]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[7]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[6]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[5]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[4]
+WARNING: [Synth 8-3331] design programcounter has unconnected port next_program_counter[3]
+INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:03:11 ; elapsed = 00:03:13 . Memory (MB): peak = 1008.145 ; gain = 677.926
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping	Report (see note below)
++------------+--------------------+-----------+----------------------+--------------+
+|Module Name | RTL Object         | Inference | Size (Depth x Width) | Primitives   | 
++------------+--------------------+-----------+----------------------+--------------+
+|core        | regs/registers_reg | Implied   | 32 x 32              | RAM32M x 12	 | 
+|core        | iram/ram1_reg      | Implied   | 64 x 16              | RAM64M x 18	 | 
+|core        | iram/ram2_reg      | Implied   | 64 x 16              | RAM64M x 6	  | 
+|core        | dram/ram1_reg      | Implied   | 64 x 16              | RAM64M x 18	 | 
+|core        | dram/ram2_reg      | Implied   | 64 x 16              | RAM64M x 6	  | 
++------------+--------------------+-----------+----------------------+--------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:03:11 ; elapsed = 00:03:14 . Memory (MB): peak = 1008.145 ; gain = 677.926
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping	Report
++------------+--------------------+-----------+----------------------+--------------+
+|Module Name | RTL Object         | Inference | Size (Depth x Width) | Primitives   | 
++------------+--------------------+-----------+----------------------+--------------+
+|core        | regs/registers_reg | Implied   | 32 x 32              | RAM32M x 12	 | 
+|core        | iram/ram1_reg      | Implied   | 64 x 16              | RAM64M x 18	 | 
+|core        | iram/ram2_reg      | Implied   | 64 x 16              | RAM64M x 6	  | 
+|core        | dram/ram1_reg      | Implied   | 64 x 16              | RAM64M x 18	 | 
+|core        | dram/ram2_reg      | Implied   | 64 x 16              | RAM64M x 6	  | 
++------------+--------------------+-----------+----------------------+--------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:03:12 ; elapsed = 00:03:14 . Memory (MB): peak = 1008.145 ; gain = 677.926
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:03:18 ; elapsed = 00:03:21 . Memory (MB): peak = 1008.145 ; gain = 677.926
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:03:18 ; elapsed = 00:03:21 . Memory (MB): peak = 1008.145 ; gain = 677.926
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:03:18 ; elapsed = 00:03:21 . Memory (MB): peak = 1008.145 ; gain = 677.926
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:03:18 ; elapsed = 00:03:21 . Memory (MB): peak = 1008.145 ; gain = 677.926
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:03:18 ; elapsed = 00:03:21 . Memory (MB): peak = 1008.145 ; gain = 677.926
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:03:18 ; elapsed = 00:03:21 . Memory (MB): peak = 1008.145 ; gain = 677.926
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     1|
+|2     |CARRY4 |    35|
+|3     |LUT1   |     7|
+|4     |LUT2   |    40|
+|5     |LUT3   |   137|
+|6     |LUT4   |   153|
+|7     |LUT5   |   182|
+|8     |LUT6   |   412|
+|9     |RAM32M |    12|
+|10    |RAM64M |    36|
+|11    |FDRE   |    32|
+|12    |IBUF   |    90|
+|13    |OBUF   |    65|
++------+-------+------+
+
+Report Instance Areas: 
++------+---------+---------------+------+
+|      |Instance |Module         |Cells |
++------+---------+---------------+------+
+|1     |top      |               |  1202|
+|2     |  alu_   |alu            |    17|
+|3     |  branch |branch_gen     |    11|
+|4     |  dram   |ram            |    50|
+|5     |  iram   |ram_0          |   767|
+|6     |  pc     |programcounter |    55|
+|7     |  regs   |register       |   146|
++------+---------+---------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:03:18 ; elapsed = 00:03:21 . Memory (MB): peak = 1008.145 ; gain = 677.926
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 187 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:03:18 ; elapsed = 00:03:21 . Memory (MB): peak = 1008.145 ; gain = 677.926
+Synthesis Optimization Complete : Time (s): cpu = 00:03:18 ; elapsed = 00:03:21 . Memory (MB): peak = 1008.145 ; gain = 677.926
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.045 . Memory (MB): peak = 1008.145 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 83 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1008.145 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 48 instances were transformed.
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 12 instances
+  RAM64M => RAM64M (RAMD64E(x4)): 36 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+29 Infos, 102 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:03:24 ; elapsed = 00:03:28 . Memory (MB): peak = 1008.145 ; gain = 701.172
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1008.145 ; gain = 0.000
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint 'D:/Xilinx/projects/RISC-V/RISC-V.runs/synth_1/core.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file core_utilization_synth.rpt -pb core_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Jul  8 09:12:09 2020...

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="core_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="\$unit_instruction_types_sv " />
+            <top_module name="core_tb" />
+            <top_module name="glbl" />
+            <top_module name="isa_gen" />
+            <top_module name="risc_structs" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="210fs"></ZoomEndTime>
+      <Cursor1Time time="135fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="163"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="32" />
+   <wvobject fp_name="/core_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/reset_n" type="logic">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/enable" type="logic">
+      <obj_property name="ElementShortName">enable</obj_property>
+      <obj_property name="ObjectShortName">enable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/decode_error" type="logic">
+      <obj_property name="ElementShortName">decode_error</obj_property>
+      <obj_property name="ObjectShortName">decode_error</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/program_counter" type="array">
+      <obj_property name="ElementShortName">program_counter[31:0]</obj_property>
+      <obj_property name="ObjectShortName">program_counter[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/instruction" type="array">
+      <obj_property name="ElementShortName">instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instruction[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/rs1" type="array">
+      <obj_property name="ElementShortName">rs1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rs1[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/rs2" type="array">
+      <obj_property name="ElementShortName">rs2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rs2[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/rd" type="array">
+      <obj_property name="ElementShortName">rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rd[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/adata" type="array">
+      <obj_property name="ElementShortName">adata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">adata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/bdata" type="array">
+      <obj_property name="ElementShortName">bdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/isa_type" type="array">
+      <obj_property name="ElementShortName">isa_type[5:0]</obj_property>
+      <obj_property name="ObjectShortName">isa_type[5:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/immediate" type="array">
+      <obj_property name="ElementShortName">immediate[31:0]</obj_property>
+      <obj_property name="ObjectShortName">immediate[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/alu_result" type="array">
+      <obj_property name="ElementShortName">alu_result[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_result[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/alu_sel" type="array">
+      <obj_property name="ElementShortName">alu_sel[12:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_sel[12:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/br_ne" type="logic">
+      <obj_property name="ElementShortName">br_ne</obj_property>
+      <obj_property name="ObjectShortName">br_ne</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/br_lt" type="logic">
+      <obj_property name="ElementShortName">br_lt</obj_property>
+      <obj_property name="ObjectShortName">br_lt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/pc_wsel" type="logic">
+      <obj_property name="ElementShortName">pc_wsel</obj_property>
+      <obj_property name="ObjectShortName">pc_wsel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/alu_in1" type="array">
+      <obj_property name="ElementShortName">alu_in1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_in1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/alu_in2" type="array">
+      <obj_property name="ElementShortName">alu_in2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_in2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/reg_wdata" type="array">
+      <obj_property name="ElementShortName">reg_wdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_wdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/dram_wsel" type="logic">
+      <obj_property name="ElementShortName">dram_wsel</obj_property>
+      <obj_property name="ObjectShortName">dram_wsel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/alua_sel" type="logic">
+      <obj_property name="ElementShortName">alua_sel</obj_property>
+      <obj_property name="ObjectShortName">alua_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/alub_sel" type="logic">
+      <obj_property name="ElementShortName">alub_sel</obj_property>
+      <obj_property name="ObjectShortName">alub_sel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/reg_wen" type="logic">
+      <obj_property name="ElementShortName">reg_wen</obj_property>
+      <obj_property name="ObjectShortName">reg_wen</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/regs/registers" type="array">
+      <obj_property name="ElementShortName">registers[31:1][31:0]</obj_property>
+      <obj_property name="ObjectShortName">registers[31:1][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/dram/ena" type="logic">
+      <obj_property name="ElementShortName">ena</obj_property>
+      <obj_property name="ObjectShortName">ena</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/dram/dia" type="array">
+      <obj_property name="ElementShortName">dia[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dia[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/dram/addra" type="array">
+      <obj_property name="ElementShortName">addra[31:0]</obj_property>
+      <obj_property name="ObjectShortName">addra[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/dram/addrb" type="array">
+      <obj_property name="ElementShortName">addrb[31:0]</obj_property>
+      <obj_property name="ObjectShortName">addrb[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/dram/ram1" type="array">
+      <obj_property name="ElementShortName">ram1[0:62][15:0]</obj_property>
+      <obj_property name="ObjectShortName">ram1[0:62][15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/dram/ram2" type="array">
+      <obj_property name="ElementShortName">ram2[0:62][15:0]</obj_property>
+      <obj_property name="ObjectShortName">ram2[0:62][15:0]</obj_property>
+   </wvobject>
+</wave_config>

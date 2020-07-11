@@ -39,6 +39,7 @@ package isa_gen;
 //        x30 = 30, x31 = 31
 //    } registers ;
 
+    
 
     parameter op_LUI = 'b0110111; 
     parameter op_AUIPC = 'b0010111;
@@ -79,13 +80,19 @@ package isa_gen;
     parameter op_AND = 'b0110011;
 
 
-    `define LUI(rd,imm) {imm[19:0], rd[4:0], op_LUI[6:0]};
+    `define LUI(rd,imm) {imm[31:12], rd[4:0], op_LUI[6:0]};
     `define AUIPC(rd,imm) {imm[19:0], rd[4:0], op_AUIPC[6:0]};
     `define ADDI(rd, rs1, imm) {imm[11:0], rs1[4:0], 3'b000, rd[4:0], op_ADDI[6:0]};
     `define LW(rd, base, offset) {offset[11:0], base[4:0], 3'b010, rd[4:0], op_LW[6:0]};
     `define SW(base, src, offset) {offset[11:5], src[4:0], base[4:0], 3'b010, offset[4:0], op_SW[6:0]}; //src == rs2
-    `define AND_(rd, rs1, rs2) {7'b0, rs2[4:0], rs1[4:0], 3'b111, rd[4:0], op_AND[6:0]};\
-        $display("rs1: %0d, rs2: %0d, rd: %0d, result: %b", rs1, rs2, rd, {7'b0, rs2[4:0], rs1[4:0], 3'b111, rd[4:0], op_AND[6:0]});
+    `define AND_(rd, rs1, rs2) {7'b0, rs2[4:0], rs1[4:0], 3'b111, rd[4:0], op_AND[6:0]};//\
+//        $display("rs1: %0d, rs2: %0d, rd: %0d, result: %b", rs1, rs2, rd, {7'b0, rs2[4:0], rs1[4:0], 3'b111, rd[4:0], op_AND[6:0]});
+//    `define ORI(rd, rs1, imm) {};
+    `define BLT(rs1, rs2, imm) {imm[12], imm[10:5], rs2[4:0], rs1[4:0], 3'b100, imm[4:1], imm[11], op_BLT[6:0]};
+    `define SLLI(rd, rs1, shamt) {7'b0, shamt[4:0], rs1[4:0], 3'b001, rd[4:0], op_SLLI[6:0]};
+    `define SLL(rd, rs1, rs2) {7'b0, rs2[4:0], rs1[4:0], 3'b001, rd[4:0], op_SLL[6:0]};
+    `define ADD_(rd, rs1, rs2) {7'b0, rs2[4:0], rs1[4:0], 3'b0, rd[4:0], op_ADD[6:0]};
+    
 
 endpackage
 

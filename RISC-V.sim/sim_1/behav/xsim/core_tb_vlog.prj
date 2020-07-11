@@ -1,0 +1,27 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../RISC-V.srcs/sources_1/new/instruction_types.sv" \
+"../../../../RISC-V.srcs/sources_1/new/imm_gen.sv" \
+"../../../../RISC-V.srcs/sources_1/new/alu.sv" \
+"../../../../RISC-V.srcs/sources_1/new/branch_gen.sv" \
+"../../../../RISC-V.srcs/sources_1/new/control.sv" \
+"../../../../RISC-V.srcs/sources_1/new/programcounter.sv" \
+"../../../../RISC-V.srcs/sources_1/new/ram.sv" \
+"../../../../RISC-V.srcs/sources_1/new/register.sv" \
+"../../../../RISC-V.srcs/sources_1/new/core.sv" \
+"../../../../RISC-V.srcs/sources_1/new/alu_tb.sv" \
+"../../../../RISC-V.srcs/sources_1/new/instruction_gen.sv" \
+"../../../../RISC-V.srcs/sources_1/new/control_tb.sv" \
+"../../../../RISC-V.srcs/sources_1/new/programcounter_tb.sv" \
+"../../../../RISC-V.srcs/sources_1/new/Top.sv" \
+"../../../../RISC-V.srcs/sources_1/new/ram_tb.sv" \
+"../../../../RISC-V.srcs/sources_1/new/register_tb.sv" \
+"../../../../RISC-V.srcs/sources_1/new/core_tb.sv" \
+"../../../../RISC-V.srcs/sources_1/new/imm_gen_tb.sv" \
+"../../../../RISC-V.srcs/sources_1/new/branch_gen_tb.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

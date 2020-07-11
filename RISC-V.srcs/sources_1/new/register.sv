@@ -44,7 +44,7 @@ module register(input clk, reset_n, enable, rd_enable,
     
     always_ff @ (posedge clk) begin
         if(enable && reset_n) begin
-            $display("reg[%0d] = %0d, reg[%0d] = %0d, reg[2] = %0d", rs1, adata, rs2, bdata, registers[2]);
+//            $display("reg[%0d] = %0d, reg[%0d] = %0d, reg[2] = %0d", rs1, adata, rs2, bdata, registers[2]);
             //only save to registers when told to
             if(rd_enable) begin
                 case (rd)
