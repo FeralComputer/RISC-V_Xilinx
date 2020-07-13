@@ -19,39 +19,50 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-//currently ram stores all half words and bytes in each full word and does not do byte memory as risc wants
+import risc_structs::*;
 
 module ram#(N=64)(
-    input clk, ena,
+    input clk, ena, sign,
     input int dia, addra, addrb,
-    input [2:0] memory_sizea, memory_sizeb,
+    input logic [2:0] memory_sizea, memory_sizeb,
     output int dob
     );
-    localparam word = 3'b100;
-    localparam half_word = 3'b010;
-    localparam byte_ = 3'b001;
-    logic [15:0] ram1[N-1], ram2[N-1];
+
+    logic [7:0] ram1[N-3], ram2[N-3], ram3[N-3], ram4[N-3];
     
-    
+    //read value from ram
     always_comb begin
         case(memory_sizeb)
-            word: begin
+            ram_word: begin
                 #1ps;
-                if(addrb[0]) begin
-                    dob = {ram1[addrb[31:1] + 1'b1], ram2[addrb[31:1]]};
-                end else begin
-                    dob = {ram2[addrb[31:1]], ram1[addrb[31:1]]};
-                end
+                //ordering the ram correctly for full 32 bits
+                case(addrb[1:0])
+                    2'b00: dob = {ram4[addrb[31:2]], ram3[addrb[31:2]], ram2[addrb[31:2]], ram1[addrb[31:2]]};
+                    2'b01: dob = {ram1[addrb[31:2] + 1'b1], ram4[addrb[31:2]], ram3[addrb[31:2]], ram2[addrb[31:2]]};
+                    2'b10: dob = {ram2[addrb[31:2] + 1'b1], ram1[addrb[31:2] + 1'b1], ram4[addrb[31:2]], ram3[addrb[31:2]]};
+                    2'b11: dob = {ram3[addrb[31:2] + 1'b1], ram2[addrb[31:2] + 1'b1], ram1[addrb[31:2] + 1'b1], ram4[addrb[31:2]]};
+                endcase
             end
             
-            half_word: begin
+            ram_half_word: begin
                 #1ps; 
-                dob = {16'b0, (addrb[0]) ? ram2[addrb[31:1]] : ram1[addrb[31:1]]};
+                //ordering ram for 16 bits
+                case(addrb[1:0])
+                    2'b00: dob = {sign ? {16{ram2[addrb[31:2]][7]}} : 16'b0, ram2[addrb[31:2]], ram1[addrb[31:2]]};
+                    2'b01: dob = {sign ? {16{ram3[addrb[31:2]][7]}} : 16'b0, ram3[addrb[31:2]], ram2[addrb[31:2]]};
+                    2'b10: dob = {sign ? {16{ram4[addrb[31:2]][7]}} : 16'b0, ram4[addrb[31:2]], ram3[addrb[31:2]]};
+                    2'b11: dob = {sign ? {16{ram1[addrb[31:2] + 1'b1][7]}} : 16'b0, ram1[addrb[31:2] + 1'b1], ram4[addrb[31:2]]};
+                endcase                
             end
             
-            byte_: begin
+            ram_byte: begin
                 #1ps ;
-                dob = {24'b0, (addrb[0]) ? ram2[addrb[31:1]][7:0] : ram1[addrb[31:1]][7:0]};
+                case(addrb[1:0])
+                    2'b00: dob = {sign ? {24{ram1[addrb[31:2]][7]}} : 24'b0, ram1[addrb[31:2]]};
+                    2'b01: dob = {sign ? {24{ram2[addrb[31:2]][7]}} : 24'b0, ram2[addrb[31:2]]};
+                    2'b10: dob = {sign ? {24{ram3[addrb[31:2]][7]}} : 24'b0, ram3[addrb[31:2]]};
+                    2'b11: dob = {sign ? {24{ram4[addrb[31:2]][7]}} : 24'b0, ram4[addrb[31:2]]};
+                endcase
             end
             
             default: begin
@@ -62,30 +73,38 @@ module ram#(N=64)(
         endcase
     end
     
+    //write value into ram
     always_ff @(posedge clk) begin
             if(ena) begin
-                unique case(memory_sizea)
-                    word: begin
-                        //write 32 bits in 16 bit incremented ram
-                        if(addra[0]) begin
-                            {ram1[addra[31:1]+1], ram2[addra[31:1]]} <= dia;
-                        end else begin
-                            {ram2[addra[31:1]], ram1[addra[31:1]]} <= dia;
-                        end
+                case(memory_sizea)
+                    ram_word: begin
+                        //write 32 bits in 8 bit incremented ram
+                        case(addra[1:0])
+                            2'b00: {ram4[addra[31:2]], ram3[addra[31:2]], ram2[addra[31:2]], ram1[addra[31:2]]} <= dia;
+                            2'b01: {ram1[addra[31:2] + 1'b1], ram4[addra[31:2]], ram3[addra[31:2]], ram2[addra[31:2]]} <= dia;
+                            2'b10: {ram2[addra[31:2] + 1'b1], ram1[addra[31:2] + 1'b1], ram4[addra[31:2]], ram3[addra[31:2]]} <= dia;
+                            2'b11: {ram3[addra[31:2] + 1'b1], ram2[addra[31:2] + 1'b1], ram1[addra[31:2] + 1'b1], ram4[addra[31:2]]} <= dia;
+                        endcase
                     end
                     
-                    half_word: begin
+                    ram_half_word: begin
                         //write 16 bits
-                        if(addra[0]) begin
-                            ram2[addra[31:1]] <= dia[15:0];
-                        end else begin
-                            ram1[addra[31:1]] <= dia[15:0];
-                        end
+                        case(addra[1:0])
+                            2'b00: {ram2[addra[31:2]], ram1[addra[31:2]]} <= dia[15:0];
+                            2'b01: {ram3[addra[31:2]], ram2[addra[31:2]]} <= dia[15:0];
+                            2'b10: {ram4[addra[31:2]], ram3[addra[31:2]]} <= dia[15:0];
+                            2'b11: {ram1[addra[31:2] + 1'b1], ram4[addra[31:2]]} <= dia[15:0];
+                        endcase  
                     end
                     
-                    byte_: begin
-                        //not implemented
-                        assert('b1=='b0);
+                    ram_byte: begin
+                        //write 8 bits
+                        case(addra[1:0])
+                            2'b00: ram1[addra[31:2]] <= dia[7:0];
+                            2'b01: ram2[addra[31:2]] <= dia[7:0];
+                            2'b10: ram3[addra[31:2]] <= dia[7:0];
+                            2'b11: ram4[addra[31:2]] <= dia[7:0];
+                        endcase
                     end
 
                 endcase

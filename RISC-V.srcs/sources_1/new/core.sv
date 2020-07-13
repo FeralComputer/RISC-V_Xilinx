@@ -50,22 +50,25 @@ module core(input logic clk, reset_n, enable,
     logic [1:0] reg_wdata_sel;
     logic alua_sel, alub_sel;
     logic unsign;
+    logic dram_sign;
+    logic [2:0] dram_mem_size_a, dram_mem_size_b;
     
     int next_program_counter;
     
     //brains of the operation (hopefully)
     control ctrl(.instruction(instruction), .br_ne(br_ne), .br_lt(br_lt), .alu_sel(alu_sel), .pc_wsel(pc_wsel),
                     .reg_wen(reg_wen), .alua_sel(alua_sel), .alub_sel(alub_sel), .dram_wsel(dram_wsel), .reg_wdata_sel(reg_wdata_sel), 
-                    .instruction_type(isa_type), .decode_error(decode_error), .unsign(unsign));
+                    .instruction_type(isa_type), .decode_error(decode_error), .unsign(unsign), .dram_sign(dram_sign), 
+                    .dram_mem_size_b(dram_mem_size_b), .dram_mem_size_a(dram_mem_size_a));
     //
     register regs(.clk(clk), .reset_n(reset_n), .enable(enable), .rd_enable(reg_wen == reg_write_en), .rs1(rs1), .rs2(rs2), .rd(rd), 
                 .adata(adata), .bdata(bdata), .indata(reg_wdata));
                 
     ram iram(.clk(clk), .ena(debug_enable_write_iram ), .addrb(enable ? program_counter : debug_read_addr_iram), .addra(debug_write_addr_iram), 
-                .dia(debug_write_data_iram ), .dob(instruction), .memory_sizea(3'b100), .memory_sizeb(3'b100) ); // keep memory size at 32 bits for now...
+                .dia(debug_write_data_iram ), .dob(instruction), .memory_sizea(ram_word), .memory_sizeb(ram_word), .sign(0) ); // keep memory size at 32 bits for now...
                 
     ram dram(.clk(clk), .ena(dram_wsel == dram_write_en | debug_enable_write_dram), .addrb(enable ? alu_result : debug_read_addr_dram), .addra(enable ? alu_result : debug_write_addr_dram), 
-                .dia(enable ? bdata : debug_write_data_dram), .dob(dram_dob), .memory_sizea(3'b100), .memory_sizeb(3'b100)); // keep memory size at 32 bits for now...
+                .dia(enable ? bdata : debug_write_data_dram), .dob(dram_dob), .memory_sizea(dram_mem_size_a), .memory_sizeb(dram_mem_size_b), .sign(dram_sign)); // keep memory size at 32 bits for now...
                 
     programcounter pc(.clk(clk), .reset_n(reset_n), .enable(enable), .modify_pc(pc_wsel), .modified_pc(alu_result),
                 .program_counter(program_counter), .next_program_counter(next_program_counter));
@@ -136,7 +139,7 @@ module core(input logic clk, reset_n, enable,
                     SRA.instruct_compare: $display("SRA: \trd = r%0d \trs1 = r%0d \trs2 = r%0d \talu1 = %0d \talu2 = %0d \tresult = %0d", rd, rs1, rs2, alu_in1, alu_in2, reg_wdata);
                     OR_.instruct_compare: $display("OR: \trd = r%0d \trs1 = r%0d \trs2 = r%0d \talu1 = %0d \talu2 = %0d \tresult = %0d", rd, rs1, rs2, alu_in1, alu_in2, reg_wdata);
                     AND_.instruct_compare: $display("AND: \trd = r%0d \trs1 = r%0d \trs2 = r%0d \talu1 = %0d \talu2 = %0d \tresult = %0d", rd, rs1, rs2, alu_in1, alu_in2, reg_wdata);
-                    default: $error("Unknown instruction: %0b", instruction);
+                    default: $display("Unknown instruction: %0b", instruction);
                 endcase
             end
         end

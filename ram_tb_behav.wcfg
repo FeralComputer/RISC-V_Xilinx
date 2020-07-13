@@ -14,15 +14,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="210fs"></ZoomEndTime>
+      <ZoomStartTime time="129fs"></ZoomStartTime>
+      <ZoomEndTime time="409fs"></ZoomEndTime>
       <Cursor1Time time="135fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="163"></NameColumnWidth>
+      <NameColumnWidth column_width="159"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="32" />
+   <WVObjectSize size="34" />
    <wvobject fp_name="/core_tb/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -149,11 +149,19 @@
       <obj_property name="ObjectShortName">addrb[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/core_tb/dut/dram/ram1" type="array">
-      <obj_property name="ElementShortName">ram1[0:62][15:0]</obj_property>
-      <obj_property name="ObjectShortName">ram1[0:62][15:0]</obj_property>
+      <obj_property name="ElementShortName">ram1[0:60][7:0]</obj_property>
+      <obj_property name="ObjectShortName">ram1[0:60][7:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/core_tb/dut/dram/ram2" type="array">
-      <obj_property name="ElementShortName">ram2[0:62][15:0]</obj_property>
-      <obj_property name="ObjectShortName">ram2[0:62][15:0]</obj_property>
+      <obj_property name="ElementShortName">ram2[0:60][7:0]</obj_property>
+      <obj_property name="ObjectShortName">ram2[0:60][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/dram/ram3" type="array">
+      <obj_property name="ElementShortName">ram3[0:60][7:0]</obj_property>
+      <obj_property name="ObjectShortName">ram3[0:60][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/core_tb/dut/dram/ram4" type="array">
+      <obj_property name="ElementShortName">ram4[0:60][7:0]</obj_property>
+      <obj_property name="ObjectShortName">ram4[0:60][7:0]</obj_property>
    </wvobject>
 </wave_config>

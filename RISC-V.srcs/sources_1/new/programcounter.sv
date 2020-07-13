@@ -19,14 +19,12 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-//currently ram stores all half words and bytes in each full word and does not do byte memory as risc wants
-
 module programcounter(input clk, enable, reset_n, modify_pc,
                         input int modified_pc,
                         output int program_counter, next_program_counter
                         );
     
-    localparam pc_increment = 2;//change to 4 when ram stores in blocks of 8 bits
+    localparam pc_increment = 4;
     
     int next_pc;
     

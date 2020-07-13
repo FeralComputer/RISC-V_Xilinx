@@ -9,12 +9,12 @@ Instruction           4: 00000000000000001000000010010011
 Instruction           5: 00000000000000000000000100110111
 Instruction           6: 00000001010000010000000100010011
 Instruction           7: 00000000000100011000000110010011
-Instruction           8: 00000000000100010100001001100011
+Instruction           8: 00000000000100010100010101100011
 Instruction           9: 00000000000100100001001010110011
 Instruction          10: 00000000010100110010010100100011
-Instruction          11: 00000000001000110000001100010011
+Instruction          11: 00000000010000110000001100010011
 Instruction          12: 00000000000100011000000010110011
-Instruction          13: 11111110001000001100110011100011
+Instruction          13: 11111110001000001100100011100011
 Instruction          14: 11111111111111111111111111111111
 Running BLT prog test
 AND: 	rd = r1 	rs1 = r0 	rs2 = r1 	alu1 = 0 	alu2 = 0 	result = 0
@@ -25,99 +25,99 @@ ADDI: 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = 0 	result = 0
 LUI: 	rd = r2 	imm = 0 	result = 0
 ADDI: 	rd = r2 	rs1 = r2 	alu1 = 0 	alu2 = 20 	result = 20
 ADDI: 	rd = r3 	rs1 = r3 	alu1 = 0 	alu2 = 1 	result = 1
-BLT: 	rs1 = r2 	rs2 = r1 	adata = 20 	bdata = 0 	offset = 4 	br_ne = 1 	br_lt = 0 	unsign = 0
+BLT: 	rs1 = r2 	rs2 = r1 	adata = 20 	bdata = 0 	offset = 10 	br_ne = 1 	br_lt = 0 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 0 	result = 1
 SW: 	base = r6 	src = r5 	offset = 10 	address = 10 	value = 1
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 0 	alu2 = 2 	result = 2
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 0 	alu2 = 4 	result = 4
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 0 	result = 1
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 1 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 1 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 1 	result = 2
-SW: 	base = r6 	src = r5 	offset = 10 	address = 12 	value = 2
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 2 	alu2 = 2 	result = 4
+SW: 	base = r6 	src = r5 	offset = 10 	address = 14 	value = 2
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 4 	alu2 = 4 	result = 8
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 1 	result = 2
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 2 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 2 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 2 	result = 4
-SW: 	base = r6 	src = r5 	offset = 10 	address = 14 	value = 4
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 4 	alu2 = 2 	result = 6
+SW: 	base = r6 	src = r5 	offset = 10 	address = 18 	value = 4
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 8 	alu2 = 4 	result = 12
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 2 	result = 3
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 3 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 3 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 3 	result = 8
-SW: 	base = r6 	src = r5 	offset = 10 	address = 16 	value = 8
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 6 	alu2 = 2 	result = 8
+SW: 	base = r6 	src = r5 	offset = 10 	address = 22 	value = 8
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 12 	alu2 = 4 	result = 16
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 3 	result = 4
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 4 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 4 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 4 	result = 16
-SW: 	base = r6 	src = r5 	offset = 10 	address = 18 	value = 16
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 8 	alu2 = 2 	result = 10
+SW: 	base = r6 	src = r5 	offset = 10 	address = 26 	value = 16
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 16 	alu2 = 4 	result = 20
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 4 	result = 5
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 5 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 5 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 5 	result = 32
-SW: 	base = r6 	src = r5 	offset = 10 	address = 20 	value = 32
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 10 	alu2 = 2 	result = 12
+SW: 	base = r6 	src = r5 	offset = 10 	address = 30 	value = 32
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 20 	alu2 = 4 	result = 24
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 5 	result = 6
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 6 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 6 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 6 	result = 64
-SW: 	base = r6 	src = r5 	offset = 10 	address = 22 	value = 64
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 12 	alu2 = 2 	result = 14
+SW: 	base = r6 	src = r5 	offset = 10 	address = 34 	value = 64
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 24 	alu2 = 4 	result = 28
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 6 	result = 7
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 7 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 7 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 7 	result = 128
-SW: 	base = r6 	src = r5 	offset = 10 	address = 24 	value = 128
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 14 	alu2 = 2 	result = 16
+SW: 	base = r6 	src = r5 	offset = 10 	address = 38 	value = 128
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 28 	alu2 = 4 	result = 32
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 7 	result = 8
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 8 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 8 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 8 	result = 256
-SW: 	base = r6 	src = r5 	offset = 10 	address = 26 	value = 256
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 16 	alu2 = 2 	result = 18
+SW: 	base = r6 	src = r5 	offset = 10 	address = 42 	value = 256
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 32 	alu2 = 4 	result = 36
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 8 	result = 9
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 9 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 9 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 9 	result = 512
-SW: 	base = r6 	src = r5 	offset = 10 	address = 28 	value = 512
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 18 	alu2 = 2 	result = 20
+SW: 	base = r6 	src = r5 	offset = 10 	address = 46 	value = 512
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 36 	alu2 = 4 	result = 40
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 9 	result = 10
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 10 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 10 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 10 	result = 1024
-SW: 	base = r6 	src = r5 	offset = 10 	address = 30 	value = 1024
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 20 	alu2 = 2 	result = 22
+SW: 	base = r6 	src = r5 	offset = 10 	address = 50 	value = 1024
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 40 	alu2 = 4 	result = 44
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 10 	result = 11
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 11 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 11 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 11 	result = 2048
-SW: 	base = r6 	src = r5 	offset = 10 	address = 32 	value = 2048
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 22 	alu2 = 2 	result = 24
+SW: 	base = r6 	src = r5 	offset = 10 	address = 54 	value = 2048
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 44 	alu2 = 4 	result = 48
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 11 	result = 12
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 12 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 12 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 12 	result = 4096
-SW: 	base = r6 	src = r5 	offset = 10 	address = 34 	value = 4096
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 24 	alu2 = 2 	result = 26
+SW: 	base = r6 	src = r5 	offset = 10 	address = 58 	value = 4096
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 48 	alu2 = 4 	result = 52
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 12 	result = 13
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 13 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 13 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 13 	result = 8192
-SW: 	base = r6 	src = r5 	offset = 10 	address = 36 	value = 8192
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 26 	alu2 = 2 	result = 28
+SW: 	base = r6 	src = r5 	offset = 10 	address = 62 	value = 8192
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 52 	alu2 = 4 	result = 56
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 13 	result = 14
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 14 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 14 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 14 	result = 16384
-SW: 	base = r6 	src = r5 	offset = 10 	address = 38 	value = 16384
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 28 	alu2 = 2 	result = 30
+SW: 	base = r6 	src = r5 	offset = 10 	address = 66 	value = 16384
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 56 	alu2 = 4 	result = 60
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 14 	result = 15
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 15 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 15 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 15 	result = 32768
-SW: 	base = r6 	src = r5 	offset = 10 	address = 40 	value = 32768
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 30 	alu2 = 2 	result = 32
+SW: 	base = r6 	src = r5 	offset = 10 	address = 70 	value = 32768
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 60 	alu2 = 4 	result = 64
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 15 	result = 16
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 16 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 16 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 16 	result = 65536
-SW: 	base = r6 	src = r5 	offset = 10 	address = 42 	value = 65536
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 32 	alu2 = 2 	result = 34
+SW: 	base = r6 	src = r5 	offset = 10 	address = 74 	value = 65536
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 64 	alu2 = 4 	result = 68
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 16 	result = 17
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 17 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 17 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 17 	result = 131072
-SW: 	base = r6 	src = r5 	offset = 10 	address = 44 	value = 131072
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 34 	alu2 = 2 	result = 36
+SW: 	base = r6 	src = r5 	offset = 10 	address = 78 	value = 131072
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 68 	alu2 = 4 	result = 72
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 17 	result = 18
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 18 	bdata = 20 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+BLT: 	rs1 = r1 	rs2 = r2 	adata = 18 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
 SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 18 	result = 262144
-SW: 	base = r6 	src = r5 	offset = 10 	address = 46 	value = 262144
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 36 	alu2 = 2 	result = 38
+SW: 	base = r6 	src = r5 	offset = 10 	address = 82 	value = 262144
+ADDI: 	rd = r6 	rs1 = r6 	alu1 = 72 	alu2 = 4 	result = 76
 ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 18 	result = 19
-BLT: 	rs1 = r1 	rs2 = r2 	
+BLT

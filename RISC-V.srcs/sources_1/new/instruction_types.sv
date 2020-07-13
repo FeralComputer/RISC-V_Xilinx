@@ -46,6 +46,7 @@ package risc_structs;
         x30 = 30, x31 = 31
     } registers ;
     
+    enum {ram_word = 4, ram_half_word = 2, ram_byte = 1} ram_size_sel;
     enum {pc_increment, pc_write} pc_mux;
     enum {dram_write_en = 1, dram_write_noten = 0} dram_write_sel;
     enum {reg_write_en = 1, reg_write_noten = 0} reg_wstatus;

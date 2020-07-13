@@ -52,14 +52,7 @@ module core_tb(
             );
 
         
-        int load_program [6];// = '{
-//        `AND_(x1, x0, x1)  //set x1 to 0
-//        `AND_(x2, x0, x2), //set x2 to 0 to act as base for load and write
-//        `LUI(x1, write_data), //load uppermost 20 bits to x1
-//        `ADDI(x1, x1, write_data ), // add the lower 12 bits to x1
-//        `SW(x2, x1, save_pointer), //store x1 to 10 offset from x2
-//        `LW(x3, x2, save_pointer) //load data from 10 offset from x2 to x3
-//     };
+        int load_program [6];
     
     int read_value;
 
@@ -69,7 +62,7 @@ module core_tb(
     int shift_amount = 1;
     int jump_to_end = 5;
     int jump_amount = -8;
-    int mem_inc = 2;
+    int mem_inc = 4;
     
     //write instruction into iram
     task SET_INSTRUCTION(input int instruction, address);
@@ -101,7 +94,7 @@ module core_tb(
     
     task TEST_FOR_LOOP(input int compare_val, initial_val, increment_val, save_pointer);
         int blt_prog[BLT_PROG_LEN];
-        static int jump_val = -8, mem_val =2, jump_end_val = 5 ;
+        static int jump_val = -16, mem_val =4, jump_end_val = 10 ;
         
         // x1 = increment, x2 = compare, x3 = increment amount, x4 = result of operation inside loop
         blt_prog[0] = `AND_(x1, x0, x1);// set x1 to 0
@@ -115,19 +108,19 @@ module core_tb(
         blt_prog[8] = `BLT(x2, x1, jump_end_val);// check condition
         blt_prog[9] = `SLL(x5, x4, x1);// run something
         blt_prog[10] = `SW(x6, x5, save_pointer);// store value in dram to be checked by assert
-        blt_prog[11] = `ADDI(x6, x6, mem_val); //increment memory pointer by 2
+        blt_prog[11] = `ADDI(x6, x6, mem_val); //increment memory pointer by 4
         blt_prog[12] = `ADD_(x1, x3, x1);// increment increment
         blt_prog[13] = `BLT(x1, x2, jump_val);// check branch condition
         blt_prog[14] = 'hffff_ffff;// end
         
         for(int i = 0; i < BLT_PROG_LEN; i += 1) begin
             $display("Instruction %d: %b", i, blt_prog[i]);
-            SET_INSTRUCTION(blt_prog[i], 2*i);
+            SET_INSTRUCTION(blt_prog[i], 4*i);
         end
         $display("Running BLT prog test");
         enable = 1;
         
-        while(prog_count < 28) begin
+        while(prog_count < 14 * 4) begin
             `cycle(1);
             #1ps;
         end
@@ -135,10 +128,10 @@ module core_tb(
         
         enable = 0;
 
-        for(int i = 0; i < (compare_val - initial_val)/increment_val * 2; i+= 2) begin
+        for(int i = 0; i < (compare_val - initial_val)/increment_val * 4; i+= 4) begin
             GET_DRAM_VALUE(i+save_pointer, read_value);
-            assert(read_value == ('b1 << (i/2))) $display("BLT PROG assert success with %d", read_value);
-            else $display("BLT PROG assert failed expected: %d received: %d", ('b1 << (i/2)),read_value);
+            assert(read_value == ('b1 << (i/4))) $display("BLT PROG assert success with %d", read_value);
+            else $display("BLT PROG assert failed expected: %d received: %d", ('b1 << (i/4)),read_value);
         end
     endtask
             

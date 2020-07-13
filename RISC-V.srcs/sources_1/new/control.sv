@@ -39,7 +39,10 @@ module control( input int instruction,
                 output logic [1:0] reg_wdata_sel, //selects between dram_output, alu_output, and pc
                 output logic [ISA_TYPE_COUNT-1:0] instruction_type, //selects the imm sign extension
                 output logic decode_error, //goes high when instruction did not match known instructions
-                output logic unsign //used by the banch gen for signed vs unsigned
+                output logic unsign, //used by the banch gen for signed vs unsigned
+                output logic dram_sign, // used by dram to determine if output should be signed or not
+                output logic [2:0] dram_mem_size_a, //used by dram for determining write size
+                output logic [2:0] dram_mem_size_b //used by dram for determining read size
     );
     
     
@@ -61,6 +64,9 @@ module control( input int instruction,
         dram_wsel = dram_write_noten;
         reg_wdata_sel = reg_write_alu;
         unsign = 'bx;
+        dram_sign = 1;
+        dram_mem_size_a = ram_word;
+        dram_mem_size_b = ram_word;
 
         //determines instruction type and enables instruction flag relative to instruction
         casex(instruction) //: intruction_to_type_decoding
@@ -82,9 +88,7 @@ module control( input int instruction,
                 alua_sel = alua_pc;
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_noten;
-                pc_wsel = pc_increment;
-                
-
+                pc_wsel = pc_increment;                
             end
             JAL.instruct_compare:  begin 
                 instruction_type = JAL.isa_type;
@@ -179,6 +183,7 @@ module control( input int instruction,
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_noten;
                 pc_wsel = pc_increment;
+                dram_mem_size_b = ram_byte;
             end
             LH.instruct_compare: begin 
                 instruction_type = LH.isa_type;
@@ -189,6 +194,7 @@ module control( input int instruction,
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_noten;
                 pc_wsel = pc_increment;
+                dram_mem_size_b = ram_half_word;
             end
             LW.instruct_compare: begin 
                 instruction_type = LW.isa_type;
@@ -199,6 +205,7 @@ module control( input int instruction,
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_noten;
                 pc_wsel = pc_increment;
+                dram_mem_size_b = ram_word;
             end
             LBU.instruct_compare: begin 
                 instruction_type = LBU.isa_type;
@@ -209,6 +216,8 @@ module control( input int instruction,
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_noten;
                 pc_wsel = pc_increment;
+                dram_sign = 0;
+                dram_mem_size_b = ram_byte;
             end
             LHU.instruct_compare: begin 
                 instruction_type = LHU.isa_type;
@@ -219,6 +228,8 @@ module control( input int instruction,
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_noten;
                 pc_wsel = pc_increment;
+                dram_sign = 0;
+                dram_mem_size_b = ram_half_word;
             end
             SB.instruct_compare: begin 
                 instruction_type = SB.isa_type;
@@ -229,6 +240,7 @@ module control( input int instruction,
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_en;
                 pc_wsel = pc_increment;
+                dram_mem_size_a = ram_byte;
             end
             SH.instruct_compare: begin 
                 instruction_type = SH.isa_type;
@@ -239,6 +251,7 @@ module control( input int instruction,
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_en;
                 pc_wsel = pc_increment;
+                dram_mem_size_a = ram_half_word;
             end
             SW.instruct_compare: begin 
                 instruction_type = SW.isa_type;
@@ -249,6 +262,7 @@ module control( input int instruction,
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_en;
                 pc_wsel = pc_increment;
+                dram_mem_size_a = ram_word;
             end
             ADDI.instruct_compare: begin 
                 instruction_type = ADDI.isa_type;
