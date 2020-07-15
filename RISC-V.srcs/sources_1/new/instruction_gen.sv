@@ -78,9 +78,18 @@ package isa_gen;
     parameter op_SRA = 'b0110011;
     parameter op_OR = 'b0110011;
     parameter op_AND = 'b0110011;
+    parameter op_CSRRW = 'b1110011;
+    parameter op_CSRRS = 'b1110011;
+    parameter op_CSRRC = 'b1110011;
+    parameter op_CSRRWI = 'b1110011;
+    parameter op_CSRRSI = 'b1110011;
+    parameter op_CSRRCI = 'b1110011;
 
 
+
+    //instructions not defined here have not been tested 
     `define LUI(rd,imm) {imm[31:12], rd[4:0], op_LUI[6:0]};
+    `define LUI_corrected(rd,imm) {(imm[11] ? imm[31:12] + 1 : imm[31:12]), rd[4:0], op_LUI[6:0]};
     `define AUIPC(rd,imm) {imm[19:0], rd[4:0], op_AUIPC[6:0]};
     `define ADDI(rd, rs1, imm) {imm[11:0], rs1[4:0], 3'b000, rd[4:0], op_ADDI[6:0]};
     `define LW(rd, base, offset) {offset[11:0], base[4:0], 3'b010, rd[4:0], op_LW[6:0]};
@@ -92,6 +101,10 @@ package isa_gen;
     `define SLLI(rd, rs1, shamt) {7'b0, shamt[4:0], rs1[4:0], 3'b001, rd[4:0], op_SLLI[6:0]};
     `define SLL(rd, rs1, rs2) {7'b0, rs2[4:0], rs1[4:0], 3'b001, rd[4:0], op_SLL[6:0]};
     `define ADD_(rd, rs1, rs2) {7'b0, rs2[4:0], rs1[4:0], 3'b0, rd[4:0], op_ADD[6:0]};
+    `define CSRRW(rd, rs1, addr) {addr[11:0], rs1[4:0], 3'b001, rd[4:0], op_CSRRW[6:0]};
+    `define CSRRS(rd, rs1, addr) {addr[11:0], rs1[4:0], 3'b010, rd[4:0], op_CSRRS[6:0]};
+    `define CSRRC(rd, rs1, addr) {addr[11:0], rs1[4:0], 3'b011, rd[4:0], op_CSRRC[6:0]};
+
     
 
 endpackage

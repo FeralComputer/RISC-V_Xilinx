@@ -19,6 +19,7 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 import isa_gen::*;
+import risc_structs::*;
 
 `define cycle(count) \
         repeat (count) @ (posedge clk); \
@@ -102,7 +103,7 @@ module core_tb(
         blt_prog[2] = `AND_(x3, x0, x3);// set x3 to 0
         blt_prog[3] = `ADDI(x4, x0, increment_val);// set x4 to 0
         blt_prog[4] = `ADDI(x1, x1, initial_val);// set x1 to initial value
-        blt_prog[5] = `LUI(x2, compare_val);// set x2 to compare value
+        blt_prog[5] = `LUI_corrected(x2, compare_val);// set x2 to compare value
         blt_prog[6] = `ADDI(x2, x2, compare_val);
         blt_prog[7] = `ADDI(x3, x3, increment_val);// set x3 to increment amount
         blt_prog[8] = `BLT(x2, x1, jump_end_val);// check condition
@@ -134,6 +135,91 @@ module core_tb(
             else $display("BLT PROG assert failed expected: %d received: %d", ('b1 << (i/4)),read_value);
         end
     endtask
+    
+    task csr_and_timers_test();
+        // program tests the csr and timers
+        // x1 contains value to compare against rdtime which is then stored
+        // x10 contains value to be written into csr_test
+        // x11 contains mask to set bits in csr_test
+        // x12 contains maks to clear bits in csr_test 
+        static int write_x1 = 'd1245;
+        static int test_mem_rw = 20;
+        static int test_val_rw = 'haaaa_aaaa;
+        static int test_mem_rs = 24;
+        static int test_mask_rs = 'h0000_ffff;
+        static int test_mem_rc = 28;
+        static int test_mask_rc = 'hffff_0000;
+        static int test_mem_rdcycle = 32;
+        static int test_mem_rdinstret = 36;
+        static int test_mem_rdtimer = 40;
+        static int read_value;
+        localparam PROG_LENGTH = 24;
+        int prog[PROG_LENGTH];
+        prog[0] = `LUI_corrected(x1, write_x1); //load x1 with compare value to leave loop 
+        prog[1] = `ADDI(x1, x1, write_x1);
+        prog[2] = `LUI_corrected(x10, test_val_rw); //load value to be loaded into csr_test
+        prog[3] = `ADDI(x10, x10, test_val_rw);
+        prog[4] = `LUI_corrected(x11, test_mask_rs); //load mask for csrrs test
+        prog[5] = `ADDI(x11, x11, test_mask_rs);
+        prog[6] = `LUI_corrected(x12, test_mask_rc); //load mask for csrrc test
+        prog[7] = `ADDI(x12, x12, test_mask_rc);
+        prog[8] = `CSRRW(x13, x10, CSR_TEST); //load value in x10 into csr_test and write original into x13
+        prog[9] = `CSRRS(x13, x11, CSR_TEST); //mask csr_test with value in x11 and write rw result into x13
+        prog[10] = `SW(x0, x13, test_mem_rw); //store rw result into memory
+        prog[11] = `CSRRC(x13, x12, CSR_TEST); //mask csr_test with value in x12 and write rs result into x13
+        prog[12] = `SW(x0, x13, test_mem_rs); //store rs result into memory
+        prog[13] = `CSRRC(x13, x0, CSR_TEST); //mask csr_test with x0 as to not modify and write rc result into x13
+        prog[14] = `SW(x0, x13, test_mem_rc); //store rc result into memory
+        prog[15] = `CSRRS(x13, x0, CSR_RDCYCLE); //put cycle count into x13
+        prog[16] = `SW(x0, x13, test_mem_rdcycle); //store cycle count into memory
+        prog[17] = `CSRRS(x13, x0, CSR_RDINSTRET); //put instret count into x13
+        prog[18] = `SW(x0, x13, test_mem_rdinstret); //store instret into memory
+        prog[19] = `ADD_(x0, x0, x0); //nop
+        prog[20] = `ADD_(x0, x0, x0); //nop
+        prog[21] = `CSRRS(x13, x0, CSR_RDTIMER); //store timer into x13
+        prog[22] = `SW(x0, x13, test_mem_rdtimer); //store timer into memory
+        prog[23] = 32'hffff_ffff;
+
+        for(int i = 0; i < PROG_LENGTH; i += 1) begin
+            $display("Instruction %d: %b", i, prog[i]);
+            SET_INSTRUCTION(prog[i], 4*i);
+        end
+        $display("Running CSR and timer test");
+        enable = 1;
+        
+        while(prog_count < PROG_LENGTH * 4) begin
+            `cycle(1);
+            #1ps; //need this or vivado becomes angry
+        end
+        $display("End Running... pc: %d", prog_count);
+        
+        enable = 0;
+
+        GET_DRAM_VALUE(test_mem_rw, read_value);
+        assert(read_value == test_val_rw) $display("CSRRW assert success with %d", read_value);
+        else $display("CSRRW assert failed expected: %d received: %d", test_val_rw, read_value);
+
+        GET_DRAM_VALUE(test_mem_rs, read_value);
+        assert(read_value == test_mask_rs | test_val_rw) $display("CSRRS assert success with %d", read_value);
+        else $display("CSRRS assert failed expected: %d received: %d", test_mask_rs | test_val_rw, read_value);
+
+        GET_DRAM_VALUE(test_mem_rc, read_value);
+        assert(read_value == ~test_mask_rc & (test_mask_rs | test_val_rw)) $display("CSRRC assert success with %d", read_value);
+        else $display("CSRRC assert failed expected: %d received: %d", ~test_mask_rc & (test_mask_rs | test_val_rw), read_value);
+
+        GET_DRAM_VALUE(test_mem_rdcycle, read_value);
+        assert(read_value == 15) $display("RDCYCLE assert success with %d", read_value);
+        else $display("RDCYCLE assert failed expected: %d received: %d", 15, read_value);
+
+        GET_DRAM_VALUE(test_mem_rdinstret, read_value);
+        assert(read_value == 17) $display("RDINSTRET assert success with %d", read_value);
+        else $display("RDINSTRET assert failed expected: %d received: %d", 17, read_value);
+
+        GET_DRAM_VALUE(test_mem_rdtimer, read_value);
+        assert(read_value == 2) $display("RDTIMER assert success with %d", read_value);
+        else $display("RDTIMER assert failed expected: %d received: %d", 2, read_value);
+
+    endtask
             
     initial begin
         
@@ -162,6 +248,15 @@ module core_tb(
         `cycle(1);
         
         TEST_FOR_LOOP(20,0,1,10);
+
+        reset_n = 0;
+        `cycle(1);
+        
+        reset_n = 1;
+        
+        `cycle(1);
+
+        csr_and_timers_test();
 
         //validating read and write from dram
         $display("Attempt to read and write from dram");

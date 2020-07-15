@@ -20,14 +20,6 @@
 //////////////////////////////////////////////////////////////////////////////////
 import risc_structs::*;
 
-
-
-
-
-
- 
-
-
 module control( input int instruction,
                 input br_ne, br_lt, // branch != and <
                 output logic [ALU_INSTRUCTION_COUNT-1:0] alu_sel, //alu selection
@@ -42,7 +34,9 @@ module control( input int instruction,
                 output logic unsign, //used by the banch gen for signed vs unsigned
                 output logic dram_sign, // used by dram to determine if output should be signed or not
                 output logic [2:0] dram_mem_size_a, //used by dram for determining write size
-                output logic [2:0] dram_mem_size_b //used by dram for determining read size
+                output logic [2:0] dram_mem_size_b, //used by dram for determining read size
+                output logic [2:0] csr_sel, //used to select instruction for csr
+                output logic csr_data_sel //used to select between adata and uimm for csr
     );
     
     
@@ -67,6 +61,8 @@ module control( input int instruction,
         dram_sign = 1;
         dram_mem_size_a = ram_word;
         dram_mem_size_b = ram_word;
+        csr_sel = csr_idle;
+        csr_data_sel = 'bx;
 
         //determines instruction type and enables instruction flag relative to instruction
         casex(instruction) //: intruction_to_type_decoding
@@ -453,6 +449,48 @@ module control( input int instruction,
                 alub_sel = alub_bdata;
                 dram_wsel = dram_write_noten;
                 pc_wsel = pc_increment;
+            end
+            CSRRW.instruct_compare: begin
+                instruction_type = CSRRW.isa_type;
+                reg_wen = reg_write_en;
+                reg_wdata_sel = reg_write_csr;
+                csr_sel = csr_csrrw;
+                csr_data_sel = csr_rs1_sel;
+            end
+            CSRRS.instruct_compare: begin
+                instruction_type = CSRRS.isa_type;
+                reg_wen = reg_write_en;
+                reg_wdata_sel = reg_write_csr;
+                csr_sel = csr_csrrs;
+                csr_data_sel = csr_rs1_sel;
+            end
+            CSRRC.instruct_compare: begin
+                instruction_type = CSRRC.isa_type;
+                reg_wen = reg_write_en;
+                reg_wdata_sel = reg_write_csr;
+                csr_sel = csr_csrrc;
+                csr_data_sel = csr_rs1_sel;
+            end
+            CSRRWI.instruct_compare: begin
+                instruction_type = CSRRWI.isa_type;
+                reg_wen = reg_write_en;
+                reg_wdata_sel = reg_write_csr;
+                csr_sel = csr_csrrw;
+                csr_data_sel = csr_uimm_sel;
+            end
+            CSRRSI.instruct_compare: begin
+                instruction_type = CSRRWI.isa_type;
+                reg_wen = reg_write_en;
+                reg_wdata_sel = reg_write_csr;
+                csr_sel = csr_csrrs;
+                csr_data_sel = csr_uimm_sel;
+            end
+            CSRRCI.instruct_compare: begin
+                instruction_type = CSRRCI.isa_type;
+                reg_wen = reg_write_en;
+                reg_wdata_sel = reg_write_csr;
+                csr_sel = csr_csrrc;
+                csr_data_sel = csr_uimm_sel;
             end
             default: begin
                 instruction_type = NA;

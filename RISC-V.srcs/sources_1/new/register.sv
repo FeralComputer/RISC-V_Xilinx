@@ -43,7 +43,12 @@ module register(input clk, reset_n, enable, rd_enable,
     end
     
     always_ff @ (posedge clk) begin
-        if(enable && reset_n) begin
+        if(~reset_n) begin
+            for(int i = 1; i < 31; i+=1) begin
+                registers[i] <= 0;
+            end
+        end
+        else if(enable) begin
 //            $display("reg[%0d] = %0d, reg[%0d] = %0d, reg[2] = %0d", rs1, adata, rs2, bdata, registers[2]);
             //only save to registers when told to
             if(rd_enable) begin

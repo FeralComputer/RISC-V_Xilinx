@@ -53,13 +53,18 @@ module core(input logic clk, reset_n, enable,
     logic dram_sign;
     logic [2:0] dram_mem_size_a, dram_mem_size_b;
     
+    int csr_result, csr_data;
+    logic [2:0] csr_sel;
+    logic [11:0] csr_addr;
+    logic csr_data_sel;
+    
     int next_program_counter;
     
     //brains of the operation (hopefully)
     control ctrl(.instruction(instruction), .br_ne(br_ne), .br_lt(br_lt), .alu_sel(alu_sel), .pc_wsel(pc_wsel),
                     .reg_wen(reg_wen), .alua_sel(alua_sel), .alub_sel(alub_sel), .dram_wsel(dram_wsel), .reg_wdata_sel(reg_wdata_sel), 
                     .instruction_type(isa_type), .decode_error(decode_error), .unsign(unsign), .dram_sign(dram_sign), 
-                    .dram_mem_size_b(dram_mem_size_b), .dram_mem_size_a(dram_mem_size_a));
+                    .dram_mem_size_b(dram_mem_size_b), .dram_mem_size_a(dram_mem_size_a), .csr_sel(csr_sel), .csr_data_sel(csr_data_sel));
     //
     register regs(.clk(clk), .reset_n(reset_n), .enable(enable), .rd_enable(reg_wen == reg_write_en), .rs1(rs1), .rs2(rs2), .rd(rd), 
                 .adata(adata), .bdata(bdata), .indata(reg_wdata));
@@ -79,20 +84,27 @@ module core(input logic clk, reset_n, enable,
     
     branch_gen branch (.adata(adata), .bdata(bdata), .ne(br_ne), .lt(br_lt), .unsign(unsign));
     
+    csr #(32) csr_ (.clk(clk), .reset_n(reset_n), .enable(enable), .csr_result(csr_result),
+                    .csr_data(csr_data), .csr_sel(csr_sel), .csr_addr(csr_addr));
+    
     assign alu_in1 = alua_sel == pc_write ? program_counter : adata; //selects alu input 1
     assign alu_in2 = alub_sel == alub_imm ? immediate : bdata; // selects alu input 2
+    
+    assign csr_addr = instruction[31:20];
+    assign csr_data = csr_data_sel == csr_uimm_sel ? {27'b0, instruction[19:15]} : adata; //select input into csr (uimm or rs1)
     
     // assigns the register addresses (these may not be valid depending on instruction and needs to be checked in register module)
     assign rd = instruction[11:7];
     assign rs1 = instruction[19:15];
     assign rs2 = instruction[24:20];
     
-    // selects between alu ,dram, and pc to register
+    // selects between alu ,dram, csr, and pc to register
     always_comb begin
         case(reg_wdata_sel)
             reg_write_alu : reg_wdata = alu_result;
             reg_write_dram : reg_wdata = dram_dob;
             reg_write_pc : reg_wdata = next_program_counter;
+            reg_write_csr : reg_wdata = csr_result;
             default : reg_wdata = 'bx;
         endcase
     end
@@ -139,6 +151,12 @@ module core(input logic clk, reset_n, enable,
                     SRA.instruct_compare: $display("SRA: \trd = r%0d \trs1 = r%0d \trs2 = r%0d \talu1 = %0d \talu2 = %0d \tresult = %0d", rd, rs1, rs2, alu_in1, alu_in2, reg_wdata);
                     OR_.instruct_compare: $display("OR: \trd = r%0d \trs1 = r%0d \trs2 = r%0d \talu1 = %0d \talu2 = %0d \tresult = %0d", rd, rs1, rs2, alu_in1, alu_in2, reg_wdata);
                     AND_.instruct_compare: $display("AND: \trd = r%0d \trs1 = r%0d \trs2 = r%0d \talu1 = %0d \talu2 = %0d \tresult = %0d", rd, rs1, rs2, alu_in1, alu_in2, reg_wdata);
+                    CSRRW.instruct_compare: $display("CSRRW: \trd = r%0d \trs1 = r%0d \tdata = %0d \tresult = %0d", rd, rs1, csr_data, reg_wdata);
+                    CSRRS.instruct_compare: $display("CSRRS: \trd = r%0d \trs1 = r%0d \tdata = %0d \tresult = %0d", rd, rs1, csr_data, reg_wdata);
+                    CSRRC.instruct_compare: $display("CSRRC: \trd = r%0d \trs1 = r%0d \tdata = %0d \tresult = %0d", rd, rs1, csr_data, reg_wdata);
+                    CSRRWI.instruct_compare: $display("CSRRWI: \trd = r%0d \trs1 = r%0d \tdata = %0d \tresult = %0d", rd, rs1, csr_data, reg_wdata);
+                    CSRRSI.instruct_compare: $display("CSRRSI: \trd = r%0d \trs1 = r%0d \tdata = %0d \tresult = %0d", rd, rs1, csr_data, reg_wdata);
+                    CSRRCI.instruct_compare: $display("CSRRCI: \trd = r%0d \trs1 = r%0d \tdata = %0d \tresult = %0d", rd, rs1, csr_data, reg_wdata);
                     default: $display("Unknown instruction: %0b", instruction);
                 endcase
             end
