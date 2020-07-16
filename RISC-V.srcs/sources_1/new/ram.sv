@@ -21,7 +21,7 @@
 
 import risc_structs::*;
 
-module ram#(N=64)(
+module ram#(N=1024)(
     input clk, ena, sign,
     input int dia, addra, addrb,
     input logic [2:0] memory_sizea, memory_sizeb,

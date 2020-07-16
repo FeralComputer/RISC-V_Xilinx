@@ -1,6 +1,273 @@
 Vivado Simulator 2020.1
 Time resolution is 1 ps
-Program to binary:
+Instruction           0: 00000000000000001111000010110011
+Instruction           1: 00000000000000000000010100110111
+Instruction           2: 00000101100001010000010100010011
+Instruction           3: 00000001010000001000000010010011
+Instruction           4: 00000000000000001010000000100011
+Instruction           5: 00000000010000001000000010010011
+Instruction           6: 11111110101000001100110011100011
+Instruction           7: 00000000110000000000000110000011
+Instruction           8: 00000000001100000000101000100011
+Instruction           9: 00000000110100000000000110000011
+Instruction          10: 00000000001100000000111000100011
+Instruction          11: 00000000111000000000000110000011
+Instruction          12: 00000010001100000000001000100011
+Instruction          13: 00000000111100000000000110000011
+Instruction          14: 00000010001100000010011000100011
+Instruction          15: 00000001000000000000000110000011
+Instruction          16: 00000000001100000000110000100011
+Instruction          17: 00000001000100000000000110000011
+Instruction          18: 00000010001100000000000000100011
+Instruction          19: 00000001001000000000000110000011
+Instruction          20: 00000010001100000000010000100011
+Instruction          21: 00000001001100000000000110000011
+Instruction          22: 00000010001100000010100000100011
+Instruction          23: 00000000110000000100000110000011
+Instruction          24: 00000100001100000010001000100011
+Instruction          25: 00000001000000000100000110000011
+Instruction          26: 00000100001100000010010000100011
+Instruction          27: 00000000110000000001000110000011
+Instruction          28: 00000010001100000001101000100011
+Instruction          29: 00000000111000000001000110000011
+Instruction          30: 00000010001100000010111000100011
+Instruction          31: 00000001000000000001000110000011
+Instruction          32: 00000010001100000001110000100011
+Instruction          33: 00000001001000000001000110000011
+Instruction          34: 00000100001100000010000000100011
+Instruction          35: 00000000110000000101000110000011
+Instruction          36: 00000100001100000010011000100011
+Instruction          37: 00000001000000000101000110000011
+Instruction          38: 00000100001100000010100000100011
+Instruction          39: 00000000110000000010000110000011
+Instruction          40: 00000100001100000010101000100011
+Instruction          41: 00000001000000000010000110000011
+Instruction          42: 00000100001100000010110000100011
+Running Load and Store test
+AND: 	rd = r1 	rs1 = r1 	rs2 = r0 	alu1 = 0 	alu2 = 0 	result = 0
+LUI: 	rd = r10 	imm = 0 	result = 0
+ADDI: 	rd = r10 	rs1 = r10 	alu1 = 0 	alu2 = 88 	result = 88
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = 20 	result = 20
+SW: 	base = r1 	src = r0 	offset = 0 	address = 20 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 20 	alu2 = 4 	result = 24
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 24 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 24 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 24 	alu2 = 4 	result = 28
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 28 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 28 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 28 	alu2 = 4 	result = 32
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 32 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 32 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 32 	alu2 = 4 	result = 36
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 36 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 36 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 36 	alu2 = 4 	result = 40
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 40 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 40 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 40 	alu2 = 4 	result = 44
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 44 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 44 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 44 	alu2 = 4 	result = 48
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 48 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 48 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 48 	alu2 = 4 	result = 52
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 52 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 52 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 52 	alu2 = 4 	result = 56
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 56 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 56 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 56 	alu2 = 4 	result = 60
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 60 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 60 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 60 	alu2 = 4 	result = 64
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 64 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 64 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 64 	alu2 = 4 	result = 68
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 68 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 68 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 68 	alu2 = 4 	result = 72
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 72 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 72 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 72 	alu2 = 4 	result = 76
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 76 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 76 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 76 	alu2 = 4 	result = 80
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 80 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 80 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 80 	alu2 = 4 	result = 84
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 84 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r1 	src = r0 	offset = 0 	address = 84 	value = 0
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = 84 	alu2 = 4 	result = 88
+BLT: 	rs1 = r1 	rs2 = r10 	adata = 88 	bdata = 88 	offset = -8 	br_ne = 0 	br_lt = 0 	unsign = 0
+LB: 	base = r0 	offset = 12 	address = 12 	value = -86
+SB: 	base = r0 	src = r3 	offset = 20 	address = 20 	value = -86
+LB: 	base = r0 	offset = 13 	address = 13 	value = -86
+SB: 	base = r0 	src = r3 	offset = 28 	address = 28 	value = -86
+LB: 	base = r0 	offset = 14 	address = 14 	value = -86
+SB: 	base = r0 	src = r3 	offset = 36 	address = 36 	value = -86
+LB: 	base = r0 	offset = 15 	address = 15 	value = -86
+SW: 	base = r0 	src = r3 	offset = 44 	address = 44 	value = -86
+LB: 	base = r0 	offset = 16 	address = 16 	value = 85
+SB: 	base = r0 	src = r3 	offset = 24 	address = 24 	value = 85
+LB: 	base = r0 	offset = 17 	address = 17 	value = 85
+SB: 	base = r0 	src = r3 	offset = 32 	address = 32 	value = 85
+LB: 	base = r0 	offset = 18 	address = 18 	value = 85
+SB: 	base = r0 	src = r3 	offset = 40 	address = 40 	value = 85
+LB: 	base = r0 	offset = 19 	address = 19 	value = 85
+SW: 	base = r0 	src = r3 	offset = 48 	address = 48 	value = 85
+LBU: 	base = r0 	offset = 12 	address = 12 	value = 170
+SW: 	base = r0 	src = r3 	offset = 68 	address = 68 	value = 170
+LBU: 	base = r0 	offset = 16 	address = 16 	value = 85
+SW: 	base = r0 	src = r3 	offset = 72 	address = 72 	value = 85
+LH: 	base = r0 	offset = 12 	address = 12 	value = -21846
+SH: 	base = r0 	src = r3 	offset = 52 	address = 52 	value = -21846
+LH: 	base = r0 	offset = 14 	address = 14 	value = -21846
+SW: 	base = r0 	src = r3 	offset = 60 	address = 60 	value = -21846
+LH: 	base = r0 	offset = 16 	address = 16 	value = 21845
+SH: 	base = r0 	src = r3 	offset = 56 	address = 56 	value = 21845
+LH: 	base = r0 	offset = 18 	address = 18 	value = 21845
+SW: 	base = r0 	src = r3 	offset = 64 	address = 64 	value = 21845
+LHU: 	base = r0 	offset = 12 	address = 12 	value = 43690
+SW: 	base = r0 	src = r3 	offset = 76 	address = 76 	value = 43690
+LHU: 	base = r0 	offset = 16 	address = 16 	value = 21845
+SW: 	base = r0 	src = r3 	offset = 80 	address = 80 	value = 21845
+LW: 	base = r0 	offset = 12 	address = 12 	value = -1431655766
+SW: 	base = r0 	src = r3 	offset = 84 	address = 84 	value = -1431655766
+LW: 	base = r0 	offset = 16 	address = 16 	value = 1431655765
+SW: 	base = r0 	src = r3 	offset = 88 	address = 88 	value = 1431655765
+End Running... pc:         172
+LSB1_1 assert passed with 170
+LSB1_2 assert passed with 170
+LSB1_3 assert passed with 170
+LSB1_4 assert passed with -86
+LSB2_1 assert passed with 85
+LSB2_2 assert passed with 85
+LSB2_3 assert passed with 85
+LSB2_4 assert passed with 85
+LSBU1 assert passed with 170
+LSBU2 assert passed with 85
+LSH1_1 assert passed with 43690
+LSH1_2 assert passed with -21846
+LSH2_1 assert passed with 21845
+LSH2_2 assert passed with 21845
+LSHU1 assert passed with 43690
+LSHU2 assert passed with 21845
+LSW1 assert passed with -1431655766
+LSW2 assert passed with 1431655765
+PASS: Load and Store test
+Instruction           0: 10101010101010101011000010110111
+Instruction           1: 10101010101000001000000010010011
+Instruction           2: 00001010101010101011000100110111
+Instruction           3: 10101010101000010000000100010011
+Instruction           4: 10101010101010101011000110110111
+Instruction           5: 10101010101000011000000110010011
+Instruction           6: 10101010101010101011001000110111
+Instruction           7: 10101010101000100000001000010011
+Instruction           8: 01010101010101010101001010110111
+Instruction           9: 01010101010100101000001010010011
+Instruction          10: 00000000001100001000011001100011
+Instruction          11: 00000000010100000010110000100011
+Instruction          12: 00000000100000000000000001101111
+Instruction          13: 00000000010000000010110000100011
+Instruction          14: 00000000001000001000011001100011
+Instruction          15: 00000010010000000010100000100011
+Instruction          16: 00000000100000000000000001101111
+Instruction          17: 00000010010100000010100000100011
+Instruction          18: 00000000001000001001011001100011
+Instruction          19: 00000000010100000010101000100011
+Instruction          20: 00000000100000000000000001101111
+Instruction          21: 00000000010000000010101000100011
+Instruction          22: 00000000001100001001011001100011
+Instruction          23: 00000010010000000010011000100011
+Instruction          24: 00000000100000000000000001101111
+Instruction          25: 00000010010100000010011000100011
+Instruction          26: 00000000001000001100011001100011
+Instruction          27: 00000000010100000010111000100011
+Instruction          28: 00000000100000000000000001101111
+Instruction          29: 00000000010000000010111000100011
+Instruction          30: 00000000000100010100011001100011
+Instruction          31: 00000010010000000010101000100011
+Instruction          32: 00000000100000000000000001101111
+Instruction          33: 00000010010100000010101000100011
+Instruction          34: 00000000000100010101011001100011
+Instruction          35: 00000010010100000010000000100011
+Instruction          36: 00000000100000000000000001101111
+Instruction          37: 00000010010000000010000000100011
+Instruction          38: 00000000001000001101011001100011
+Instruction          39: 00000010010000000010110000100011
+Instruction          40: 00000000100000000000000001101111
+Instruction          41: 00000010010100000010110000100011
+Instruction          42: 00000000000100010110011001100011
+Instruction          43: 00000010010100000010001000100011
+Instruction          44: 00000000100000000000000001101111
+Instruction          45: 00000010010000000010001000100011
+Instruction          46: 00000000001000001110011001100011
+Instruction          47: 00000010010000000010111000100011
+Instruction          48: 00000000100000000000000001101111
+Instruction          49: 00000010010100000010111000100011
+Instruction          50: 00000000001000001111011001100011
+Instruction          51: 00000010010100000010010000100011
+Instruction          52: 00000000100000000000000001101111
+Instruction          53: 00000010010000000010010000100011
+Instruction          54: 00000000000100010111011001100011
+Instruction          55: 00000100010000000010000000100011
+Instruction          56: 00000000100000000000000001101111
+Instruction          57: 00000100010100000010000000100011
+Running Branch test
+LUI: 	rd = r1 	imm = -1431654400 	result = -1431654400
+ADDI: 	rd = r1 	rs1 = r1 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
+LUI: 	rd = r2 	imm = 178958336 	result = 178958336
+ADDI: 	rd = r2 	rs1 = r2 	alu1 = 178958336 	alu2 = -1366 	result = 178956970
+LUI: 	rd = r3 	imm = -1431654400 	result = -1431654400
+ADDI: 	rd = r3 	rs1 = r3 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
+LUI: 	rd = r4 	imm = -1431654400 	result = -1431654400
+ADDI: 	rd = r4 	rs1 = r4 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
+LUI: 	rd = r5 	imm = 1431654400 	result = 1431654400
+ADDI: 	rd = r5 	rs1 = r5 	alu1 = 1431654400 	alu2 = 1365 	result = 1431655765
+BEQ: 	rs1 = r1 	rs2 = r3 	adata = -1431655766 	bdata = -1431655766 	offset = 12 	br_ne = 0 	br_lt = 0 	unsign = x
+SW: 	base = r0 	src = r4 	offset = 24 	address = 24 	value = -1431655766
+BEQ: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = x 	unsign = x
+SW: 	base = r0 	src = r4 	offset = 48 	address = 48 	value = -1431655766
+JAL: 	rd = r0 	offset = 8
+BNE: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = x 	unsign = x
+SW: 	base = r0 	src = r4 	offset = 20 	address = 20 	value = -1431655766
+BNE: 	rs1 = r1 	rs2 = r3 	adata = -1431655766 	bdata = -1431655766 	offset = 12 	br_ne = 0 	br_lt = 0 	unsign = x
+SW: 	base = r0 	src = r4 	offset = 44 	address = 44 	value = -1431655766
+JAL: 	rd = r0 	offset = 8
+BLT: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r0 	src = r4 	offset = 28 	address = 28 	value = -1431655766
+BLT: 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 0
+SW: 	base = r0 	src = r4 	offset = 52 	address = 52 	value = -1431655766
+JAL: 	rd = r0 	offset = 8
+BGE: 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 0
+SW: 	base = r0 	src = r4 	offset = 32 	address = 32 	value = -1431655766
+BGE: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	base = r0 	src = r4 	offset = 56 	address = 56 	value = -1431655766
+JAL: 	rd = r0 	offset = 8
+BLTU: 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 1
+SW: 	base = r0 	src = r4 	offset = 36 	address = 36 	value = -1431655766
+BLTU: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 1
+SW: 	base = r0 	src = r4 	offset = 60 	address = 60 	value = -1431655766
+JAL: 	rd = r0 	offset = 8
+BGEU: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 1
+SW: 	base = r0 	src = r4 	offset = 40 	address = 40 	value = -1431655766
+BGEU: 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 1
+SW: 	base = r0 	src = r4 	offset = 64 	address = 64 	value = -1431655766
+JAL: 	rd = r0 	offset = 8
+End Running... pc:         232
+BEQ valid assert passed with -1431655766
+BEQ invalid assert passed with -1431655766
+BNE valid assert passed with -1431655766
+BNE invalid assert passed with -1431655766
+BLT valid assert passed with -1431655766
+BLT invalid assert passed with -1431655766
+BLTU valid assert passed with -1431655766
+BLTU invalid assert passed with -1431655766
+BGE valid assert passed with -1431655766
+BGE invalid assert passed with -1431655766
+BGEU valid assert passed with -1431655766
+BGEU invalid assert passed with -1431655766
+PASS: Branch test
 Instruction           0: 00000000000100000111000010110011
 Instruction           1: 00000000001000000111000100110011
 Instruction           2: 00000000001100000111000110110011
@@ -170,7 +437,14 @@ Instruction          19: 00000000000000000000000000110011
 Instruction          20: 00000000000000000000000000110011
 Instruction          21: 10101010110000000010011011110011
 Instruction          22: 00000010110100000010010000100011
-Instruction          23: 11111111111111111111111111111111
+Instruction          23: 00010000000001010101000001110011
+Instruction          24: 00010000000000011110011011110011
+Instruction          25: 00000010110100000010011000100011
+Instruction          26: 00010000000001100111011011110011
+Instruction          27: 00000010110100000010100000100011
+Instruction          28: 00010000000000000011011011110011
+Instruction          29: 00000010110100000010101000100011
+Instruction          30: 11111111111111111111111111111111
 Running CSR and timer test
 LUI: 	rd = r1 	imm = 0 	result = 0
 ADDI: 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = 1245 	result = 1245
@@ -190,8 +464,4 @@ SW: 	base = r0 	src = r13 	offset = 28 	address = 28 	value = 65535
 CSRRS: 	rd = r13 	rs1 = r0 	data = 0 	result = 15
 SW: 	base = r0 	src = r13 	offset = 32 	address = 32 	value = 15
 CSRRS: 	rd = r13 	rs1 = r0 	data = 0 	result = 17
-SW: 	base = r0 	src = r13 	offset = 36 	address = 36 	value = 17
-ADD: 	rd = r0 	rs1 = r0 	rs2 = r0 	alu1 = 0 	alu2 = 0 	result = 0
-ADD: 	rd = r0 	rs1 = r0 	rs2 = r0 	alu1 = 0 	alu2 = 0 	result = 0
-CSRRS: 	rd = r13 	rs1 = r0 	data = 0 	result = 2
-SW: 	base = r0 	src = r13 	offset =
+SW: 	base = 

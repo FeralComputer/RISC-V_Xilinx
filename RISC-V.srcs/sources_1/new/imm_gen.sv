@@ -30,7 +30,7 @@ module imm_gen(input logic [ISA_TYPE_COUNT-1:0] isa_type,
     always_comb begin
         
         case(isa_type)
-            J : #1ps result = {{11{1'b1}}, instruction[31], instruction[19:12], instruction[20], instruction[30:21], 1'b0};
+            J : #1ps result = {{12{instruction[31]}}, instruction[19:12], instruction[20], instruction[30:21], 1'b0};
             U : #1ps result = {instruction[31:12], 12'b0};
             I : #1ps result = {{21{instruction[31]}}, instruction[30:20]};
             B: #1ps result = {{20{instruction[31]}}, instruction[7],  instruction[30:25], instruction[11:8], 1'b0};

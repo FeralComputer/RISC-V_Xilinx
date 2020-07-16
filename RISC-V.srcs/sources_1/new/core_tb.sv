@@ -22,8 +22,18 @@ import isa_gen::*;
 import risc_structs::*;
 
 `define cycle(count) \
-        repeat (count) @ (posedge clk); \
-        #1ps;
+    repeat (count) @ (posedge clk); \
+    #1ps;
+
+// automate error and pass messages
+// error message format is "[operation]" and will result in "[operation] assert failed expected [expected_value] got [actual_value]"
+// pass message format it "[operation]" and will result it "[operation] assert passed with [actual_value]"
+`define assert_test(actual_value, expected_value, error_message, pass_message, error_count) \
+    assert(actual_value == expected_value) $display("%s assert passed with %0d", pass_message, actual_value); \
+    else begin \
+        $display("%s assert failed expected %0d got %0d", error_message, expected_value, actual_value); \
+        error_count += 1; \
+    end
    
 `define DEBUG = 1;
 
@@ -137,7 +147,7 @@ module core_tb(
     endtask
     
     task csr_and_timers_test();
-        // program tests the csr and timers
+        // program tests the csr and timers: csrrw, csrrs, csrrc, csrrwi, csrrsi, csrrci
         // x1 contains value to compare against rdtime which is then stored
         // x10 contains value to be written into csr_test
         // x11 contains mask to set bits in csr_test
@@ -152,8 +162,15 @@ module core_tb(
         static int test_mem_rdcycle = 32;
         static int test_mem_rdinstret = 36;
         static int test_mem_rdtimer = 40;
+        static int test_mem_rwi = 44;
+        static int test_mem_rsi = 48;
+        static int test_mem_rci = 52;
+        static int test_imm_rw = 'h0000_000a;
+        static int test_imm_rs = 'h0000_0003;
+        static int test_imm_rc = 'h0000_000c;
+        static int error_count = 0;
         static int read_value;
-        localparam PROG_LENGTH = 24;
+        localparam PROG_LENGTH = 31;
         int prog[PROG_LENGTH];
         prog[0] = `LUI_corrected(x1, write_x1); //load x1 with compare value to leave loop 
         prog[1] = `ADDI(x1, x1, write_x1);
@@ -178,7 +195,14 @@ module core_tb(
         prog[20] = `ADD_(x0, x0, x0); //nop
         prog[21] = `CSRRS(x13, x0, CSR_RDTIMER); //store timer into x13
         prog[22] = `SW(x0, x13, test_mem_rdtimer); //store timer into memory
-        prog[23] = 32'hffff_ffff;
+        prog[23] = `CSRRWI(x0, test_imm_rw, CSR_TEST); //write immediate to csr_test
+        prog[24] = `CSRRSI(x13, test_imm_rs, CSR_TEST); //set imm to csr_test
+        prog[25] = `SW(x0, x13, test_mem_rwi); //store immediate write result
+        prog[26] = `CSRRCI(x13, test_imm_rc, CSR_TEST); //clear imm to csr_test
+        prog[27] = `SW(x0, x13, test_mem_rsi); //store imm set result
+        prog[28] = `CSRRC(x13, x0, CSR_TEST); //clear x0 and get imm clear result
+        prog[29] = `SW(x0, x13, test_mem_rci); //store imm clear result
+        prog[30] = 32'hffff_ffff;
 
         for(int i = 0; i < PROG_LENGTH; i += 1) begin
             $display("Instruction %d: %b", i, prog[i]);
@@ -197,43 +221,451 @@ module core_tb(
 
         GET_DRAM_VALUE(test_mem_rw, read_value);
         assert(read_value == test_val_rw) $display("CSRRW assert success with %d", read_value);
-        else $display("CSRRW assert failed expected: %d received: %d", test_val_rw, read_value);
+        else begin
+            $display("CSRRW assert failed expected: %d received: %d", test_val_rw, read_value);
+            error_count += 1;
+        end
 
         GET_DRAM_VALUE(test_mem_rs, read_value);
-        assert(read_value == test_mask_rs | test_val_rw) $display("CSRRS assert success with %d", read_value);
-        else $display("CSRRS assert failed expected: %d received: %d", test_mask_rs | test_val_rw, read_value);
+        `assert_test(read_value, test_mask_rs | test_val_rw, "CSRRS", "CSRRS", error_count);
 
         GET_DRAM_VALUE(test_mem_rc, read_value);
         assert(read_value == ~test_mask_rc & (test_mask_rs | test_val_rw)) $display("CSRRC assert success with %d", read_value);
-        else $display("CSRRC assert failed expected: %d received: %d", ~test_mask_rc & (test_mask_rs | test_val_rw), read_value);
+        else begin
+            $display("CSRRC assert failed expected: %d received: %d", ~test_mask_rc & (test_mask_rs | test_val_rw), read_value);
+            error_count += 1;
+        end
 
         GET_DRAM_VALUE(test_mem_rdcycle, read_value);
         assert(read_value == 15) $display("RDCYCLE assert success with %d", read_value);
-        else $display("RDCYCLE assert failed expected: %d received: %d", 15, read_value);
+        else begin
+            $display("RDCYCLE assert failed expected: %d received: %d", 15, read_value);
+            error_count += 1;
+        end
 
         GET_DRAM_VALUE(test_mem_rdinstret, read_value);
         assert(read_value == 17) $display("RDINSTRET assert success with %d", read_value);
-        else $display("RDINSTRET assert failed expected: %d received: %d", 17, read_value);
+        else begin
+            $display("RDINSTRET assert failed expected: %d received: %d", 17, read_value);
+            error_count += 1;
+        end
 
         GET_DRAM_VALUE(test_mem_rdtimer, read_value);
         assert(read_value == 2) $display("RDTIMER assert success with %d", read_value);
-        else $display("RDTIMER assert failed expected: %d received: %d", 2, read_value);
+        else begin
+            $display("RDTIMER assert failed expected: %d received: %d", 2, read_value);
+            error_count += 1;
+        end
+
+        GET_DRAM_VALUE(test_mem_rwi, read_value);
+        assert(read_value == test_imm_rw) $display("CSRRWI assert success with %d", read_value);
+        else begin
+            $display("CSRRWI assert failed expected: %d received: %d", test_imm_rw, read_value);
+            error_count += 1;
+        end
+
+        GET_DRAM_VALUE(test_mem_rsi, read_value);
+        assert(read_value == test_imm_rs | test_imm_rw) $display("CSRRSI assert success with %d", read_value);
+        else begin
+            $display("CSRRSI assert failed expected: %d received: %d", test_imm_rs | test_imm_rw, read_value);
+            error_count += 1;
+        end
+
+        GET_DRAM_VALUE(test_mem_rci, read_value);
+        assert(read_value == (~test_imm_rc & (test_imm_rs | test_imm_rw))) $display("CSRRCI assert success with %d", read_value);
+        else begin
+            $display("CSRRCI assert failed expected: %d received: %d", ~test_imm_rc & (test_imm_rs | test_imm_rw), read_value);
+            error_count += 1;
+        end
+
+        if(error_count > 0) $error("CSR and Timer test failed %0d times", error_count);
+        else $display("PASS: CSR and Timer test");
+        
+    endtask
+    
+    
+    
+    //branch test: beq, bne, blt, bge, bltu, bgeu
+    task branch_test();
+        // x1 contains value to compare against x2, x3
+        // x2 contains value to compare against x1, x3
+        // x3 contains value to compare against x1, x2
+        // x4 contains value to write to regs for a success
+        // x5 contains value to write to regs for a failure
+        static int write_x1 = 'haaaa_aaaa;
+        static int write_x2 = 'h0aaa_aaaa;
+        static int write_x3 = 'haaaa_aaaa;
+        static int bne_addr_valid = 20;
+        static int beq_addr_valid = 24;
+        static int blt_addr_valid = 28;
+        static int bge_addr_valid = 32;
+        static int bltu_addr_valid = 36;
+        static int bgeu_addr_valid = 40;
+        static int bne_addr_invalid = 44;
+        static int beq_addr_invalid = 48;
+        static int blt_addr_invalid = 52;
+        static int bge_addr_invalid = 56;
+        static int bltu_addr_invalid = 60;
+        static int bgeu_addr_invalid = 64;
+        static int error_count = 0;
+        static int success_value = 'haaaa_aaaa;
+        static int fail_value = 'h5555_5555;
+        static int branch_success = 12;
+        static int branch_fail = 8;
+        static int read_value;
+        localparam PROG_LENGTH = 58;
+        int prog[PROG_LENGTH];
+        prog[0] = `LUI_corrected(x1, write_x1); //load x1 compare value
+        prog[1] = `ADDI(x1, x1, write_x1);
+        prog[2] = `LUI_corrected(x2, write_x2); //load x2 compare value
+        prog[3] = `ADDI(x2, x2, write_x2);
+        prog[4] = `LUI_corrected(x3, write_x3); //load x3 compare value
+        prog[5] = `ADDI(x3, x3, write_x3);
+        prog[6] = `LUI_corrected(x4, success_value); //load x4 with success value
+        prog[7] = `ADDI(x4, x4, success_value);
+        prog[8] = `LUI_corrected(x5, fail_value); //load x5 with fail value
+        prog[9] = `ADDI(x5, x5, fail_value);
+
+        prog[10] = `BEQ(x1, x3, branch_success); //test valid beq
+        prog[11] = `SW(x0, x5, beq_addr_valid); //store fail in beq
+        prog[12] = `JAL(x0, branch_fail); //jump to next test
+        prog[13] = `SW(x0, x4, beq_addr_valid); //store pass in beq if branched
+
+        prog[14] = `BEQ(x1, x2, branch_success); //test invalid beq
+        prog[15] = `SW(x0, x4, beq_addr_invalid); //store pass
+        prog[16] = `JAL(x0, branch_fail); //jump to next test
+        prog[17] = `SW(x0, x5, beq_addr_invalid); //store fail if branched
+
+        prog[18] = `BNE(x1, x2, branch_success); //test valid bne
+        prog[19] = `SW(x0, x5, bne_addr_valid); //store fail 
+        prog[20] = `JAL(x0, branch_fail); //jump to next test
+        prog[21] = `SW(x0, x4, bne_addr_valid); //store pass
+
+        prog[22] = `BNE(x1, x3, branch_success); //test invalid bne
+        prog[23] = `SW(x0, x4, bne_addr_invalid); //store pass
+        prog[24] = `JAL(x0, branch_fail); //jump to next test
+        prog[25] = `SW(x0, x5, bne_addr_invalid); //store fail if branched
+
+        prog[26] = `BLT(x1, x2, branch_success); //test valid blt
+        prog[27] = `SW(x0, x5, blt_addr_valid); //store fail 
+        prog[28] = `JAL(x0, branch_fail); //jump to next test
+        prog[29] = `SW(x0, x4, blt_addr_valid); //store pass
+
+        prog[30] = `BLT(x2, x1, branch_success); //test invalid blt
+        prog[31] = `SW(x0, x4, blt_addr_invalid); //store pass
+        prog[32] = `JAL(x0, branch_fail); //jump to next test
+        prog[33] = `SW(x0, x5, blt_addr_invalid); //store fail if branched
+
+        prog[34] = `BGE(x2, x1, branch_success); //test valid bge
+        prog[35] = `SW(x0, x5, bge_addr_valid); //store fail 
+        prog[36] = `JAL(x0, branch_fail); //jump to next test
+        prog[37] = `SW(x0, x4, bge_addr_valid); //store pass
+
+        prog[38] = `BGE(x1, x2, branch_success); //test invalid bge
+        prog[39] = `SW(x0, x4, bge_addr_invalid); //store pass
+        prog[40] = `JAL(x0, branch_fail); //jump to next test
+        prog[41] = `SW(x0, x5, bge_addr_invalid); //store fail if branched
+
+        prog[42] = `BLTU(x2, x1, branch_success); //test valid bltu
+        prog[43] = `SW(x0, x5, bltu_addr_valid); //store fail 
+        prog[44] = `JAL(x0, branch_fail); //jump to next test
+        prog[45] = `SW(x0, x4, bltu_addr_valid); //store pass
+
+        prog[46] = `BLTU(x1, x2, branch_success); //test invalid bltu
+        prog[47] = `SW(x0, x4, bltu_addr_invalid); //store pass
+        prog[48] = `JAL(x0, branch_fail); //jump to next test
+        prog[49] = `SW(x0, x5, bltu_addr_invalid); //store fail if branched
+
+        prog[50] = `BGEU(x1, x2, branch_success); //test valid bgeu
+        prog[51] = `SW(x0, x5, bgeu_addr_valid); //store fail 
+        prog[52] = `JAL(x0, branch_fail); //jump to next test
+        prog[53] = `SW(x0, x4, bgeu_addr_valid); //store pass
+
+        prog[54] = `BGEU(x2, x1, branch_success); //test invalid bgeu
+        prog[55] = `SW(x0, x4, bgeu_addr_invalid); //store pass
+        prog[56] = `JAL(x0, branch_fail); //jump to next test
+        prog[57] = `SW(x0, x5, bgeu_addr_invalid); //store fail if branched
+
+        for(int i = 0; i < PROG_LENGTH; i += 1) begin
+            $display("Instruction %d: %b", i, prog[i]);
+            SET_INSTRUCTION(prog[i], 4*i);
+        end
+        $display("Running Branch test");
+        enable = 1;
+        
+        while(prog_count < PROG_LENGTH * 4) begin
+            `cycle(1);
+            #1ps; //need this or vivado becomes angry
+        end
+        $display("End Running... pc: %d", prog_count);
+        
+        enable = 0;
+
+        GET_DRAM_VALUE(beq_addr_valid, read_value);
+        `assert_test(read_value, success_value, "BEQ valid", "BEQ valid", error_count);
+
+        GET_DRAM_VALUE(beq_addr_invalid, read_value);
+        `assert_test(read_value, success_value, "BEQ invalid", "BEQ invalid", error_count);
+
+        GET_DRAM_VALUE(bne_addr_valid, read_value);
+        `assert_test(read_value, success_value, "BNE valid", "BNE valid", error_count);
+
+        GET_DRAM_VALUE(bne_addr_invalid, read_value);
+        `assert_test(read_value, success_value, "BNE invalid", "BNE invalid", error_count);
+
+        GET_DRAM_VALUE(blt_addr_valid, read_value);
+        `assert_test(read_value, success_value, "BLT valid", "BLT valid", error_count);
+
+        GET_DRAM_VALUE(blt_addr_invalid, read_value);
+        `assert_test(read_value, success_value, "BLT invalid", "BLT invalid", error_count);
+
+        GET_DRAM_VALUE(bltu_addr_valid, read_value);
+        `assert_test(read_value, success_value, "BLTU valid", "BLTU valid", error_count);
+
+        GET_DRAM_VALUE(bltu_addr_invalid, read_value);
+        `assert_test(read_value, success_value, "BLTU invalid", "BLTU invalid", error_count);
+
+        GET_DRAM_VALUE(bge_addr_valid, read_value);
+        `assert_test(read_value, success_value, "BGE valid", "BGE valid", error_count);
+
+        GET_DRAM_VALUE(bge_addr_invalid, read_value);
+        `assert_test(read_value, success_value, "BGE invalid", "BGE invalid", error_count);
+
+        GET_DRAM_VALUE(bgeu_addr_valid, read_value);
+        `assert_test(read_value, success_value, "BGEU valid", "BGEU valid", error_count);
+
+        GET_DRAM_VALUE(bgeu_addr_invalid, read_value);
+        `assert_test(read_value, success_value, "BGEU invalid", "BGEU invalid", error_count);
+        
+        if(error_count > 0) $error("Branch test failed %0d times", error_count);
+        else $display("PASS: Branch test");
 
     endtask
-            
-    initial begin
+    
+    //load and store test: lb, lh, lw, lbu, lhu, sb, sh, sw
+    task load_store_test();
+        // addr1 and addr2 contain addresses of the value to be read from ram
+        // x3 is used to load the value and is subsequently stored back in ram
+        static int lsb1_1 = 20;//1-4 are used to read addrx + i to ensure each address works and not just steps of 4
+        static int lsb2_1 = 24;
+        static int lsb1_2 = 28;
+        static int lsb2_2 = 32;
+        static int lsb1_3 = 36;
+        static int lsb2_3 = 40;
+        static int lsb1_4 = 44;
+        static int lsb2_4 = 48;
+        static int lsbu1 = 68;
+        static int lsbu2 = 72;
+        static int lsh1_1 = 52;
+        static int lsh2_1 = 56;
+        static int lsh1_2 = 60;
+        static int lsh2_2 = 64;
+        static int lsw1 = 84;
+        static int lsw2 = 88;
+        static int lshu1 = 76;
+        static int lshu2 = 80;
+        static int error_count = 0;
+        static int addr1 = 12;
+        static int addr1_1 = 13;
+        static int addr1_2 = 14;
+        static int addr1_3 = 15;
+        static int addr2 = 16;
+        static int addr2_1 = 17;
+        static int addr2_2 = 18;
+        static int addr2_3 = 19;
+        static int read_value;
+        static int mem_inc = 4;
+        static int clear_branch = -8;
+        static int zero_offset = 0;
+        static int expected = 'h0000_00aa;
+        localparam PROG_LENGTH = 43;
+        int prog[PROG_LENGTH];
+        prog[0] = `AND_(x1, x1, x0);//clear x1 to act as itterator
+        prog[1] = `LUI_corrected(x10,lsw2); //load compare value for itterator
+        prog[2] = `ADDI(x10, x10, lsw2);
+        prog[3] = `ADDI(x1, x1, lsb1_1); //load offset into itterator to reach lsb1_1
+        prog[4] = `SW(x1, x0, zero_offset); //clear memory
+        prog[5] = `ADDI(x1, x1, mem_inc); //increment itterator
+        prog[6] = `BLT(x1, x10, clear_branch); //keep going until lsw2 has been zeroed
+
+        prog[7] = `LB(x3, x0, addr1); //load byte from addr1
+        prog[8] = `SB(x0, x3, lsb1_1); //store byte
+
+        prog[9] = `LB(x3, x0, addr1_1);
+        prog[10] = `SB(x0, x3, lsb1_2); //store byte 
+
+        prog[11] = `LB(x3, x0, addr1_2);
+        prog[12] = `SB(x0, x3, lsb1_3); //store byte 
+
+        prog[13] = `LB(x3, x0, addr1_3);
+        prog[14] = `SW(x0, x3, lsb1_4); //store byte 
+
+        prog[15] = `LB(x3, x0, addr2);
+        prog[16] = `SB(x0, x3, lsb2_1); //store byte 
         
-        $display("Program to binary:");
-        load_program[0] = `AND_(x1, x0, x1);  //set x1 to 0
-        load_program[1] = `AND_(x2, x0, x2); //set x2 to 0 to act as base for load and write
-        load_program[2] = `LUI(x1, write_data); //load uppermost 20 bits to x1
-        load_program[3] = `ADDI(x1, x1, write_data ); // add the lower 12 bits to x1
-        load_program[4] = `SW(x2, x1, save_pointer); //store x1 to 10 offset from x2
-        load_program[5] = `LW(x3, x2, save_pointer); //load data from 10 offset from x2 to x3
+        prog[17] = `LB(x3, x0, addr2_1);
+        prog[18] = `SB(x0, x3, lsb2_2); //store byte 
+
+        prog[19] = `LB(x3, x0, addr2_2);
+        prog[20] = `SB(x0, x3, lsb2_3); //store byte 
+
+        prog[21] = `LB(x3, x0, addr2_3);
+        prog[22] = `SW(x0, x3, lsb2_4); //store byte 
+
+        prog[23] = `LBU(x3, x0, addr1);// unsigned 
+        prog[24] = `SW(x0, x3, lsbu1); //store byte 
+
+        prog[25] = `LBU(x3, x0, addr2);
+        prog[26] = `SW(x0, x3, lsbu2);
+
+        prog[27] = `LH(x3, x0, addr1);// signed half words
+        prog[28] = `SH(x0, x3, lsh1_1);
+
+        prog[29] = `LH(x3, x0, addr1_2);
+        prog[30] = `SW(x0, x3, lsh1_2);
+
+        prog[31] = `LH(x3, x0, addr2);
+        prog[32] = `SH(x0, x3, lsh2_1);
+
+        prog[33] = `LH(x3, x0, addr2_2);
+        prog[34] = `SW(x0, x3, lsh2_2);
+
+        prog[35] = `LHU(x3, x0, addr1); //unsigned half words
+        prog[36] = `SW(x0, x3, lshu1);
+
+        prog[37] = `LHU(x3, x0, addr2);
+        prog[38] = `SW(x0, x3, lshu2);
+
+        prog[39] = `LW(x3, x0, addr1);
+        prog[40] = `SW(x0, x3, lsw1);
+
+        prog[41] = `LW(x3, x0, addr2);
+        prog[42] = `SW(x0, x3, lsw2);
+
+
+        SET_DRAM_VALUE(addr1, 'haaaa_aaaa);
+        SET_DRAM_VALUE(addr2, 'h5555_5555);
+
+        for(int i = 0; i < PROG_LENGTH; i += 1) begin
+            $display("Instruction %d: %b", i, prog[i]);
+            SET_INSTRUCTION(prog[i], 4*i);
+        end
+        $display("Running Load and Store test");
+        enable = 1;
         
+        while(prog_count < PROG_LENGTH * 4) begin
+            `cycle(1);
+            #1ps; //need this or vivado becomes angry
+        end
+        $display("End Running... pc: %d", prog_count);
+        
+        enable = 0;
         
 
+        GET_DRAM_VALUE(lsb1_1, read_value);
+        `assert_test(read_value, expected, "LSB1_1", "LSB1_1", error_count);
+
+        GET_DRAM_VALUE(lsb1_2, read_value);
+        `assert_test(read_value, expected, "LSB1_2", "LSB1_2", error_count);
+
+        GET_DRAM_VALUE(lsb1_3, read_value);
+        `assert_test(read_value, expected, "LSB1_3", "LSB1_3", error_count);
+
+        expected = 'hffff_ffaa;
+        GET_DRAM_VALUE(lsb1_4, read_value);
+        `assert_test(read_value, expected, "LSB1_4", "LSB1_4", error_count);
+
+        expected = 'h0000_0055;
+        GET_DRAM_VALUE(lsb2_1, read_value);
+        `assert_test(read_value, expected, "LSB2_1", "LSB2_1", error_count);
+
+        GET_DRAM_VALUE(lsb2_2, read_value);
+        `assert_test(read_value, expected, "LSB2_2", "LSB2_2", error_count);
+
+        GET_DRAM_VALUE(lsb2_3, read_value);
+        `assert_test(read_value, expected, "LSB2_3", "LSB2_3", error_count);
+
+        expected = 'h0000_0055;
+        GET_DRAM_VALUE(lsb2_4, read_value);
+        `assert_test(read_value, expected, "LSB2_4", "LSB2_4", error_count);
+
+        expected = 'h0000_00aa;
+        GET_DRAM_VALUE(lsbu1, read_value);
+        `assert_test(read_value, expected, "LSBU1", "LSBU1", error_count);
+
+        expected = 'h0000_0055;
+        GET_DRAM_VALUE(lsbu2, read_value);
+        `assert_test(read_value, expected, "LSBU2", "LSBU2", error_count);
+
+        expected = 'h0000_aaaa;
+        GET_DRAM_VALUE(lsh1_1, read_value);
+        `assert_test(read_value, expected, "LSH1_1", "LSH1_1", error_count);
+
+        expected = 'hffff_aaaa;
+        GET_DRAM_VALUE(lsh1_2, read_value);
+        `assert_test(read_value, expected, "LSH1_2", "LSH1_2", error_count);
+
+        expected = 'h0000_5555;
+        GET_DRAM_VALUE(lsh2_1, read_value);
+        `assert_test(read_value, expected, "LSH2_1", "LSH2_1", error_count);
+
+        expected = 'h0000_5555;
+        GET_DRAM_VALUE(lsh2_2, read_value);
+        `assert_test(read_value, expected, "LSH2_2", "LSH2_2", error_count);
+
+        expected = 'h0000_aaaa;
+        GET_DRAM_VALUE(lshu1, read_value);
+        `assert_test(read_value, expected, "LSHU1", "LSHU1", error_count);
+
+        expected = 'h0000_5555;
+        GET_DRAM_VALUE(lshu2, read_value);
+        `assert_test(read_value, expected, "LSHU2", "LSHU2", error_count);
+
+        expected = 'haaaa_aaaa;
+        GET_DRAM_VALUE(lsw1, read_value);
+        `assert_test(read_value, expected, "LSW1", "LSW1", error_count);
+
+        expected = 'h5555_5555;
+        GET_DRAM_VALUE(lsw2, read_value);
+        `assert_test(read_value, expected, "LSW2", "LSW2", error_count);
         
+        if(error_count > 0) $error("Load and Store test failed %0d times", error_count);
+        else $display("PASS: Load and Store test");
+    endtask
+
+    //jump and pc test: jal, jalr, auipc
+    // task jump_pc_test();
+    //     // addr1 and addr2 contain addresses of the value to be read from ram
+    //     // x3 is used to load the value and is subsequently stored back in ram
+    //     static int lsb1_1 = 20;//1-4 are used to read addrx + i to ensure each address works and not just steps of 4
+    //     static int lsb2_1 = 24;
+    //     static int lsb1_2 = 28;
+    //     static int lsb2_2 = 32;
+    //     static int lsb1_3 = 36;
+    //     static int lsb2_3 = 40;
+    //     static int lsb1_4 = 44;
+    //     static int lsb2_4 = 48;
+    //     static int lsbu1 = 68;
+    //     static int lsbu2 = 72;
+    //     static int lsh1_1 = 52;
+    //     static int lsh2_1 = 56;
+    //     static int lsh1_2 = 60;
+    //     static int lsh2_2 = 64;
+    //     static int lsw1 = 84;
+    //     static int lsw2 = 88;
+    //     static int lshu1 = 76;
+    //     static int lshu2 = 80;
+    //     static int error_count = 0;
+    //     localparam PROG_LENGTH = 43;
+    //     int prog[PROG_LENGTH];
+    //     prog[0] = `
+
+    // endtask
+    //alu test immediate test: slti, sltiu, xori, ori, andi, slli, slri, srai
+    
+    //alu test (non immediate): add, sub, sll, slt, sltu, xor, srl, sta, or, and
+            
+    initial begin
         clk = 0;
         reset_n = 0;
         enable = 0;
@@ -245,6 +677,24 @@ module core_tb(
         reset_n = 1;
         
         //load program
+        `cycle(1);
+
+        load_store_test();
+
+        reset_n = 0;
+        `cycle(1);
+        
+        reset_n = 1;
+        
+        `cycle(1);
+
+        branch_test();
+
+        reset_n = 0;
+        `cycle(1);
+        
+        reset_n = 1;
+        
         `cycle(1);
         
         TEST_FOR_LOOP(20,0,1,10);
