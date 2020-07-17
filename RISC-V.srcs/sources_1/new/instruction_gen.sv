@@ -89,7 +89,7 @@ package isa_gen;
     //instructions not defined here have not been tested 
     `define LUI(rd,imm) {imm[31:12], rd[4:0], op_LUI[6:0]};
     `define LUI_corrected(rd,imm) {(imm[11] ? imm[31:12] + 1 : imm[31:12]), rd[4:0], op_LUI[6:0]}; //used for lui addi combo for loading values from instructions
-    `define AUIPC(rd,imm) {imm[19:0], rd[4:0], op_AUIPC[6:0]};
+    `define AUIPC(rd,imm) {imm[31:12], rd[4:0], op_AUIPC[6:0]};
     `define JAL(rd, imm) {imm[20], imm[10:1], imm[11], imm[19:12], rd[4:0], op_JAL[6:0]};
     `define JALR(rd, rs1, imm) {imm[11:0], rs1[4:0], 3'b000, rd[4:0], op_JALR[6:0]};
     `define BEQ(rs1, rs2, imm) {imm[12], imm[10:5], rs2[4:0], rs1[4:0], 3'b000, imm[4:1], imm[11], op_BEQ[6:0]};

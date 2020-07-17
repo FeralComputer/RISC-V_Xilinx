@@ -118,7 +118,7 @@ package risc_structs;
     instruct_template ANDI = '{32'bxxxxxxx_xxxxx_xxxxx_111_xxxxx_0010011, I/*, "ANDI"*/};
     instruct_template SLLI = '{32'b0000000_xxxxx_xxxxx_001_xxxxx_0010011, I/*, "SLLI"*/};
     instruct_template SRLI = '{32'b0000000_xxxxx_xxxxx_101_xxxxx_0010011, I/*, "SRLI"*/};
-    instruct_template SRAI = '{32'b0100000_xxxxx_xxxxx_111_xxxxx_0010011, I/*, "SRAI"*/};
+    instruct_template SRAI = '{32'b0100000_xxxxx_xxxxx_101_xxxxx_0010011, I/*, "SRAI"*/};
     instruct_template ADD = '{32'b0000000_xxxxx_xxxxx_000_xxxxx_0110011, I/*, "ADD"*/};
     instruct_template SUB = '{32'b0100000_xxxxx_xxxxx_000_xxxxx_0110011, I/*, "SUB"*/};
     instruct_template SLL = '{32'b0000000_xxxxx_xxxxx_001_xxxxx_0110011, I/*, "SLL"*/};

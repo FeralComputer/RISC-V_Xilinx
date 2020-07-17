@@ -634,35 +634,210 @@ module core_tb(
     endtask
 
     //jump and pc test: jal, jalr, auipc
-    // task jump_pc_test();
-    //     // addr1 and addr2 contain addresses of the value to be read from ram
-    //     // x3 is used to load the value and is subsequently stored back in ram
-    //     static int lsb1_1 = 20;//1-4 are used to read addrx + i to ensure each address works and not just steps of 4
-    //     static int lsb2_1 = 24;
-    //     static int lsb1_2 = 28;
-    //     static int lsb2_2 = 32;
-    //     static int lsb1_3 = 36;
-    //     static int lsb2_3 = 40;
-    //     static int lsb1_4 = 44;
-    //     static int lsb2_4 = 48;
-    //     static int lsbu1 = 68;
-    //     static int lsbu2 = 72;
-    //     static int lsh1_1 = 52;
-    //     static int lsh2_1 = 56;
-    //     static int lsh1_2 = 60;
-    //     static int lsh2_2 = 64;
-    //     static int lsw1 = 84;
-    //     static int lsw2 = 88;
-    //     static int lshu1 = 76;
-    //     static int lshu2 = 80;
-    //     static int error_count = 0;
-    //     localparam PROG_LENGTH = 43;
-    //     int prog[PROG_LENGTH];
-    //     prog[0] = `
+    task jump_pc_test();
+        // jump forward with jal and write value, then jump backwards and write another value
+        // then repeat with jalr
+        static int jal_for = 40;
+        static int jal_rev = -24;
+        static int jalr_for = 4;
+        static int jalr_rev = -24;
+        static int jal_for_mem = 20;
+        static int jal_rev_mem = 24;
+        static int jalr_for_mem = 28;
+        static int jalr_rev_mem = 32;
+        static int jal_auipc = 60;
+        static int auipc_for_offset = 'h0aaa_afff;
+        static int auipc_rev_offset = 'hffff_f000;
+        static int auipc_for_mem = 36;
+        static int auipc_rev_mem = 40;
+        static int error_count = 0;
+        static int jal_for_expect = 4;
+        static int jal_rev_expect = 48;
+        static int jalr_for_expect = 28;
+        static int jalr_rev_expect = 60;
+        static int auipc_for_expect = 68 + (auipc_for_offset & 'hffff_f000);
+        static int auipc_rev_expect = 76 + (auipc_rev_offset & 'hffff_f000);
+        localparam PROG_LENGTH = 22;
+        int prog[PROG_LENGTH];
+        prog[0] = `JAL(x1, jal_for);// jump to pc = 40
+        prog[1] = `SW(x0, x1, jalr_rev_mem);// store return value for jalr rev
+        prog[2] = `JAL(x1, jal_auipc);// jump to test auipc
+        prog[3] = 'hffff_ff03;
+        prog[4] = 'hffff_ff04;
+        prog[5] = `SW(x0, x1, jal_rev_mem); //store return value for jal rev
+        prog[6] = `JALR(x1, x1, jalr_for); //jump relative to jal_rev
+        prog[7] = 'hffff_ff07;
+        prog[8] = 'hffff_ff08;
+        prog[9] = 'hffff_ff09;
 
-    // endtask
-    //alu test immediate test: slti, sltiu, xori, ori, andi, slli, slri, srai
-    
+        prog[10] = `SW(x0, x1, jal_for_mem); //store return value for jal for
+        prog[11] = `JAL(x1, jal_rev); // jump to pc 12
+        prog[12] = 'hffff_ff0a;
+        prog[13] = `SW(x0, x1, jalr_for_mem); //store return value for jalr for
+        prog[14] = `JALR(x1, x1, jalr_rev); //jump to pc 4
+        prog[15] = 'hffff_ff0f;
+        prog[16] = 'hffff_ff10;
+        prog[17] = `AUIPC(x2, auipc_for_offset);//test forward auipc (from jal_auipc)
+        prog[18] = `SW(x0, x2, auipc_for_mem);
+        prog[19] = `AUIPC(x2, auipc_rev_offset);
+
+        prog[20] = `SW(x0, x2, auipc_rev_mem);
+        prog[21] = 'haaaa_aaaa;
+
+        for(int i = 0; i < PROG_LENGTH; i += 1) begin
+            $display("Instruction %d: %b", i, prog[i]);
+            SET_INSTRUCTION(prog[i], 4*i);
+        end
+        $display("Running jump and pc test");
+        enable = 1;
+        
+        while(prog_count < PROG_LENGTH * 4) begin
+            `cycle(1);
+            #1ps; //need this or vivado becomes angry
+        end
+        $display("End Running... pc: %d", prog_count);
+        
+        enable = 0;
+
+        GET_DRAM_VALUE(jal_for_mem, read_value);
+        `assert_test(read_value, jal_for_expect, "JAL for", "JAL for", error_count);
+        
+        GET_DRAM_VALUE(jal_rev_mem, read_value);
+        `assert_test(read_value, jal_rev_expect, "JAL rev", "JAL rev", error_count);
+
+        GET_DRAM_VALUE(jalr_for_mem, read_value);
+        `assert_test(read_value, jalr_for_expect, "JALR for", "JALR for", error_count);
+        
+        GET_DRAM_VALUE(jalr_rev_mem, read_value);
+        `assert_test(read_value, jalr_rev_expect, "JALR rev", "JALR rev", error_count);
+
+        GET_DRAM_VALUE(auipc_for_mem, read_value);
+        `assert_test(read_value, auipc_for_expect, "AUIPC for", "AUIPC for", error_count);
+        
+        GET_DRAM_VALUE(auipc_rev_mem, read_value);
+        `assert_test(read_value, auipc_rev_expect, "AUIPC rev", "AUIPC rev", error_count);
+        
+        if(error_count > 0) $error("Jump and pc test failed %0d times", error_count);
+        else $display("PASS: Jump and pc test");
+
+    endtask
+
+    //alu test immediate test: slti, sltiu, xori, ori, andi, slli, slri, srai (addi has been tested extensively for loading values)
+    task alu_imm_test();
+        // test the various immediate alu instructions
+        static int slti_1 = 5;
+        static int slti_2 = -4;
+        static int boolean_1 = 'hffff_fca3;//used for xor, or, and as they test each binary condition
+        static int boolean_2 = 'hffff_fc53;
+        static int slli_reg = 'haaaa_aaaa;
+        static int slli_imm = 'h0000_0008;
+        static int slti_true_mem = 20;
+        static int slti_false_mem = 24;
+        static int sltiu_true_mem = 28;
+        static int sltiu_false_mem = 32;
+        static int xori_mem = 36;
+        static int ori_mem = 40;
+        static int andi_mem = 44;
+        static int error_count = 0;
+        static int slli_mem = 48;
+        static int slri_mem = 52;
+        static int srai_mem = 56;
+        static int slti_equal_mem = 60;
+        static int sltiu_equal_mem = 64;
+        static int srai_result = 'hffaa_aaaa;
+        localparam PROG_LENGTH = 32;
+        int prog[PROG_LENGTH];
+        prog[0] = `LUI_corrected(x1,slti_1);//test slti adata = 5, imm = -4
+        prog[1] = `ADDI(x1, x1, slti_1);
+        prog[2] = `SLTI(x2, x1, slti_2);
+        prog[3] = `SW(x0, x2, slti_false_mem);
+        prog[4] = `SLTIU(x2, x1, slti_2); // test sltiu adata = 5, imm = -4
+        prog[5] = `SW(x0, x2, sltiu_true_mem);
+        prog[6] = `SLTI(x2, x1, slti_1); // test slti when equal
+        prog[7] = `SW(x0, x2, slti_equal_mem);
+        prog[8] = `SLTIU(x2, x1, slti_1); // test sltiu when equal
+        prog[9] = `SW(x0, x2, sltiu_equal_mem);
+
+        prog[10] = `LUI_corrected(x1,slti_2);//test slti adata = -4, imm = 5
+        prog[11] = `ADDI(x1, x1, slti_2);
+        prog[12] = `SLTI(x2, x1, slti_1)
+        prog[13] = `SW(x0, x2, slti_true_mem);
+        prog[14] = `SLTIU(x2, x1, slti_1); //test sltiu adata = -4, imm = 5
+        prog[15] = `SW(x0, x2, sltiu_false_mem);
+        prog[16] = `AND_(x1, x0, x1); // clear x1 (kinda cheating with untested instruction... shhh)
+        prog[17] = `ADDI(x1, x1, boolean_1);
+        prog[18] = `XORI(x2, x1, boolean_2); // test xori
+        prog[19] = `SW(x0, x2, xori_mem);
+
+        prog[20] = `ORI(x2, x1, boolean_2); // test ori
+        prog[21] = `SW(x0, x2, ori_mem);
+        prog[22] = `ANDI(x2, x1, boolean_2); // test andi
+        prog[23] = `SW(x0, x2, andi_mem);
+        prog[24] = `LUI_corrected(x1, slli_reg);
+        prog[25] = `ADDI(x1, x1, slli_reg);
+        prog[26] = `SLLI(x2, x1, slli_imm); // test slli
+        prog[27] = `SW(x0, x2, slli_mem);
+        prog[28] = `SRLI(x2, x1, slli_imm); // test slri
+        prog[29] = `SW(x0, x2, slri_mem);
+
+        prog[30] = `SRAI(x2, x1, slli_imm); // test srai
+        prog[31] = `SW(x0, x2, srai_mem);
+
+        for(int i = 0; i < PROG_LENGTH; i += 1) begin
+            $display("Instruction %d: %b", i, prog[i]);
+            SET_INSTRUCTION(prog[i], 4*i);
+        end
+        $display("Running immediate alu test");
+        enable = 1;
+        
+        while(prog_count < PROG_LENGTH * 4) begin
+            `cycle(1);
+            #1ps; //need this or vivado becomes angry
+        end
+        $display("End Running... pc: %d", prog_count);
+        
+        enable = 0;
+
+        GET_DRAM_VALUE(slti_true_mem, read_value);
+        `assert_test(read_value, 1, "SLTI true", "SLTI true", error_count);
+
+        GET_DRAM_VALUE(slti_false_mem, read_value);
+        `assert_test(read_value, 0, "SLTI false", "SLTI false", error_count);
+
+        GET_DRAM_VALUE(slti_equal_mem, read_value);
+        `assert_test(read_value, 0, "SLTI equal", "SLTI equal", error_count);
+
+        GET_DRAM_VALUE(sltiu_true_mem, read_value);
+        `assert_test(read_value, 1, "SLTIU true", "SLTIU true", error_count);
+
+        GET_DRAM_VALUE(sltiu_false_mem, read_value);
+        `assert_test(read_value, 0, "SLTIU false", "SLTIU false", error_count);
+
+        GET_DRAM_VALUE(sltiu_equal_mem, read_value);
+        `assert_test(read_value, 0, "SLTIU equal", "SLTIU equal", error_count);
+
+        GET_DRAM_VALUE(xori_mem, read_value);
+        `assert_test(read_value, (boolean_1 ^ {{21{boolean_2[11]}},boolean_2[10:0]}), "XORI", "XORI", error_count);
+
+        GET_DRAM_VALUE(ori_mem, read_value);
+        `assert_test(read_value, (boolean_1 | {{21{boolean_2[11]}},boolean_2[10:0]}), "ORI", "ORI", error_count);
+
+        GET_DRAM_VALUE(andi_mem, read_value);
+        `assert_test(read_value, (boolean_1 & {{21{boolean_2[11]}},boolean_2[10:0]}), "ANDI", "ANDI", error_count);
+
+        GET_DRAM_VALUE(slli_mem, read_value);
+        `assert_test(read_value, (slli_reg << {slli_imm[4:0]}), "SLLI", "SLLI", error_count);
+
+        GET_DRAM_VALUE(slri_mem, read_value);
+        `assert_test(read_value, (slli_reg >> {slli_imm[4:0]}), "SLRI", "SLRI", error_count);
+
+        GET_DRAM_VALUE(srai_mem, read_value);
+        `assert_test(read_value, srai_result, "SRAI", "SRAI", error_count);
+        
+        if(error_count > 0) $error("ALU immediates test failed %0d times", error_count);
+        else $display("PASS: ALU immediates test");
+
+    endtask
     //alu test (non immediate): add, sub, sll, slt, sltu, xor, srl, sta, or, and
             
     initial begin
@@ -679,7 +854,25 @@ module core_tb(
         //load program
         `cycle(1);
 
+        jump_pc_test();
+
+        reset_n = 0;
+        `cycle(1);
+        
+        reset_n = 1;
+        
+        `cycle(1);
+
         load_store_test();
+
+        reset_n = 0;
+        `cycle(1);
+        
+        reset_n = 1;
+        
+        `cycle(1);
+
+        alu_imm_test();
 
         reset_n = 0;
         `cycle(1);

@@ -1,5 +1,50 @@
 Vivado Simulator 2020.1
 Time resolution is 1 ps
+Instruction           0: 00000010100000000000000011101111
+Instruction           1: 00000010000100000010000000100011
+Instruction           2: 00000011110000000000000011101111
+Instruction           3: 11111111111111111111111100000011
+Instruction           4: 11111111111111111111111100000100
+Instruction           5: 00000000000100000010110000100011
+Instruction           6: 00000000010000001000000011100111
+Instruction           7: 11111111111111111111111100000111
+Instruction           8: 11111111111111111111111100001000
+Instruction           9: 11111111111111111111111100001001
+Instruction          10: 00000000000100000010101000100011
+Instruction          11: 11111110100111111111000011101111
+Instruction          12: 11111111111111111111111100001010
+Instruction          13: 00000000000100000010111000100011
+Instruction          14: 11111110100000001000000011100111
+Instruction          15: 11111111111111111111111100001111
+Instruction          16: 11111111111111111111111100010000
+Instruction          17: 00001010101010101010000100010111
+Instruction          18: 00000010001000000010001000100011
+Instruction          19: 11111111111111111111000100010111
+Instruction          20: 00000010001000000010010000100011
+Instruction          21: 10101010101010101010101010101010
+Running jump and pc test
+JAL: 	pc = 0 	rd = r1 	offset = 40
+SW: 	pc = 40 	base = r0 	src = r1 	offset = 20 	address = 20 	value = 4
+JAL: 	pc = 44 	rd = r1 	offset = -24
+SW: 	pc = 20 	base = r0 	src = r1 	offset = 24 	address = 24 	value = 48
+JALR: 	pc = 24 	rd = r1 	rs1 = r1 	offset = 4 	base = 48 	result = 52
+SW: 	pc = 52 	base = r0 	src = r1 	offset = 28 	address = 28 	value = 28
+JALR: 	pc = 56 	rd = r1 	rs1 = r1 	offset = -24 	base = 28 	result = 4
+SW: 	pc = 4 	base = r0 	src = r1 	offset = 32 	address = 32 	value = 60
+JAL: 	pc = 8 	rd = r1 	offset = 60
+AUIPC: 	rd = r2 	imm = 178954240 	pc = 68 	result = 178954308
+SW: 	pc = 72 	base = r0 	src = r2 	offset = 36 	address = 36 	value = 178954308
+AUIPC: 	rd = r2 	imm = -4096 	pc = 76 	result = -4020
+SW: 	pc = 80 	base = r0 	src = r2 	offset = 40 	address = 40 	value = -4020
+Unknown instruction: aaaaaaaa
+End Running... pc:          88
+JAL for assert passed with 4
+JAL rev assert passed with 48
+JALR for assert passed with 28
+JALR rev assert passed with 60
+AUIPC for assert passed with 178954308
+AUIPC rev assert passed with -4020
+PASS: Jump and pc test
 Instruction           0: 00000000000000001111000010110011
 Instruction           1: 00000000000000000000010100110111
 Instruction           2: 00000101100001010000010100010011
@@ -44,97 +89,97 @@ Instruction          40: 00000100001100000010101000100011
 Instruction          41: 00000001000000000010000110000011
 Instruction          42: 00000100001100000010110000100011
 Running Load and Store test
-AND: 	rd = r1 	rs1 = r1 	rs2 = r0 	alu1 = 0 	alu2 = 0 	result = 0
-LUI: 	rd = r10 	imm = 0 	result = 0
-ADDI: 	rd = r10 	rs1 = r10 	alu1 = 0 	alu2 = 88 	result = 88
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = 20 	result = 20
-SW: 	base = r1 	src = r0 	offset = 0 	address = 20 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 20 	alu2 = 4 	result = 24
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 24 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 24 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 24 	alu2 = 4 	result = 28
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 28 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 28 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 28 	alu2 = 4 	result = 32
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 32 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 32 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 32 	alu2 = 4 	result = 36
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 36 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 36 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 36 	alu2 = 4 	result = 40
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 40 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 40 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 40 	alu2 = 4 	result = 44
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 44 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 44 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 44 	alu2 = 4 	result = 48
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 48 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 48 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 48 	alu2 = 4 	result = 52
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 52 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 52 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 52 	alu2 = 4 	result = 56
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 56 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 56 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 56 	alu2 = 4 	result = 60
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 60 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 60 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 60 	alu2 = 4 	result = 64
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 64 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 64 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 64 	alu2 = 4 	result = 68
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 68 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 68 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 68 	alu2 = 4 	result = 72
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 72 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 72 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 72 	alu2 = 4 	result = 76
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 76 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 76 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 76 	alu2 = 4 	result = 80
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 80 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 80 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 80 	alu2 = 4 	result = 84
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 84 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r1 	src = r0 	offset = 0 	address = 84 	value = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 84 	alu2 = 4 	result = 88
-BLT: 	rs1 = r1 	rs2 = r10 	adata = 88 	bdata = 88 	offset = -8 	br_ne = 0 	br_lt = 0 	unsign = 0
-LB: 	base = r0 	offset = 12 	address = 12 	value = -86
-SB: 	base = r0 	src = r3 	offset = 20 	address = 20 	value = -86
-LB: 	base = r0 	offset = 13 	address = 13 	value = -86
-SB: 	base = r0 	src = r3 	offset = 28 	address = 28 	value = -86
-LB: 	base = r0 	offset = 14 	address = 14 	value = -86
-SB: 	base = r0 	src = r3 	offset = 36 	address = 36 	value = -86
-LB: 	base = r0 	offset = 15 	address = 15 	value = -86
-SW: 	base = r0 	src = r3 	offset = 44 	address = 44 	value = -86
-LB: 	base = r0 	offset = 16 	address = 16 	value = 85
-SB: 	base = r0 	src = r3 	offset = 24 	address = 24 	value = 85
-LB: 	base = r0 	offset = 17 	address = 17 	value = 85
-SB: 	base = r0 	src = r3 	offset = 32 	address = 32 	value = 85
-LB: 	base = r0 	offset = 18 	address = 18 	value = 85
-SB: 	base = r0 	src = r3 	offset = 40 	address = 40 	value = 85
-LB: 	base = r0 	offset = 19 	address = 19 	value = 85
-SW: 	base = r0 	src = r3 	offset = 48 	address = 48 	value = 85
-LBU: 	base = r0 	offset = 12 	address = 12 	value = 170
-SW: 	base = r0 	src = r3 	offset = 68 	address = 68 	value = 170
-LBU: 	base = r0 	offset = 16 	address = 16 	value = 85
-SW: 	base = r0 	src = r3 	offset = 72 	address = 72 	value = 85
-LH: 	base = r0 	offset = 12 	address = 12 	value = -21846
-SH: 	base = r0 	src = r3 	offset = 52 	address = 52 	value = -21846
-LH: 	base = r0 	offset = 14 	address = 14 	value = -21846
-SW: 	base = r0 	src = r3 	offset = 60 	address = 60 	value = -21846
-LH: 	base = r0 	offset = 16 	address = 16 	value = 21845
-SH: 	base = r0 	src = r3 	offset = 56 	address = 56 	value = 21845
-LH: 	base = r0 	offset = 18 	address = 18 	value = 21845
-SW: 	base = r0 	src = r3 	offset = 64 	address = 64 	value = 21845
-LHU: 	base = r0 	offset = 12 	address = 12 	value = 43690
-SW: 	base = r0 	src = r3 	offset = 76 	address = 76 	value = 43690
-LHU: 	base = r0 	offset = 16 	address = 16 	value = 21845
-SW: 	base = r0 	src = r3 	offset = 80 	address = 80 	value = 21845
-LW: 	base = r0 	offset = 12 	address = 12 	value = -1431655766
-SW: 	base = r0 	src = r3 	offset = 84 	address = 84 	value = -1431655766
-LW: 	base = r0 	offset = 16 	address = 16 	value = 1431655765
-SW: 	base = r0 	src = r3 	offset = 88 	address = 88 	value = 1431655765
+AND: 	pc = 0 	rd = r1 	rs1 = r1 	rs2 = r0 	alu1 = 0 	alu2 = 0 	result = 0
+LUI: 	pc = 4 	rd = r10 	imm = 0 	result = 0
+ADDI: 	pc = 8 	rd = r10 	rs1 = r10 	alu1 = 0 	alu2 = 88 	result = 88
+ADDI: 	pc = 12 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = 20 	result = 20
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 20 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 20 	alu2 = 4 	result = 24
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 24 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 24 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 24 	alu2 = 4 	result = 28
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 28 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 28 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 28 	alu2 = 4 	result = 32
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 32 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 32 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 32 	alu2 = 4 	result = 36
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 36 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 36 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 36 	alu2 = 4 	result = 40
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 40 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 40 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 40 	alu2 = 4 	result = 44
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 44 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 44 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 44 	alu2 = 4 	result = 48
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 48 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 48 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 48 	alu2 = 4 	result = 52
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 52 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 52 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 52 	alu2 = 4 	result = 56
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 56 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 56 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 56 	alu2 = 4 	result = 60
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 60 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 60 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 60 	alu2 = 4 	result = 64
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 64 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 64 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 64 	alu2 = 4 	result = 68
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 68 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 68 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 68 	alu2 = 4 	result = 72
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 72 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 72 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 72 	alu2 = 4 	result = 76
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 76 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 76 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 76 	alu2 = 4 	result = 80
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 80 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 80 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 80 	alu2 = 4 	result = 84
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 84 	bdata = 88 	offset = -8 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 16 	base = r1 	src = r0 	offset = 0 	address = 84 	value = 0
+ADDI: 	pc = 20 	rd = r1 	rs1 = r1 	alu1 = 84 	alu2 = 4 	result = 88
+BLT: 	pc = 24 	rs1 = r1 	rs2 = r10 	adata = 88 	bdata = 88 	offset = -8 	br_ne = 0 	br_lt = 0 	unsign = 0
+LB: 	pc = 28 	base = r0 	offset = 12 	address = 12 	value = -86
+SB: 	pc = 32 	base = r0 	src = r3 	offset = 20 	address = 20 	value = -86
+LB: 	pc = 36 	base = r0 	offset = 13 	address = 13 	value = -86
+SB: 	pc = 40 	base = r0 	src = r3 	offset = 28 	address = 28 	value = -86
+LB: 	pc = 44 	base = r0 	offset = 14 	address = 14 	value = -86
+SB: 	pc = 48 	base = r0 	src = r3 	offset = 36 	address = 36 	value = -86
+LB: 	pc = 52 	base = r0 	offset = 15 	address = 15 	value = -86
+SW: 	pc = 56 	base = r0 	src = r3 	offset = 44 	address = 44 	value = -86
+LB: 	pc = 60 	base = r0 	offset = 16 	address = 16 	value = 85
+SB: 	pc = 64 	base = r0 	src = r3 	offset = 24 	address = 24 	value = 85
+LB: 	pc = 68 	base = r0 	offset = 17 	address = 17 	value = 85
+SB: 	pc = 72 	base = r0 	src = r3 	offset = 32 	address = 32 	value = 85
+LB: 	pc = 76 	base = r0 	offset = 18 	address = 18 	value = 85
+SB: 	pc = 80 	base = r0 	src = r3 	offset = 40 	address = 40 	value = 85
+LB: 	pc = 84 	base = r0 	offset = 19 	address = 19 	value = 85
+SW: 	pc = 88 	base = r0 	src = r3 	offset = 48 	address = 48 	value = 85
+LBU: 	pc = 92 	base = r0 	offset = 12 	address = 12 	value = 170
+SW: 	pc = 96 	base = r0 	src = r3 	offset = 68 	address = 68 	value = 170
+LBU: 	pc = 100 	base = r0 	offset = 16 	address = 16 	value = 85
+SW: 	pc = 104 	base = r0 	src = r3 	offset = 72 	address = 72 	value = 85
+LH: 	pc = 108 	base = r0 	offset = 12 	address = 12 	value = -21846
+SH: 	pc = 112 	base = r0 	src = r3 	offset = 52 	address = 52 	value = -21846
+LH: 	pc = 116 	base = r0 	offset = 14 	address = 14 	value = -21846
+SW: 	pc = 120 	base = r0 	src = r3 	offset = 60 	address = 60 	value = -21846
+LH: 	pc = 124 	base = r0 	offset = 16 	address = 16 	value = 21845
+SH: 	pc = 128 	base = r0 	src = r3 	offset = 56 	address = 56 	value = 21845
+LH: 	pc = 132 	base = r0 	offset = 18 	address = 18 	value = 21845
+SW: 	pc = 136 	base = r0 	src = r3 	offset = 64 	address = 64 	value = 21845
+LHU: 	pc = 140 	base = r0 	offset = 12 	address = 12 	value = 43690
+SW: 	pc = 144 	base = r0 	src = r3 	offset = 76 	address = 76 	value = 43690
+LHU: 	pc = 148 	base = r0 	offset = 16 	address = 16 	value = 21845
+SW: 	pc = 152 	base = r0 	src = r3 	offset = 80 	address = 80 	value = 21845
+LW: 	pc = 156 	base = r0 	offset = 12 	address = 12 	value = -1431655766
+SW: 	pc = 160 	base = r0 	src = r3 	offset = 84 	address = 84 	value = -1431655766
+LW: 	pc = 164 	base = r0 	offset = 16 	address = 16 	value = 1431655765
+SW: 	pc = 168 	base = r0 	src = r3 	offset = 88 	address = 88 	value = 1431655765
 End Running... pc:         172
 LSB1_1 assert passed with 170
 LSB1_2 assert passed with 170
@@ -155,6 +200,85 @@ LSHU2 assert passed with 21845
 LSW1 assert passed with -1431655766
 LSW2 assert passed with 1431655765
 PASS: Load and Store test
+Instruction           0: 00000000000000000000000010110111
+Instruction           1: 00000000010100001000000010010011
+Instruction           2: 11111111110000001010000100010011
+Instruction           3: 00000000001000000010110000100011
+Instruction           4: 11111111110000001011000100010011
+Instruction           5: 00000000001000000010111000100011
+Instruction           6: 00000000010100001010000100010011
+Instruction           7: 00000010001000000010111000100011
+Instruction           8: 00000000010100001011000100010011
+Instruction           9: 00000100001000000010000000100011
+Instruction          10: 00000000000000000000000010110111
+Instruction          11: 11111111110000001000000010010011
+Instruction          12: 00000000010100001010000100010011
+Instruction          13: 00000000001000000010101000100011
+Instruction          14: 00000000010100001011000100010011
+Instruction          15: 00000010001000000010000000100011
+Instruction          16: 00000000000100000111000010110011
+Instruction          17: 11001010001100001000000010010011
+Instruction          18: 11000101001100001100000100010011
+Instruction          19: 00000010001000000010001000100011
+Instruction          20: 11000101001100001110000100010011
+Instruction          21: 00000010001000000010010000100011
+Instruction          22: 11000101001100001111000100010011
+Instruction          23: 00000010001000000010011000100011
+Instruction          24: 10101010101010101011000010110111
+Instruction          25: 10101010101000001000000010010011
+Instruction          26: 00000000100000001001000100010011
+Instruction          27: 00000010001000000010100000100011
+Instruction          28: 00000000100000001101000100010011
+Instruction          29: 00000010001000000010101000100011
+Instruction          30: 01000000100000001101000100010011
+Instruction          31: 00000010001000000010110000100011
+Running immediate alu test
+LUI: 	pc = 0 	rd = r1 	imm = 0 	result = 0
+ADDI: 	pc = 4 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = 5 	result = 5
+SLTI: 	pc = 8 	rd = r2 	rs1 = r1 	alu1 = 5 	alu2 = -4 	result = 0
+SW: 	pc = 12 	base = r0 	src = r2 	offset = 24 	address = 24 	value = 0
+SLTIU: 	pc = 16 	rd = r2 	rs1 = r1 	alu1 = 5 	alu2 = -4 	result = 1
+SW: 	pc = 20 	base = r0 	src = r2 	offset = 28 	address = 28 	value = 1
+SLTI: 	pc = 24 	rd = r2 	rs1 = r1 	alu1 = 5 	alu2 = 5 	result = 0
+SW: 	pc = 28 	base = r0 	src = r2 	offset = 60 	address = 60 	value = 0
+SLTIU: 	pc = 32 	rd = r2 	rs1 = r1 	alu1 = 5 	alu2 = 5 	result = 0
+SW: 	pc = 36 	base = r0 	src = r2 	offset = 64 	address = 64 	value = 0
+LUI: 	pc = 40 	rd = r1 	imm = 0 	result = 0
+ADDI: 	pc = 44 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = -4 	result = -4
+SLTI: 	pc = 48 	rd = r2 	rs1 = r1 	alu1 = -4 	alu2 = 5 	result = 1
+SW: 	pc = 52 	base = r0 	src = r2 	offset = 20 	address = 20 	value = 1
+SLTIU: 	pc = 56 	rd = r2 	rs1 = r1 	alu1 = -4 	alu2 = 5 	result = 0
+SW: 	pc = 60 	base = r0 	src = r2 	offset = 32 	address = 32 	value = 0
+AND: 	pc = 64 	rd = r1 	rs1 = r0 	rs2 = r1 	alu1 = 0 	alu2 = -4 	result = 0
+ADDI: 	pc = 68 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = -861 	result = -861
+XORI: 	pc = 72 	rd = r2 	rs1 = r1 	alu1 = -861 	alu2 = -941 	result = 240
+SW: 	pc = 76 	base = r0 	src = r2 	offset = 36 	address = 36 	value = 240
+ORI: 	pc = 80 	rd = r2 	rs1 = r1 	alu1 = -861 	alu2 = -941 	result = -781
+SW: 	pc = 84 	base = r0 	src = r2 	offset = 40 	address = 40 	value = -781
+ANDI: 	pc = 88 	rd = r2 	rs1 = r1 	alu1 = -861 	alu2 = -941 	result = -1021
+SW: 	pc = 92 	base = r0 	src = r2 	offset = 44 	address = 44 	value = -1021
+LUI: 	pc = 96 	rd = r1 	imm = -1431654400 	result = -1431654400
+ADDI: 	pc = 100 	rd = r1 	rs1 = r1 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
+SLLI: 	pc = 104 	rd = r2 	rs1 = r1 	alu1 = -1431655766 	alu2 = 8 	result = -1431655936
+SW: 	pc = 108 	base = r0 	src = r2 	offset = 48 	address = 48 	value = -1431655936
+SRLI: 	pc = 112 	rd = r2 	rs1 = r1 	alu1 = -1431655766 	alu2 = 8 	result = 11184810
+SW: 	pc = 116 	base = r0 	src = r2 	offset = 52 	address = 52 	value = 11184810
+SRAI: 	pc = 120 	rd = r2 	rs1 = r1 	alu1 = -1431655766 	alu2 = 1032 	result = -5592406
+SW: 	pc = 124 	base = r0 	src = r2 	offset = 56 	address = 56 	value = -5592406
+End Running... pc:         128
+SLTI true assert passed with 1
+SLTI false assert passed with 0
+SLTI equal assert passed with 0
+SLTIU true assert passed with 1
+SLTIU false assert passed with 0
+SLTIU equal assert passed with 0
+XORI assert passed with 240
+ORI assert passed with -781
+ANDI assert passed with -1021
+SLLI assert passed with -1431655936
+SLRI assert passed with 11184810
+SRAI assert passed with -5592406
+PASS: ALU immediates test
 Instruction           0: 10101010101010101011000010110111
 Instruction           1: 10101010101000001000000010010011
 Instruction           2: 00001010101010101011000100110111
@@ -214,46 +338,46 @@ Instruction          55: 00000100010000000010000000100011
 Instruction          56: 00000000100000000000000001101111
 Instruction          57: 00000100010100000010000000100011
 Running Branch test
-LUI: 	rd = r1 	imm = -1431654400 	result = -1431654400
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
-LUI: 	rd = r2 	imm = 178958336 	result = 178958336
-ADDI: 	rd = r2 	rs1 = r2 	alu1 = 178958336 	alu2 = -1366 	result = 178956970
-LUI: 	rd = r3 	imm = -1431654400 	result = -1431654400
-ADDI: 	rd = r3 	rs1 = r3 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
-LUI: 	rd = r4 	imm = -1431654400 	result = -1431654400
-ADDI: 	rd = r4 	rs1 = r4 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
-LUI: 	rd = r5 	imm = 1431654400 	result = 1431654400
-ADDI: 	rd = r5 	rs1 = r5 	alu1 = 1431654400 	alu2 = 1365 	result = 1431655765
-BEQ: 	rs1 = r1 	rs2 = r3 	adata = -1431655766 	bdata = -1431655766 	offset = 12 	br_ne = 0 	br_lt = 0 	unsign = x
-SW: 	base = r0 	src = r4 	offset = 24 	address = 24 	value = -1431655766
-BEQ: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = x 	unsign = x
-SW: 	base = r0 	src = r4 	offset = 48 	address = 48 	value = -1431655766
-JAL: 	rd = r0 	offset = 8
-BNE: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = x 	unsign = x
-SW: 	base = r0 	src = r4 	offset = 20 	address = 20 	value = -1431655766
-BNE: 	rs1 = r1 	rs2 = r3 	adata = -1431655766 	bdata = -1431655766 	offset = 12 	br_ne = 0 	br_lt = 0 	unsign = x
-SW: 	base = r0 	src = r4 	offset = 44 	address = 44 	value = -1431655766
-JAL: 	rd = r0 	offset = 8
-BLT: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r0 	src = r4 	offset = 28 	address = 28 	value = -1431655766
-BLT: 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 0
-SW: 	base = r0 	src = r4 	offset = 52 	address = 52 	value = -1431655766
-JAL: 	rd = r0 	offset = 8
-BGE: 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 0
-SW: 	base = r0 	src = r4 	offset = 32 	address = 32 	value = -1431655766
-BGE: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 0
-SW: 	base = r0 	src = r4 	offset = 56 	address = 56 	value = -1431655766
-JAL: 	rd = r0 	offset = 8
-BLTU: 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 1
-SW: 	base = r0 	src = r4 	offset = 36 	address = 36 	value = -1431655766
-BLTU: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 1
-SW: 	base = r0 	src = r4 	offset = 60 	address = 60 	value = -1431655766
-JAL: 	rd = r0 	offset = 8
-BGEU: 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 1
-SW: 	base = r0 	src = r4 	offset = 40 	address = 40 	value = -1431655766
-BGEU: 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 1
-SW: 	base = r0 	src = r4 	offset = 64 	address = 64 	value = -1431655766
-JAL: 	rd = r0 	offset = 8
+LUI: 	pc = 0 	rd = r1 	imm = -1431654400 	result = -1431654400
+ADDI: 	pc = 4 	rd = r1 	rs1 = r1 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
+LUI: 	pc = 8 	rd = r2 	imm = 178958336 	result = 178958336
+ADDI: 	pc = 12 	rd = r2 	rs1 = r2 	alu1 = 178958336 	alu2 = -1366 	result = 178956970
+LUI: 	pc = 16 	rd = r3 	imm = -1431654400 	result = -1431654400
+ADDI: 	pc = 20 	rd = r3 	rs1 = r3 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
+LUI: 	pc = 24 	rd = r4 	imm = -1431654400 	result = -1431654400
+ADDI: 	pc = 28 	rd = r4 	rs1 = r4 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
+LUI: 	pc = 32 	rd = r5 	imm = 1431654400 	result = 1431654400
+ADDI: 	pc = 36 	rd = r5 	rs1 = r5 	alu1 = 1431654400 	alu2 = 1365 	result = 1431655765
+BEQ: 	pc = 40 	rs1 = r1 	rs2 = r3 	adata = -1431655766 	bdata = -1431655766 	offset = 12 	br_ne = 0 	br_lt = 0 	unsign = x
+SW: 	pc = 52 	base = r0 	src = r4 	offset = 24 	address = 24 	value = -1431655766
+BEQ: 	pc = 56 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = x 	unsign = x
+SW: 	pc = 60 	base = r0 	src = r4 	offset = 48 	address = 48 	value = -1431655766
+JAL: 	pc = 64 	rd = r0 	offset = 8
+BNE: 	pc = 72 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = x 	unsign = x
+SW: 	pc = 84 	base = r0 	src = r4 	offset = 20 	address = 20 	value = -1431655766
+BNE: 	pc = 88 	rs1 = r1 	rs2 = r3 	adata = -1431655766 	bdata = -1431655766 	offset = 12 	br_ne = 0 	br_lt = 0 	unsign = x
+SW: 	pc = 92 	base = r0 	src = r4 	offset = 44 	address = 44 	value = -1431655766
+JAL: 	pc = 96 	rd = r0 	offset = 8
+BLT: 	pc = 104 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 116 	base = r0 	src = r4 	offset = 28 	address = 28 	value = -1431655766
+BLT: 	pc = 120 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 0
+SW: 	pc = 124 	base = r0 	src = r4 	offset = 52 	address = 52 	value = -1431655766
+JAL: 	pc = 128 	rd = r0 	offset = 8
+BGE: 	pc = 136 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 0
+SW: 	pc = 148 	base = r0 	src = r4 	offset = 32 	address = 32 	value = -1431655766
+BGE: 	pc = 152 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 156 	base = r0 	src = r4 	offset = 56 	address = 56 	value = -1431655766
+JAL: 	pc = 160 	rd = r0 	offset = 8
+BLTU: 	pc = 168 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 1
+SW: 	pc = 180 	base = r0 	src = r4 	offset = 36 	address = 36 	value = -1431655766
+BLTU: 	pc = 184 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 1
+SW: 	pc = 188 	base = r0 	src = r4 	offset = 60 	address = 60 	value = -1431655766
+JAL: 	pc = 192 	rd = r0 	offset = 8
+BGEU: 	pc = 200 	rs1 = r1 	rs2 = r2 	adata = -1431655766 	bdata = 178956970 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 1
+SW: 	pc = 212 	base = r0 	src = r4 	offset = 40 	address = 40 	value = -1431655766
+BGEU: 	pc = 216 	rs1 = r2 	rs2 = r1 	adata = 178956970 	bdata = -1431655766 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 1
+SW: 	pc = 220 	base = r0 	src = r4 	offset = 64 	address = 64 	value = -1431655766
+JAL: 	pc = 224 	rd = r0 	offset = 8
 End Running... pc:         232
 BEQ valid assert passed with -1431655766
 BEQ invalid assert passed with -1431655766
@@ -284,115 +408,115 @@ Instruction          12: 00000000000100011000000010110011
 Instruction          13: 11111110001000001100100011100011
 Instruction          14: 11111111111111111111111111111111
 Running BLT prog test
-AND: 	rd = r1 	rs1 = r0 	rs2 = r1 	alu1 = 0 	alu2 = 0 	result = 0
-AND: 	rd = r2 	rs1 = r0 	rs2 = r2 	alu1 = 0 	alu2 = 0 	result = 0
-AND: 	rd = r3 	rs1 = r0 	rs2 = r3 	alu1 = 0 	alu2 = 0 	result = 0
-ADDI: 	rd = r4 	rs1 = r0 	alu1 = 0 	alu2 = 1 	result = 1
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = 0 	result = 0
-LUI: 	rd = r2 	imm = 0 	result = 0
-ADDI: 	rd = r2 	rs1 = r2 	alu1 = 0 	alu2 = 20 	result = 20
-ADDI: 	rd = r3 	rs1 = r3 	alu1 = 0 	alu2 = 1 	result = 1
-BLT: 	rs1 = r2 	rs2 = r1 	adata = 20 	bdata = 0 	offset = 10 	br_ne = 1 	br_lt = 0 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 0 	result = 1
-SW: 	base = r6 	src = r5 	offset = 10 	address = 10 	value = 1
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 0 	alu2 = 4 	result = 4
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 0 	result = 1
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 1 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 1 	result = 2
-SW: 	base = r6 	src = r5 	offset = 10 	address = 14 	value = 2
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 4 	alu2 = 4 	result = 8
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 1 	result = 2
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 2 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 2 	result = 4
-SW: 	base = r6 	src = r5 	offset = 10 	address = 18 	value = 4
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 8 	alu2 = 4 	result = 12
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 2 	result = 3
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 3 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 3 	result = 8
-SW: 	base = r6 	src = r5 	offset = 10 	address = 22 	value = 8
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 12 	alu2 = 4 	result = 16
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 3 	result = 4
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 4 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 4 	result = 16
-SW: 	base = r6 	src = r5 	offset = 10 	address = 26 	value = 16
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 16 	alu2 = 4 	result = 20
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 4 	result = 5
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 5 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 5 	result = 32
-SW: 	base = r6 	src = r5 	offset = 10 	address = 30 	value = 32
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 20 	alu2 = 4 	result = 24
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 5 	result = 6
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 6 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 6 	result = 64
-SW: 	base = r6 	src = r5 	offset = 10 	address = 34 	value = 64
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 24 	alu2 = 4 	result = 28
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 6 	result = 7
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 7 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 7 	result = 128
-SW: 	base = r6 	src = r5 	offset = 10 	address = 38 	value = 128
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 28 	alu2 = 4 	result = 32
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 7 	result = 8
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 8 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 8 	result = 256
-SW: 	base = r6 	src = r5 	offset = 10 	address = 42 	value = 256
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 32 	alu2 = 4 	result = 36
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 8 	result = 9
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 9 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 9 	result = 512
-SW: 	base = r6 	src = r5 	offset = 10 	address = 46 	value = 512
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 36 	alu2 = 4 	result = 40
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 9 	result = 10
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 10 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 10 	result = 1024
-SW: 	base = r6 	src = r5 	offset = 10 	address = 50 	value = 1024
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 40 	alu2 = 4 	result = 44
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 10 	result = 11
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 11 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 11 	result = 2048
-SW: 	base = r6 	src = r5 	offset = 10 	address = 54 	value = 2048
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 44 	alu2 = 4 	result = 48
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 11 	result = 12
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 12 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 12 	result = 4096
-SW: 	base = r6 	src = r5 	offset = 10 	address = 58 	value = 4096
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 48 	alu2 = 4 	result = 52
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 12 	result = 13
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 13 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 13 	result = 8192
-SW: 	base = r6 	src = r5 	offset = 10 	address = 62 	value = 8192
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 52 	alu2 = 4 	result = 56
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 13 	result = 14
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 14 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 14 	result = 16384
-SW: 	base = r6 	src = r5 	offset = 10 	address = 66 	value = 16384
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 56 	alu2 = 4 	result = 60
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 14 	result = 15
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 15 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 15 	result = 32768
-SW: 	base = r6 	src = r5 	offset = 10 	address = 70 	value = 32768
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 60 	alu2 = 4 	result = 64
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 15 	result = 16
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 16 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 16 	result = 65536
-SW: 	base = r6 	src = r5 	offset = 10 	address = 74 	value = 65536
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 64 	alu2 = 4 	result = 68
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 16 	result = 17
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 17 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 17 	result = 131072
-SW: 	base = r6 	src = r5 	offset = 10 	address = 78 	value = 131072
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 68 	alu2 = 4 	result = 72
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 17 	result = 18
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 18 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 18 	result = 262144
-SW: 	base = r6 	src = r5 	offset = 10 	address = 82 	value = 262144
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 72 	alu2 = 4 	result = 76
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 18 	result = 19
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 19 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
-SLL: 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 19 	result = 524288
-SW: 	base = r6 	src = r5 	offset = 10 	address = 86 	value = 524288
-ADDI: 	rd = r6 	rs1 = r6 	alu1 = 76 	alu2 = 4 	result = 80
-ADD: 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 19 	result = 20
-BLT: 	rs1 = r1 	rs2 = r2 	adata = 20 	bdata = 20 	offset = -16 	br_ne = 0 	br_lt = 0 	unsign = 0
+AND: 	pc = 0 	rd = r1 	rs1 = r0 	rs2 = r1 	alu1 = 0 	alu2 = 0 	result = 0
+AND: 	pc = 4 	rd = r2 	rs1 = r0 	rs2 = r2 	alu1 = 0 	alu2 = 0 	result = 0
+AND: 	pc = 8 	rd = r3 	rs1 = r0 	rs2 = r3 	alu1 = 0 	alu2 = 0 	result = 0
+ADDI: 	pc = 12 	rd = r4 	rs1 = r0 	alu1 = 0 	alu2 = 1 	result = 1
+ADDI: 	pc = 16 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = 0 	result = 0
+LUI: 	pc = 20 	rd = r2 	imm = 0 	result = 0
+ADDI: 	pc = 24 	rd = r2 	rs1 = r2 	alu1 = 0 	alu2 = 20 	result = 20
+ADDI: 	pc = 28 	rd = r3 	rs1 = r3 	alu1 = 0 	alu2 = 1 	result = 1
+BLT: 	pc = 32 	rs1 = r2 	rs2 = r1 	adata = 20 	bdata = 0 	offset = 10 	br_ne = 1 	br_lt = 0 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 0 	result = 1
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 10 	value = 1
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 0 	alu2 = 4 	result = 4
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 0 	result = 1
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 1 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 1 	result = 2
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 14 	value = 2
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 4 	alu2 = 4 	result = 8
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 1 	result = 2
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 2 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 2 	result = 4
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 18 	value = 4
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 8 	alu2 = 4 	result = 12
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 2 	result = 3
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 3 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 3 	result = 8
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 22 	value = 8
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 12 	alu2 = 4 	result = 16
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 3 	result = 4
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 4 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 4 	result = 16
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 26 	value = 16
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 16 	alu2 = 4 	result = 20
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 4 	result = 5
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 5 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 5 	result = 32
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 30 	value = 32
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 20 	alu2 = 4 	result = 24
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 5 	result = 6
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 6 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 6 	result = 64
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 34 	value = 64
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 24 	alu2 = 4 	result = 28
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 6 	result = 7
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 7 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 7 	result = 128
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 38 	value = 128
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 28 	alu2 = 4 	result = 32
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 7 	result = 8
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 8 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 8 	result = 256
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 42 	value = 256
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 32 	alu2 = 4 	result = 36
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 8 	result = 9
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 9 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 9 	result = 512
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 46 	value = 512
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 36 	alu2 = 4 	result = 40
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 9 	result = 10
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 10 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 10 	result = 1024
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 50 	value = 1024
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 40 	alu2 = 4 	result = 44
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 10 	result = 11
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 11 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 11 	result = 2048
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 54 	value = 2048
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 44 	alu2 = 4 	result = 48
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 11 	result = 12
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 12 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 12 	result = 4096
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 58 	value = 4096
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 48 	alu2 = 4 	result = 52
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 12 	result = 13
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 13 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 13 	result = 8192
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 62 	value = 8192
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 52 	alu2 = 4 	result = 56
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 13 	result = 14
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 14 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 14 	result = 16384
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 66 	value = 16384
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 56 	alu2 = 4 	result = 60
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 14 	result = 15
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 15 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 15 	result = 32768
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 70 	value = 32768
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 60 	alu2 = 4 	result = 64
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 15 	result = 16
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 16 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 16 	result = 65536
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 74 	value = 65536
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 64 	alu2 = 4 	result = 68
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 16 	result = 17
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 17 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 17 	result = 131072
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 78 	value = 131072
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 68 	alu2 = 4 	result = 72
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 17 	result = 18
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 18 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 18 	result = 262144
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 82 	value = 262144
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 72 	alu2 = 4 	result = 76
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 18 	result = 19
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 19 	bdata = 20 	offset = -16 	br_ne = 1 	br_lt = 1 	unsign = 0
+SLL: 	pc = 36 	rd = r5 	rs1 = r4 	rs2 = r1 	alu1 = 1 	alu2 = 19 	result = 524288
+SW: 	pc = 40 	base = r6 	src = r5 	offset = 10 	address = 86 	value = 524288
+ADDI: 	pc = 44 	rd = r6 	rs1 = r6 	alu1 = 76 	alu2 = 4 	result = 80
+ADD: 	pc = 48 	rd = r1 	rs1 = r3 	rs2 = r1 	alu1 = 1 	alu2 = 19 	result = 20
+BLT: 	pc = 52 	rs1 = r1 	rs2 = r2 	adata = 20 	bdata = 20 	offset = -16 	br_ne = 0 	br_lt = 0 	unsign = 0
 End Running... pc:          56
 BLT PROG assert success with           1
 BLT PROG assert success with           2
@@ -446,22 +570,56 @@ Instruction          28: 00010000000000000011011011110011
 Instruction          29: 00000010110100000010101000100011
 Instruction          30: 11111111111111111111111111111111
 Running CSR and timer test
-LUI: 	rd = r1 	imm = 0 	result = 0
-ADDI: 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = 1245 	result = 1245
-LUI: 	rd = r10 	imm = -1431654400 	result = -1431654400
-ADDI: 	rd = r10 	rs1 = r10 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
-LUI: 	rd = r11 	imm = 65536 	result = 65536
-ADDI: 	rd = r11 	rs1 = r11 	alu1 = 65536 	alu2 = -1 	result = 65535
-LUI: 	rd = r12 	imm = -65536 	result = -65536
-ADDI: 	rd = r12 	rs1 = r12 	alu1 = -65536 	alu2 = 0 	result = -65536
-CSRRW: 	rd = r13 	rs1 = r10 	data = -1431655766 	result = 0
-CSRRS: 	rd = r13 	rs1 = r11 	data = 65535 	result = -1431655766
-SW: 	base = r0 	src = r13 	offset = 20 	address = 20 	value = -1431655766
-CSRRC: 	rd = r13 	rs1 = r12 	data = -65536 	result = -1431633921
-SW: 	base = r0 	src = r13 	offset = 24 	address = 24 	value = -1431633921
-CSRRC: 	rd = r13 	rs1 = r0 	data = 0 	result = 65535
-SW: 	base = r0 	src = r13 	offset = 28 	address = 28 	value = 65535
-CSRRS: 	rd = r13 	rs1 = r0 	data = 0 	result = 15
-SW: 	base = r0 	src = r13 	offset = 32 	address = 32 	value = 15
-CSRRS: 	rd = r13 	rs1 = r0 	data = 0 	result = 17
-SW: 	base = 
+LUI: 	pc = 0 	rd = r1 	imm = 0 	result = 0
+ADDI: 	pc = 4 	rd = r1 	rs1 = r1 	alu1 = 0 	alu2 = 1245 	result = 1245
+LUI: 	pc = 8 	rd = r10 	imm = -1431654400 	result = -1431654400
+ADDI: 	pc = 12 	rd = r10 	rs1 = r10 	alu1 = -1431654400 	alu2 = -1366 	result = -1431655766
+LUI: 	pc = 16 	rd = r11 	imm = 65536 	result = 65536
+ADDI: 	pc = 20 	rd = r11 	rs1 = r11 	alu1 = 65536 	alu2 = -1 	result = 65535
+LUI: 	pc = 24 	rd = r12 	imm = -65536 	result = -65536
+ADDI: 	pc = 28 	rd = r12 	rs1 = r12 	alu1 = -65536 	alu2 = 0 	result = -65536
+CSRRW: 	pc = 32 	rd = r13 	rs1 = r10 	data = -1431655766 	result = 0
+CSRRS: 	pc = 36 	rd = r13 	rs1 = r11 	data = 65535 	result = -1431655766
+SW: 	pc = 40 	base = r0 	src = r13 	offset = 20 	address = 20 	value = -1431655766
+CSRRC: 	pc = 44 	rd = r13 	rs1 = r12 	data = -65536 	result = -1431633921
+SW: 	pc = 48 	base = r0 	src = r13 	offset = 24 	address = 24 	value = -1431633921
+CSRRC: 	pc = 52 	rd = r13 	rs1 = r0 	data = 0 	result = 65535
+SW: 	pc = 56 	base = r0 	src = r13 	offset = 28 	address = 28 	value = 65535
+CSRRS: 	pc = 60 	rd = r13 	rs1 = r0 	data = 0 	result = 15
+SW: 	pc = 64 	base = r0 	src = r13 	offset = 32 	address = 32 	value = 15
+CSRRS: 	pc = 68 	rd = r13 	rs1 = r0 	data = 0 	result = 17
+SW: 	pc = 72 	base = r0 	src = r13 	offset = 36 	address = 36 	value = 17
+ADD: 	pc = 76 	rd = r0 	rs1 = r0 	rs2 = r0 	alu1 = 0 	alu2 = 0 	result = 0
+ADD: 	pc = 80 	rd = r0 	rs1 = r0 	rs2 = r0 	alu1 = 0 	alu2 = 0 	result = 0
+CSRRS: 	pc = 84 	rd = r13 	rs1 = r0 	data = 0 	result = 2
+SW: 	pc = 88 	base = r0 	src = r13 	offset = 40 	address = 40 	value = 2
+CSRRWI: 	pc = 92 	rd = r0 	rs1 = r10 	data = 10 	result = 65535
+CSRRSI: 	pc = 96 	rd = r13 	rs1 = r3 	data = 3 	result = 10
+SW: 	pc = 100 	base = r0 	src = r13 	offset = 44 	address = 44 	value = 10
+CSRRCI: 	pc = 104 	rd = r13 	rs1 = r12 	data = 12 	result = 11
+SW: 	pc = 108 	base = r0 	src = r13 	offset = 48 	address = 48 	value = 11
+CSRRC: 	pc = 112 	rd = r13 	rs1 = r0 	data = 0 	result = 3
+SW: 	pc = 116 	base = r0 	src = r13 	offset = 52 	address = 52 	value = 3
+Unknown instruction: ffffffff
+End Running... pc:         124
+CSRRW assert success with -1431655766
+CSRRS assert passed with -1431633921
+CSRRC assert success with       65535
+RDCYCLE assert success with          15
+RDINSTRET assert success with          17
+RDTIMER assert success with           2
+CSRRWI assert success with          10
+CSRRSI assert success with          11
+CSRRCI assert success with           3
+PASS: CSR and Timer test
+Attempt to read and write from dram
+Set and Get dram succeeded
+Run core
+SW: 	pc = 124 	base = r0 	src = r4 	offset = 52 	address = 52 	value = 0
+JAL: 	pc = 128 	rd = r0 	offset = 8
+BGE: 	pc = 136 	rs1 = r2 	rs2 = r1 	adata = 0 	bdata = 1245 	offset = 12 	br_ne = 1 	br_lt = 1 	unsign = 0
+SW: 	pc = 140 	base = r0 	src = r5 	offset = 32 	address = 32 	value = 0
+JAL: 	pc = 144 	rd = r0 	offset = 8
+BGE: 	pc = 152 	rs1 = r1 	rs2 = r2 	adata = 1245 	bdata = 0 	offset = 12 	br_ne = 1 	br_lt = 0 	unsign = 0
+SW: 	pc = 164 	base = r0 	src = r5 	offset = 56 	address = 56 	value = 0
+$stop called at time : 6186 ps : File "D:/Xilinx/projects/RISC-V/RISC-V.srcs/sources_1/new/core_tb.sv" Line 917

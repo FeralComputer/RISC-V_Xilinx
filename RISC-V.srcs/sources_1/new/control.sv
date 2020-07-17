@@ -36,7 +36,8 @@ module control( input int instruction,
                 output logic [2:0] dram_mem_size_a, //used by dram for determining write size
                 output logic [2:0] dram_mem_size_b, //used by dram for determining read size
                 output logic [2:0] csr_sel, //used to select instruction for csr
-                output logic csr_data_sel //used to select between adata and uimm for csr
+                output logic csr_data_sel, //used to select between adata and uimm for csr
+                output logic alu_result_b0_clear //used to clear bit 0 of the alu result (JALR)
     );
     
     
@@ -63,6 +64,7 @@ module control( input int instruction,
         dram_mem_size_b = ram_word;
         csr_sel = csr_idle;
         csr_data_sel = 'bx;
+        alu_result_b0_clear = 0;
 
         //determines instruction type and enables instruction flag relative to instruction
         casex(instruction) //: intruction_to_type_decoding
@@ -105,6 +107,7 @@ module control( input int instruction,
                 alub_sel = alub_imm;
                 dram_wsel = dram_write_noten;
                 pc_wsel = pc_write;
+                alu_result_b0_clear = 1;
             end            
             BEQ.instruct_compare:  begin 
                 instruction_type = BEQ.isa_type;

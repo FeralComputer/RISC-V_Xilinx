@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="synth_1" LaunchPart="xc7k70tfbv676-1" LaunchTime="1594935730">
   <File Type="PA-TCL" Name="core.tcl"/>
-  <File Type="RDS-PROPCONSTRS" Name="core_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="core_reports.tcl"/>
   <File Type="RDS-RDS" Name="core.vds"/>
   <File Type="RDS-UTIL" Name="core_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="core_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="core.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="core_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="core_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/instruction_types.sv">
