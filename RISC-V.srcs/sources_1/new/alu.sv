@@ -42,7 +42,7 @@ module alu( input int adata, bdata,
             alu_SLT : #1ps result = $signed(adata) < $signed(bdata);
             alu_SLTU : #1ps result = $unsigned(adata) < $unsigned(bdata); 
             alu_LOAD_IMM_2_A : #1ps result = {bdata[31:12],12'b0};//return the 20 bits from imm as the highest and fill the rest with zero
-            'b0 : #1ps result = 'b0; // default no operation state
+            'b0 : #1ps result = 'bx; // default no operation state
             default: begin
                 result = 'bx;
 //                $error("ALU received invalid instruction selection");

@@ -397,7 +397,7 @@ module control( input int instruction,
                 instruction_type = SLTU.isa_type;
                 reg_wen = reg_write_en;
                 reg_wdata_sel = reg_write_alu;
-                alu_select = alu_SLT;
+                alu_select = alu_SLTU;
                 alua_sel = alua_adata;
                 alub_sel = alub_bdata;
                 dram_wsel = dram_write_noten;

@@ -28,10 +28,10 @@ import risc_structs::*;
 // automate error and pass messages
 // error message format is "[operation]" and will result in "[operation] assert failed expected [expected_value] got [actual_value]"
 // pass message format it "[operation]" and will result it "[operation] assert passed with [actual_value]"
-`define assert_test(actual_value, expected_value, error_message, pass_message, error_count) \
-    assert(actual_value == expected_value) $display("%s assert passed with %0d", pass_message, actual_value); \
+`define assert_test(actual_value, expected_value, id_message, error_count) \
+    assert(actual_value == expected_value) $display("%s assert passed with %0d", id_message, actual_value); \
     else begin \
-        $display("%s assert failed expected %0d got %0d", error_message, expected_value, actual_value); \
+        $display("%s assert failed expected %0d got %0d", id_message, expected_value, actual_value); \
         error_count += 1; \
     end
    
@@ -227,7 +227,7 @@ module core_tb(
         end
 
         GET_DRAM_VALUE(test_mem_rs, read_value);
-        `assert_test(read_value, test_mask_rs | test_val_rw, "CSRRS", "CSRRS", error_count);
+        `assert_test(read_value, test_mask_rs | test_val_rw, "CSRRS", error_count);
 
         GET_DRAM_VALUE(test_mem_rc, read_value);
         assert(read_value == ~test_mask_rc & (test_mask_rs | test_val_rw)) $display("CSRRC assert success with %d", read_value);
@@ -402,40 +402,40 @@ module core_tb(
         enable = 0;
 
         GET_DRAM_VALUE(beq_addr_valid, read_value);
-        `assert_test(read_value, success_value, "BEQ valid", "BEQ valid", error_count);
+        `assert_test(read_value, success_value, "BEQ valid", error_count);
 
         GET_DRAM_VALUE(beq_addr_invalid, read_value);
-        `assert_test(read_value, success_value, "BEQ invalid", "BEQ invalid", error_count);
+        `assert_test(read_value, success_value, "BEQ invalid", error_count);
 
         GET_DRAM_VALUE(bne_addr_valid, read_value);
-        `assert_test(read_value, success_value, "BNE valid", "BNE valid", error_count);
+        `assert_test(read_value, success_value, "BNE valid", error_count);
 
         GET_DRAM_VALUE(bne_addr_invalid, read_value);
-        `assert_test(read_value, success_value, "BNE invalid", "BNE invalid", error_count);
+        `assert_test(read_value, success_value, "BNE invalid", error_count);
 
         GET_DRAM_VALUE(blt_addr_valid, read_value);
-        `assert_test(read_value, success_value, "BLT valid", "BLT valid", error_count);
+        `assert_test(read_value, success_value, "BLT valid", error_count);
 
         GET_DRAM_VALUE(blt_addr_invalid, read_value);
-        `assert_test(read_value, success_value, "BLT invalid", "BLT invalid", error_count);
+        `assert_test(read_value, success_value, "BLT invalid", error_count);
 
         GET_DRAM_VALUE(bltu_addr_valid, read_value);
-        `assert_test(read_value, success_value, "BLTU valid", "BLTU valid", error_count);
+        `assert_test(read_value, success_value, "BLTU valid", error_count);
 
         GET_DRAM_VALUE(bltu_addr_invalid, read_value);
-        `assert_test(read_value, success_value, "BLTU invalid", "BLTU invalid", error_count);
+        `assert_test(read_value, success_value, "BLTU invalid", error_count);
 
         GET_DRAM_VALUE(bge_addr_valid, read_value);
-        `assert_test(read_value, success_value, "BGE valid", "BGE valid", error_count);
+        `assert_test(read_value, success_value, "BGE valid", error_count);
 
         GET_DRAM_VALUE(bge_addr_invalid, read_value);
-        `assert_test(read_value, success_value, "BGE invalid", "BGE invalid", error_count);
+        `assert_test(read_value, success_value, "BGE invalid", error_count);
 
         GET_DRAM_VALUE(bgeu_addr_valid, read_value);
-        `assert_test(read_value, success_value, "BGEU valid", "BGEU valid", error_count);
+        `assert_test(read_value, success_value, "BGEU valid", error_count);
 
         GET_DRAM_VALUE(bgeu_addr_invalid, read_value);
-        `assert_test(read_value, success_value, "BGEU invalid", "BGEU invalid", error_count);
+        `assert_test(read_value, success_value, "BGEU invalid", error_count);
         
         if(error_count > 0) $error("Branch test failed %0d times", error_count);
         else $display("PASS: Branch test");
@@ -563,71 +563,71 @@ module core_tb(
         
 
         GET_DRAM_VALUE(lsb1_1, read_value);
-        `assert_test(read_value, expected, "LSB1_1", "LSB1_1", error_count);
+        `assert_test(read_value, expected, "LSB1_1", error_count);
 
         GET_DRAM_VALUE(lsb1_2, read_value);
-        `assert_test(read_value, expected, "LSB1_2", "LSB1_2", error_count);
+        `assert_test(read_value, expected, "LSB1_2", error_count);
 
         GET_DRAM_VALUE(lsb1_3, read_value);
-        `assert_test(read_value, expected, "LSB1_3", "LSB1_3", error_count);
+        `assert_test(read_value, expected, "LSB1_3", error_count);
 
         expected = 'hffff_ffaa;
         GET_DRAM_VALUE(lsb1_4, read_value);
-        `assert_test(read_value, expected, "LSB1_4", "LSB1_4", error_count);
+        `assert_test(read_value, expected, "LSB1_4", error_count);
 
         expected = 'h0000_0055;
         GET_DRAM_VALUE(lsb2_1, read_value);
-        `assert_test(read_value, expected, "LSB2_1", "LSB2_1", error_count);
+        `assert_test(read_value, expected, "LSB2_1", error_count);
 
         GET_DRAM_VALUE(lsb2_2, read_value);
-        `assert_test(read_value, expected, "LSB2_2", "LSB2_2", error_count);
+        `assert_test(read_value, expected, "LSB2_2", error_count);
 
         GET_DRAM_VALUE(lsb2_3, read_value);
-        `assert_test(read_value, expected, "LSB2_3", "LSB2_3", error_count);
+        `assert_test(read_value, expected, "LSB2_3", error_count);
 
         expected = 'h0000_0055;
         GET_DRAM_VALUE(lsb2_4, read_value);
-        `assert_test(read_value, expected, "LSB2_4", "LSB2_4", error_count);
+        `assert_test(read_value, expected, "LSB2_4", error_count);
 
         expected = 'h0000_00aa;
         GET_DRAM_VALUE(lsbu1, read_value);
-        `assert_test(read_value, expected, "LSBU1", "LSBU1", error_count);
+        `assert_test(read_value, expected, "LSBU1", error_count);
 
         expected = 'h0000_0055;
         GET_DRAM_VALUE(lsbu2, read_value);
-        `assert_test(read_value, expected, "LSBU2", "LSBU2", error_count);
+        `assert_test(read_value, expected, "LSBU2", error_count);
 
         expected = 'h0000_aaaa;
         GET_DRAM_VALUE(lsh1_1, read_value);
-        `assert_test(read_value, expected, "LSH1_1", "LSH1_1", error_count);
+        `assert_test(read_value, expected, "LSH1_1", error_count);
 
         expected = 'hffff_aaaa;
         GET_DRAM_VALUE(lsh1_2, read_value);
-        `assert_test(read_value, expected, "LSH1_2", "LSH1_2", error_count);
+        `assert_test(read_value, expected, "LSH1_2", error_count);
 
         expected = 'h0000_5555;
         GET_DRAM_VALUE(lsh2_1, read_value);
-        `assert_test(read_value, expected, "LSH2_1", "LSH2_1", error_count);
+        `assert_test(read_value, expected, "LSH2_1", error_count);
 
         expected = 'h0000_5555;
         GET_DRAM_VALUE(lsh2_2, read_value);
-        `assert_test(read_value, expected, "LSH2_2", "LSH2_2", error_count);
+        `assert_test(read_value, expected, "LSH2_2", error_count);
 
         expected = 'h0000_aaaa;
         GET_DRAM_VALUE(lshu1, read_value);
-        `assert_test(read_value, expected, "LSHU1", "LSHU1", error_count);
+        `assert_test(read_value, expected, "LSHU1", error_count);
 
         expected = 'h0000_5555;
         GET_DRAM_VALUE(lshu2, read_value);
-        `assert_test(read_value, expected, "LSHU2", "LSHU2", error_count);
+        `assert_test(read_value, expected, "LSHU2", error_count);
 
         expected = 'haaaa_aaaa;
         GET_DRAM_VALUE(lsw1, read_value);
-        `assert_test(read_value, expected, "LSW1", "LSW1", error_count);
+        `assert_test(read_value, expected, "LSW1", error_count);
 
         expected = 'h5555_5555;
         GET_DRAM_VALUE(lsw2, read_value);
-        `assert_test(read_value, expected, "LSW2", "LSW2", error_count);
+        `assert_test(read_value, expected, "LSW2", error_count);
         
         if(error_count > 0) $error("Load and Store test failed %0d times", error_count);
         else $display("PASS: Load and Store test");
@@ -700,22 +700,22 @@ module core_tb(
         enable = 0;
 
         GET_DRAM_VALUE(jal_for_mem, read_value);
-        `assert_test(read_value, jal_for_expect, "JAL for", "JAL for", error_count);
+        `assert_test(read_value, jal_for_expect, "JAL for", error_count);
         
         GET_DRAM_VALUE(jal_rev_mem, read_value);
-        `assert_test(read_value, jal_rev_expect, "JAL rev", "JAL rev", error_count);
+        `assert_test(read_value, jal_rev_expect, "JAL rev", error_count);
 
         GET_DRAM_VALUE(jalr_for_mem, read_value);
-        `assert_test(read_value, jalr_for_expect, "JALR for", "JALR for", error_count);
+        `assert_test(read_value, jalr_for_expect, "JALR for", error_count);
         
         GET_DRAM_VALUE(jalr_rev_mem, read_value);
-        `assert_test(read_value, jalr_rev_expect, "JALR rev", "JALR rev", error_count);
+        `assert_test(read_value, jalr_rev_expect, "JALR rev", error_count);
 
         GET_DRAM_VALUE(auipc_for_mem, read_value);
-        `assert_test(read_value, auipc_for_expect, "AUIPC for", "AUIPC for", error_count);
+        `assert_test(read_value, auipc_for_expect, "AUIPC for", error_count);
         
         GET_DRAM_VALUE(auipc_rev_mem, read_value);
-        `assert_test(read_value, auipc_rev_expect, "AUIPC rev", "AUIPC rev", error_count);
+        `assert_test(read_value, auipc_rev_expect, "AUIPC rev", error_count);
         
         if(error_count > 0) $error("Jump and pc test failed %0d times", error_count);
         else $display("PASS: Jump and pc test");
@@ -799,47 +799,213 @@ module core_tb(
         enable = 0;
 
         GET_DRAM_VALUE(slti_true_mem, read_value);
-        `assert_test(read_value, 1, "SLTI true", "SLTI true", error_count);
+        `assert_test(read_value, 1, "SLTI true", error_count);
 
         GET_DRAM_VALUE(slti_false_mem, read_value);
-        `assert_test(read_value, 0, "SLTI false", "SLTI false", error_count);
+        `assert_test(read_value, 0, "SLTI false", error_count);
 
         GET_DRAM_VALUE(slti_equal_mem, read_value);
-        `assert_test(read_value, 0, "SLTI equal", "SLTI equal", error_count);
+        `assert_test(read_value, 0, "SLTI equal", error_count);
 
         GET_DRAM_VALUE(sltiu_true_mem, read_value);
-        `assert_test(read_value, 1, "SLTIU true", "SLTIU true", error_count);
+        `assert_test(read_value, 1, "SLTIU true", error_count);
 
         GET_DRAM_VALUE(sltiu_false_mem, read_value);
-        `assert_test(read_value, 0, "SLTIU false", "SLTIU false", error_count);
+        `assert_test(read_value, 0, "SLTIU false", error_count);
 
         GET_DRAM_VALUE(sltiu_equal_mem, read_value);
-        `assert_test(read_value, 0, "SLTIU equal", "SLTIU equal", error_count);
+        `assert_test(read_value, 0, "SLTIU equal", error_count);
 
         GET_DRAM_VALUE(xori_mem, read_value);
-        `assert_test(read_value, (boolean_1 ^ {{21{boolean_2[11]}},boolean_2[10:0]}), "XORI", "XORI", error_count);
+        `assert_test(read_value, (boolean_1 ^ {{21{boolean_2[11]}},boolean_2[10:0]}), "XORI", error_count);
 
         GET_DRAM_VALUE(ori_mem, read_value);
-        `assert_test(read_value, (boolean_1 | {{21{boolean_2[11]}},boolean_2[10:0]}), "ORI", "ORI", error_count);
+        `assert_test(read_value, (boolean_1 | {{21{boolean_2[11]}},boolean_2[10:0]}), "ORI", error_count);
 
         GET_DRAM_VALUE(andi_mem, read_value);
-        `assert_test(read_value, (boolean_1 & {{21{boolean_2[11]}},boolean_2[10:0]}), "ANDI", "ANDI", error_count);
+        `assert_test(read_value, (boolean_1 & {{21{boolean_2[11]}},boolean_2[10:0]}), "ANDI", error_count);
 
         GET_DRAM_VALUE(slli_mem, read_value);
-        `assert_test(read_value, (slli_reg << {slli_imm[4:0]}), "SLLI", "SLLI", error_count);
+        `assert_test(read_value, (slli_reg << {slli_imm[4:0]}), "SLLI", error_count);
 
         GET_DRAM_VALUE(slri_mem, read_value);
-        `assert_test(read_value, (slli_reg >> {slli_imm[4:0]}), "SLRI", "SLRI", error_count);
+        `assert_test(read_value, (slli_reg >> {slli_imm[4:0]}), "SLRI", error_count);
 
         GET_DRAM_VALUE(srai_mem, read_value);
-        `assert_test(read_value, srai_result, "SRAI", "SRAI", error_count);
+        `assert_test(read_value, srai_result, "SRAI", error_count);
         
         if(error_count > 0) $error("ALU immediates test failed %0d times", error_count);
         else $display("PASS: ALU immediates test");
 
     endtask
+
     //alu test (non immediate): add, sub, sll, slt, sltu, xor, srl, sta, or, and
-            
+    task alu_test();
+        // test the various alu instructions
+        static int slt_1 = 5;
+        static int slt_2 = -4;
+        static int boolean_1 = 'hfca3_fca3;//used for xor, or, and as they test each binary condition
+        static int boolean_2 = 'hfc53_fc53;
+        static int sll_reg = 'haaaa_aaaa;
+        static int sll_imm = 'h0000_ff08;
+        static int slt_true_mem = 20;
+        static int slt_false_mem = 24;
+        static int sltu_true_mem = 28;
+        static int sltu_false_mem = 32;
+        static int xor_mem = 36;
+        static int or_mem = 40;
+        static int and_mem = 44;
+        static int error_count = 0;
+        static int sll_mem = 48;
+        static int slr_mem = 52;
+        static int sra_mem = 56;
+        static int slt_equal_mem = 60;
+        static int sltu_equal_mem = 64;
+        static int sra_result = 'hffaa_aaaa;
+        static int add_pos = 10000;
+        static int add_neg = -23456;
+        static int add_pos_pos_mem = 68;
+        static int add_pos_neg_mem = 72;
+        static int add_neg_neg_mem = 76;
+        static int sub_pos_pos_mem = 80;
+        static int sub_pos_neg_mem = 84;
+        static int sub_neg_pos_mem = 88;
+        static int sub_neg_neg_mem = 92;
+        localparam PROG_LENGTH = 54;
+        int prog[PROG_LENGTH];
+        prog[0] = `LUI_corrected(x1,slt_1);//test slt adata = 5
+        prog[1] = `ADDI(x1, x1, slt_1);
+        prog[2] = `LUI_corrected(x3,slt_2);
+        prog[3] = `ADDI(x3, x3, slt_2);
+        prog[4] = `SLT(x2, x1, x3);
+        prog[5] = `SW(x0, x2, slt_false_mem);
+        prog[6] = `SLTU(x2, x1, x3); // test sltu adata = 5, bdata = -4
+        prog[7] = `SW(x0, x2, sltu_true_mem);
+        prog[8] = `SLT(x2, x1, x1); // test slt when equal
+        prog[9] = `SW(x0, x2, slt_equal_mem);
+        prog[10] = `SLTU(x2, x1, x1); // test sltu when equal
+        prog[11] = `SW(x0, x2, sltu_equal_mem);
+        prog[12] = `SLT(x2, x3, x1)
+        prog[13] = `SW(x0, x2, slt_true_mem);
+        prog[14] = `SLTU(x2, x3, x1); //test sltu adata = -4, bdata = 5
+        prog[15] = `SW(x0, x2, sltu_false_mem);
+        prog[16] = `LUI_corrected(x1, boolean_1); // load boolean test values
+        prog[17] = `ADDI(x1, x1, boolean_1);
+        prog[18] = `LUI_corrected(x3, boolean_2);
+        prog[19] = `ADDI(x3, x3, boolean_2)
+        prog[20] = `XOR_(x2, x1, x3); // test xor
+        prog[21] = `SW(x0, x2, xor_mem);
+        prog[22] = `OR_(x2, x1, x3); // test or
+        prog[23] = `SW(x0, x2, or_mem);
+        prog[24] = `AND_(x2, x1, x3); // test and
+        prog[25] = `SW(x0, x2, and_mem);
+        prog[26] = `LUI_corrected(x1, sll_reg);
+        prog[27] = `ADDI(x1, x1, sll_reg);
+        prog[28] = `LUI_corrected(x3, sll_imm);
+        prog[29] = `ADDI(x3, x3, sll_imm);
+        prog[30] = `SLL(x2, x1, x3); // test sll
+        prog[31] = `SW(x0, x2, sll_mem);
+        prog[32] = `SRL(x2, x1, x3); // test slr
+        prog[33] = `SW(x0, x2, slr_mem);
+        prog[34] = `SRA(x2, x1, x3); // test sra
+        prog[35] = `SW(x0, x2, sra_mem);
+        prog[36] = `LUI_corrected(x1, add_pos); //load values for add and sub tests
+        prog[37] = `ADDI(x1, x1, add_pos);
+        prog[38] = `LUI_corrected(x3, add_neg);
+        prog[39] = `ADDI(x3, x3, add_neg);
+        prog[40] = `ADD_(x2, x1, x1); // test add pos pos
+        prog[41] = `SW(x0, x2, add_pos_pos_mem);
+        prog[42] = `ADD_(x2, x1, x3); // test add pos neg
+        prog[43] = `SW(x0, x2, add_pos_neg_mem);
+        prog[44] = `ADD_(x2, x3, x3); // test add neg neg
+        prog[45] = `SW(x0, x2, add_neg_neg_mem);
+        prog[46] = `SUB(x2, x1, x1); // sub pos pos
+        prog[47] = `SW(x0, x2, sub_pos_pos_mem);
+        prog[48] = `SUB(x2, x1, x3); // sub pos neg
+        prog[49] = `SW(x0, x2, sub_pos_neg_mem);
+        prog[50] = `SUB(x2, x3, x1); // sub neg pos
+        prog[51] = `SW(x0, x2, sub_neg_pos_mem);
+        prog[52] = `SUB(x2, x3, x3); // sub neg neg
+        prog[53] = `SW(x0, x2, sub_neg_neg_mem);
+
+
+        for(int i = 0; i < PROG_LENGTH; i += 1) begin
+            $display("Instruction %d: %b", i, prog[i]);
+            SET_INSTRUCTION(prog[i], 4*i);
+        end
+        $display("Running alu test");
+        enable = 1;
+        
+        while(prog_count < PROG_LENGTH * 4) begin
+            `cycle(1);
+            #1ps; //need this or vivado becomes angry
+        end
+        $display("End Running... pc: %d", prog_count);
+        
+        enable = 0;
+
+        GET_DRAM_VALUE(slt_true_mem, read_value);
+        `assert_test(read_value, 1, "SLT true", error_count);
+
+        GET_DRAM_VALUE(slt_false_mem, read_value);
+        `assert_test(read_value, 0, "SLT false", error_count);
+
+        GET_DRAM_VALUE(slt_equal_mem, read_value);
+        `assert_test(read_value, 0, "SLT equal", error_count);
+
+        GET_DRAM_VALUE(sltu_true_mem, read_value);
+        `assert_test(read_value, 1, "SLTU true", error_count);
+
+        GET_DRAM_VALUE(sltu_false_mem, read_value);
+        `assert_test(read_value, 0, "SLTU false", error_count);
+
+        GET_DRAM_VALUE(sltu_equal_mem, read_value);
+        `assert_test(read_value, 0, "SLTU equal", error_count);
+
+        GET_DRAM_VALUE(xor_mem, read_value);
+        `assert_test(read_value, (boolean_1 ^ boolean_2), "XOR", error_count);
+
+        GET_DRAM_VALUE(or_mem, read_value);
+        `assert_test(read_value, (boolean_1 | boolean_2), "OR", error_count);
+
+        GET_DRAM_VALUE(and_mem, read_value);
+        `assert_test(read_value, (boolean_1 & boolean_2), "AND", error_count);
+
+        GET_DRAM_VALUE(sll_mem, read_value);
+        `assert_test(read_value, (sll_reg << {sll_imm[4:0]}), "SLL", error_count);
+
+        GET_DRAM_VALUE(slr_mem, read_value);
+        `assert_test(read_value, (sll_reg >> {sll_imm[4:0]}), "SLR", error_count);
+
+        GET_DRAM_VALUE(sra_mem, read_value);
+        `assert_test(read_value, sra_result, "SRA", error_count);
+
+        GET_DRAM_VALUE(add_pos_pos_mem, read_value);
+        `assert_test(read_value, add_pos + add_pos, "ADD pos pos", error_count);
+
+        GET_DRAM_VALUE(add_pos_neg_mem, read_value);
+        `assert_test(read_value, add_pos + add_neg, "ADD pos neg", error_count);
+
+        GET_DRAM_VALUE(add_neg_neg_mem, read_value);
+        `assert_test(read_value, add_neg + add_neg, "ADD neg neg", error_count);
+
+        GET_DRAM_VALUE(sub_pos_pos_mem, read_value);
+        `assert_test(read_value, add_pos - add_pos, "SUB pos pos", error_count);
+
+        GET_DRAM_VALUE(sub_pos_neg_mem, read_value);
+        `assert_test(read_value, add_pos - add_neg, "SUB pos neg", error_count);
+
+        GET_DRAM_VALUE(sub_neg_pos_mem, read_value);
+        `assert_test(read_value, add_neg - add_pos, "SUB neg pos", error_count);
+
+        GET_DRAM_VALUE(sub_neg_neg_mem, read_value);
+        `assert_test(read_value, add_neg - add_neg, "SUB neg neg", error_count);
+        
+        if(error_count > 0) $error("ALU test failed %0d times", error_count);
+        else $display("PASS: ALU test");
+
+    endtask
+
     initial begin
         clk = 0;
         reset_n = 0;
@@ -864,6 +1030,15 @@ module core_tb(
         `cycle(1);
 
         load_store_test();
+
+        reset_n = 0;
+        `cycle(1);
+        
+        reset_n = 1;
+        
+        `cycle(1);
+
+        alu_test();
 
         reset_n = 0;
         `cycle(1);
